@@ -29,13 +29,19 @@ gem 'jbuilder', '~> 2.5'
 
 # Bootstrap and font-simple-line-icons
 gem 'bootstrap-sass', '~> 3.3.7'
-
 gem 'simple-line-icons-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  # Set of gems to-do testing
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+  gem "faker"
+  gem "guard-rspec"
+  gem 'spring-commands-rspec'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
 end
