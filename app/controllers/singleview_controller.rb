@@ -1,0 +1,2 @@
+class SingleviewController < ApplicationController
+end
