@@ -41,6 +41,9 @@ GEM
     arel (7.1.4)
     autoprefixer-rails (6.5.3)
       execjs
+    bgg (1.0.1)
+      httparty
+      xml-simple
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -84,6 +87,8 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -107,6 +112,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     nenv (0.3.0)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
@@ -220,11 +226,13 @@ GEM
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    xml-simple (1.1.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bgg
   bootstrap-sass (~> 3.3.7)
   byebug
   coffee-rails (~> 4.2)

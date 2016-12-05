@@ -1,5 +1,5 @@
 class Boardgame < ApplicationRecord
-  # include BggParser
+  include BggParser
 
   validates :name, presence: true
   validates :maxplayers, presence: true
