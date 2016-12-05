@@ -31,6 +31,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'simple-line-icons-rails'
 
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -41,6 +42,9 @@ group :development, :test do
   gem "faker"
   gem "guard-rspec"
   gem 'spring-commands-rspec'
+  gem 'rails-controller-testing'
+
+  gem 'pry-rails'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
