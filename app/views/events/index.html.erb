@@ -1,0 +1,44 @@
+<div class="content-heading">
+   Events
+   <small>Total events</small>
+</div>
+<div class="row">
+   <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">Events list</div>
+         <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                     <th>#</th>
+                     <th>name</th>
+                     <th>start</th>
+                     <th>end</th>
+                     <th>city</th>
+                     <th>Province</th>
+                     <th>View</th>
+                  </tr>
+               </thead>
+               <tbody>
+
+                  <% @events.each_with_index do |event, index| %>
+                  <tr>
+                     <td><%= index+1 %></td>
+                     <td><%= event[:name] %></td>
+                     <td><%= event[:start_date] %></td>
+                     <td><%= event[:end_date] %></td>
+                     <td><%= event[:city] %></td>
+                     <td><%= event[:province] %></td>
+                     <td><%= link_to 'Show', event_path(event) %></td>
+                  </tr>
+                  <% end %>
+
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+

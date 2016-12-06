@@ -3,41 +3,45 @@
    <small>Total boardgames</small>
 </div>
 <div class="row">
-   <div class="panel panel-default">
-      <div class="panel-heading">Boardgames list</div>
-      <div class="table-responsive">
-         <table class="table table-bordered table-hover">
-            <thead>
-               <tr>
-                  <th>#</th>
-                  <th>Picture</th>
-                  <th>BGG Code</th>
-                  <th>Name</th>
-                  <th>Min players</th>
-                  <th>Max players</th>
-                  <th>Playing time</th>
-               </tr>
-            </thead>
-            <tbody>
+   <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">Boardgames list</div>
+         <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                     <th>#</th>
+                     <th>Picture</th>
+                     <th>BGG Code</th>
+                     <th>Name</th>
+                     <th>Min players</th>
+                     <th>Max players</th>
+                     <th>Playing time</th>
+                     <th>View</th>
+                  </tr>
+               </thead>
+               <tbody>
 
-               <% @boardgames.each_with_index do |boardgame, index| %>
-               <tr>
-                  <td><%= index+1 %></td>
-                  <td>
-                     <div class="media">
-                     <img src=<%= "http://#{boardgame[:thumbnail]}" %> alt=<%= "#{boardgame[:name]}"%> class="img-responsive thumb64">
-                     </div>
-                  </td>
-                  <td><%= boardgame[:bgg_id] %></td>
-                  <td><%= boardgame[:name] %></td>
-                  <td><%= boardgame[:minplayers] %></td>
-                  <td><%= boardgame[:maxplayers] %></td>
-                  <td><%= boardgame[:playingtime] %></td>
-               </tr>
-               <% end %>
+                  <% @boardgames.each_with_index do |boardgame, index| %>
+                  <tr>
+                     <td><%= index+1 %></td>
+                     <td>
+                        <div class="media">
+                        <img src=<%= "http://#{boardgame[:thumbnail]}" %> alt=<%= "#{boardgame[:name]}"%> class="img-responsive thumb64">
+                        </div>
+                     </td>
+                     <td><%= boardgame[:bgg_id] %></td>
+                     <td><%= boardgame[:name] %></td>
+                     <td><%= boardgame[:minplayers] %></td>
+                     <td><%= boardgame[:maxplayers] %></td>
+                     <td><%= boardgame[:playingtime] %></td>
+                     <td><%= link_to 'Show', boardgame_path(boardgame) %></td>
+                  </tr>
+                  <% end %>
 
-            </tbody>
-         </table>
+               </tbody>
+            </table>
+         </div>
       </div>
    </div>
 </div>

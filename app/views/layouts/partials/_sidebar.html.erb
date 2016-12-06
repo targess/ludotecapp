@@ -12,6 +12,19 @@
                <span>Boardgames</span>
             </a>
          </li>
+         <li class="<%= 'active' if controller?('players') && action?('index') %>">
+            <a href="/players" title="Players list">
+               <em class="icon-speedometer"></em>
+               <span>Players</span>
+            </a>
+         </li>
+         <li class="<%= 'active' if controller?('events') && action?('index') %>">
+            <a href="/events" title="Events list">
+               <em class="icon-speedometer"></em>
+               <span>Events</span>
+            </a>
+         </li>
+
       </ul>
       <!-- END sidebar nav-->
    </nav>

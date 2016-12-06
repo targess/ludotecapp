@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.5'
 # Bootstrap and font-simple-line-icons
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'simple-line-icons-rails'
+# Font awesome icons
+gem "font-awesome-rails"
 
 # gem 'bgg' to parse BoardGameGeek API
 gem 'bgg'

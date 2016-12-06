@@ -18,7 +18,7 @@ class BoardgamesController < ApplicationController
   def create
     @boardgame = Boardgame.new(boardgame_params)
     if @boardgame.save
-      redirect_to @boardgame, notice: 'User was successfully created.'
+      redirect_to @boardgame, notice: 'Boardgame was successfully created.'
     else
       render :new
     end

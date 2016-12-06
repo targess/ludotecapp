@@ -20,6 +20,8 @@ RSpec.describe Player, type: :model do
     expect(player.name).to eq("Manolete El del Bombo")
   end
 
+  pending 'returns age when has a valid birthday'
+
   context 'DNI' do
     it 'is invalid without it' do
       player = build(:player, dni: "")

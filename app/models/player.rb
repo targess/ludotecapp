@@ -18,6 +18,14 @@ class Player < ApplicationRecord
     firstname+" "+lastname
   end
 
+  def age
+    today = Date.today
+    day = Date.new(today.year, birthday.month, birthday.day)
+    day.year - birthday.year - (day > today ? 1 : 0)
+  end
+
+  private
+
   def dni_must_have_valid_format
     nif_letters = 'TRWAGMYFPDXBNJZSQVHLCKE'
     dni_numbers = dni.chop
