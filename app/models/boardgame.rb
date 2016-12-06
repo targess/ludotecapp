@@ -4,47 +4,54 @@ class Boardgame < ApplicationRecord
   validates :name, presence: true
   validates :maxplayers, presence: true
 
+  private
 
+    def self.bgg_search_by_name(name = "los colonos de catan")
+      return [] if name.match(/\s/)
+      searched_boardgames = BggApi::search("query=#{name}")
+      return [] unless searched_boardgames['total'].to_i > 0
 
-  def self.bgg_get_by_id(id)
-    BggApi::thing("id=#{id}")['item'].first
-  end
-
-  def self.bgg_search_by_name(name = "los colonos de catan")
-    searched_boardgames = BggApi::search("query=#{name}")['item']
-    searched_boardgames.map do |boardgame|
-      [boardgame["id"], boardgame["name"].first["value"]]
+      searched_boardgames['item'].map do |boardgame|
+        [boardgame["id"], boardgame["name"].first["value"]]
+      end
     end
-  end
 
-  def self.create_from_bgg_id(id, name=nil)
-    boardgame = self.bgg_get_by_id(id)
-    my_boardgame = Boardgame.new(
-      name:        name || boardgame['name'].first['value'],
-      image:       boardgame['image'].first[2..-1],
-      thumbnail:   boardgame['thumbnail'].first[2..-1],
-      description: boardgame['description'].first,
-      minplayers:  boardgame['minplayers'].first['value'],
-      maxplayers:  boardgame['maxplayers'].first['value'],
-      playingtime: boardgame['playingtime'].first['value'],
-      minage:      boardgame['minage'].first['value'],
-      bgg_id:      boardgame['id'])
-    my_boardgame.save
-  end
-
-  def self.bgg_get_collection(username)
-    boardgames = BggApi::collection("username=#{username}&own=1")['item']
-    boardgames.map do |boardgame|
-      {id: boardgame["objectid"], name: boardgame["name"].first["content"]}
+    def self.bgg_get_by_id(id)
+      boardgame = BggApi::thing("id=#{id}")['item']
+      boardgame.first if boardgame
     end
-  end
 
-  def self.import_from_bgg_collection(username)
-    collection = bgg_get_collection(username)
-    collection.each do |boardgame|
-      create_from_bgg_id(boardgame[:id], boardgame[:name])
-      sleep(1)
+    def self.bgg_get_collection(username)
+      boardgames = BggApi::collection("username=#{username}&own=1")
+
+      return [] if boardgames == nil
+      return [] if boardgames['totalitems'].to_i == 0
+
+      boardgames['item'].map do |boardgame|
+        {id: boardgame["objectid"], name: boardgame["name"].first["content"]}
+      end
     end
-  end
 
+    def self.create_from_bgg_id(id, name=nil)
+      boardgame = self.bgg_get_by_id(id)
+      my_boardgame = Boardgame.new(
+        name:        name || boardgame['name'].first['value'],
+        image:       boardgame['image'].first[2..-1],
+        thumbnail:   boardgame['thumbnail'].first[2..-1],
+        description: boardgame['description'].first,
+        minplayers:  boardgame['minplayers'].first['value'],
+        maxplayers:  boardgame['maxplayers'].first['value'],
+        playingtime: boardgame['playingtime'].first['value'],
+        minage:      boardgame['minage'].first['value'],
+        bgg_id:      boardgame['id'])
+      my_boardgame.save
+    end
+
+    def self.import_from_bgg_collection(username)
+      collection = bgg_get_collection(username)
+      collection.each do |boardgame|
+        create_from_bgg_id(boardgame[:id], boardgame[:name])
+        sleep(1)
+      end
+    end
 end
