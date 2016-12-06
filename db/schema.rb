@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161204085249) do
+ActiveRecord::Schema.define(version: 20161206093255) do
 
   create_table "boardgames", force: :cascade do |t|
     t.string   "name"
@@ -24,6 +24,29 @@ ActiveRecord::Schema.define(version: 20161204085249) do
     t.integer  "bgg_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string   "city"
+    t.string   "province"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string   "dni"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "city"
+    t.string   "province"
+    t.date     "birthday"
+    t.string   "email"
+    t.integer  "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -60,6 +60,8 @@ GEM
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
+    dni_faker (0.3)
+      faker (~> 1.6)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
@@ -236,6 +238,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.7)
   byebug
   coffee-rails (~> 4.2)
+  dni_faker
   factory_girl_rails
   faker
   guard-rspec
