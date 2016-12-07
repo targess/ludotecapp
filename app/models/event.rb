@@ -1,4 +1,9 @@
 class Event < ApplicationRecord
+
+  has_and_belongs_to_many :boardgames
+  has_and_belongs_to_many :players
+  has_many :loans
+
   validates :name, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true

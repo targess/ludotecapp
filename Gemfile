@@ -49,6 +49,8 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'rails-controller-testing'
 
+  gem 'timecop'
+
   gem 'pry-rails'
 
   # Faker DNI and NIE

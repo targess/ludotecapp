@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :loans
   resources :events
   resources :players
   resources :boardgames

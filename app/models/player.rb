@@ -1,4 +1,7 @@
 class Player < ApplicationRecord
+  has_and_belongs_to_many :events
+  has_many :loans
+
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :dni, presence: true, length: { is: 9 },

@@ -20,7 +20,12 @@ RSpec.describe Player, type: :model do
     expect(player.name).to eq("Manolete El del Bombo")
   end
 
-  pending 'returns age when has a valid birthday'
+  it 'returns age when has a valid birthday' do
+    Timecop.travel Time.parse("7/12/2016")
+    player = build(:player, birthday: "19/04/1981")
+    expect(player.age).to eq(35)
+    Timecop.return
+  end
 
   context 'DNI' do
     it 'is invalid without it' do
@@ -92,6 +97,17 @@ RSpec.describe Player, type: :model do
     it 'is valid with nine numbers' do
       player = build(:player, phone: "987654321")
       expect(player).to be_valid
+    end
+  end
+
+  describe 'Associations' do
+    it 'has and belongs to many events' do
+      association = described_class.reflect_on_association(:events)
+      expect(association.macro).to eq :has_and_belongs_to_many
+    end
+    it 'has many loans' do
+      association = described_class.reflect_on_association(:loans)
+      expect(association.macro).to eq :has_many
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206093255) do
+ActiveRecord::Schema.define(version: 20161207145842) do
 
   create_table "boardgames", force: :cascade do |t|
     t.string   "name"
@@ -26,14 +26,41 @@ ActiveRecord::Schema.define(version: 20161206093255) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "boardgames_events", id: false, force: :cascade do |t|
+    t.integer "boardgame_id"
+    t.integer "event_id"
+    t.index ["boardgame_id"], name: "index_boardgames_events_on_boardgame_id"
+    t.index ["event_id"], name: "index_boardgames_events_on_event_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string   "name"
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "city"
     t.string   "province"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "loans_limits", default: 0
+  end
+
+  create_table "events_players", id: false, force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "event_id"
+    t.index ["event_id"], name: "index_events_players_on_event_id"
+    t.index ["player_id"], name: "index_events_players_on_player_id"
+  end
+
+  create_table "loans", force: :cascade do |t|
+    t.datetime "returned_at"
+    t.integer  "event_id"
+    t.integer  "boardgame_id"
+    t.integer  "player_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["boardgame_id"], name: "index_loans_on_boardgame_id"
+    t.index ["event_id"], name: "index_loans_on_event_id"
+    t.index ["player_id"], name: "index_loans_on_player_id"
   end
 
   create_table "players", force: :cascade do |t|

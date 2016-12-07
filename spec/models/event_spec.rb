@@ -33,4 +33,19 @@ RSpec.describe Event, type: :model do
     event.valid?
     expect(event.errors[:start_date]).to include ("can't be after end_date")
   end
+
+  describe 'Associations' do
+    it 'has and belongs to many boardgames' do
+      association = described_class.reflect_on_association(:boardgames)
+      expect(association.macro).to eq :has_and_belongs_to_many
+    end
+    it 'has and belongs to many players' do
+      association = described_class.reflect_on_association(:players)
+      expect(association.macro).to eq :has_and_belongs_to_many
+    end
+    it 'has many loans' do
+      association = described_class.reflect_on_association(:loans)
+      expect(association.macro).to eq :has_many
+    end
+  end
 end

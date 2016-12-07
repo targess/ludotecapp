@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :event do
     name Faker::Space.moon
-    start_date Faker::Date.between(2.days.ago, 10.days.from_now)
-    end_date Faker::Date.between(10.days.from_now, 20.days.from_now)
+    start_date { Faker::Date.between(2.days.ago, 10.days.from_now) }
+    end_date { Faker::Date.between(10.days.from_now, 20.days.from_now) }
     city { Faker::Address.city }
     province { Faker::Address.state }
 

@@ -1,8 +1,15 @@
 class Boardgame < ApplicationRecord
   require 'bgg'
 
+  has_and_belongs_to_many :events
+  has_many :loans
+
   validates :name, presence: true
   validates :maxplayers, presence: true
+
+  def free_to_loan?
+    loans.where(returned_at: nil).count.zero?
+  end
 
   private
 
@@ -51,7 +58,7 @@ class Boardgame < ApplicationRecord
       collection = bgg_get_collection(username)
       collection.each do |boardgame|
         create_from_bgg_id(boardgame[:id], boardgame[:name])
-        sleep(1)
+        sleep(0.5)
       end
     end
 end

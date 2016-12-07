@@ -6,7 +6,6 @@ describe Boardgame do
     expect(boardgame).to be_valid
   end
   it 'is invalid without a name' do
-    # boardgame = Boardgame.new(name: nil)
     boardgame = build(:boardgame, name: nil)
     boardgame.valid?
     expect(boardgame.errors[:name]).to include("can't be blank")
@@ -60,4 +59,30 @@ describe Boardgame do
     pending '#create_from_bgg_id'
     pending '#import_from_bgg_collection'
   end
+
+  context 'Loans' do
+    it 'returns true state (free) when all loans returned' do
+      boardgame = create(:boardgame)
+      expect(boardgame.free_to_loan?).to eq(true)
+    end
+    it 'returns false state (loaned) when has an active loan' do
+      boardgame = create(:boardgame)
+      event     = create(:event)
+      loan      = create(:not_returned_loan, boardgame: boardgame, event: event)
+
+      expect(boardgame.free_to_loan?).to eq(false)
+    end
+  end
+
+  context 'Associations' do
+    it 'has and belongs to many events' do
+      association = described_class.reflect_on_association(:events)
+      expect(association.macro).to eq :has_and_belongs_to_many
+    end
+    it 'has many loans' do
+      association = described_class.reflect_on_association(:loans)
+      expect(association.macro).to eq :has_many
+    end
+  end
+
 end
