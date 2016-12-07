@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :loans
-  resources :events
+  resources :events do
+    resources :loans
+  end
+
   resources :players
   resources :boardgames
 

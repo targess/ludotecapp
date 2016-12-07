@@ -4,7 +4,10 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find_by(id: params[:id])
+    @event            = Event.find_by(id: params[:id])
+    @loans_count      = @event.loans.count
+    @boardgames_count = @event.boardgames.count
+    @players_count    = @event.players.count
   end
 
   def new
