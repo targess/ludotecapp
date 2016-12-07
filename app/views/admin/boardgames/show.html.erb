@@ -1,0 +1,36 @@
+<div class="content-heading">
+	<%= @boardgame.name %>
+</div>
+<div class="row">
+	<div class="col-lg-4">
+		<!-- START widget-->
+		<div class="panel widget">
+			<div class="panel-body">
+				<div class="row row-table text-center">
+					<div class="col-xs-4">
+						<p>Min Players</p>
+						<h3 class="m0 text-primary"><%= @boardgame.minplayers %></h3>
+					</div>
+					<div class="col-xs-4">
+						<p>Max Players</p>
+						<h3 class="m0 text-primary"><%= @boardgame.maxplayers %></h3>
+					</div>
+					<div class="col-xs-4">
+						<p>Playing time</p>
+						<h3 class="m0 text-primary"><%= @boardgame.playingtime %></h3>
+					</div>
+				</div>
+			</div>
+			<img src=<%= "http://#{@boardgame.image}" %> alt="" class="img-responsive">
+		</div>
+		<!-- END widget-->
+	</div>
+	<div class="col-lg-8">
+		<div class="panel widget">
+			<div class="panel-body text-center">
+				<h3 class="m0">Description</h3>
+				<p><%= @boardgame.description %></p>
+			</div>
+		</div>
+	</div>
+</div>

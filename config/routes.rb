@@ -2,10 +2,14 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :loans
+    resources :players
+    resources :boardgames
   end
 
-  resources :players
-  resources :boardgames
+  namespace :admin do
+    resources :players
+    resources :boardgames
+  end
 
   # defaults to dashboard
   root :to => redirect('/singleview')

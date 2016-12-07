@@ -17,7 +17,7 @@
                </div>
             </div>
          </div>
-         <a href="#" class="panel-footer bg-gray-dark bt0 clearfix btn-block">
+         <a href=<%= event_players_path(@event) %> class="panel-footer bg-gray-dark bt0 clearfix btn-block">
             <span class="pull-left">View Details</span>
             <span class="pull-right">
                <em class="fa fa-chevron-circle-right"></em>
@@ -36,11 +36,11 @@
                </div>
                <div class="col-xs-9 text-right">
                   <div class="text-lg"><%= @boardgames_count %></div>
-                  <p class="m0">Boardgmes!</p>
+                  <p class="m0">Boardgames!</p>
                </div>
             </div>
          </div>
-         <a href="#" class="panel-footer bg-gray-dark bt0 clearfix btn-block">
+         <a href=<%= event_boardgames_path(@event) %> class="panel-footer bg-gray-dark bt0 clearfix btn-block">
             <span class="pull-left">View Details</span>
             <span class="pull-right">
                <em class="fa fa-chevron-circle-right"></em>
