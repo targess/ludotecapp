@@ -9,15 +9,15 @@
 				<div class="row row-table text-center">
 					<div class="col-xs-4">
 						<p>Min Players</p>
-						<h3 class="m0 text-primary"><%= @boardgame.minplayers %></h3>
+						<h3 class="m0 text-inherit"><%= @boardgame.minplayers %></h3>
 					</div>
 					<div class="col-xs-4">
 						<p>Max Players</p>
-						<h3 class="m0 text-primary"><%= @boardgame.maxplayers %></h3>
+						<h3 class="m0 text-inherit"><%= @boardgame.maxplayers %></h3>
 					</div>
 					<div class="col-xs-4">
 						<p>Playing time</p>
-						<h3 class="m0 text-primary"><%= @boardgame.playingtime %></h3>
+						<h3 class="m0 text-inherit"><%= @boardgame.playingtime %></h3>
 					</div>
 				</div>
 			</div>
@@ -29,8 +29,9 @@
 		<div class="panel widget">
 			<div class="panel-body text-center">
 				<h3 class="m0">Description</h3>
-				<p> <%= @boardgame.description.html_safe %> </p>
+				<p><%= @boardgame.description.html_safe %></p>
 			</div>
 		</div>
+		<%= link_to 'Volver', :back, { class: "mb-lg btn btn-default btn-lg pull-right" } %>
 	</div>
 </div>

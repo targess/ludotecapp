@@ -31,7 +31,7 @@
                      <td><%= player[:city] %></td>
                      <td><%= player[:province] %></td>
                      <td><%= player.age %></td>
-                     <td><%= link_to 'Show', admin_player_path(player) %></td>
+                     <td><%= link_to 'Show', admin_player_path(player), { class: "btn btn-default btn-sm" } %></td>
                   </tr>
                   <% end %>
 

@@ -35,7 +35,7 @@
                      <td><%= boardgame[:minplayers] %></td>
                      <td><%= boardgame[:maxplayers] %></td>
                      <td><%= boardgame[:playingtime] %></td>
-                     <td><%= link_to 'Show', admin_boardgame_path(boardgame) %></td>
+                     <td><%= link_to 'Show', admin_boardgame_path(boardgame), { class: "btn btn-default btn-sm" } %></td>
                   </tr>
                   <% end %>
 
