@@ -3,7 +3,7 @@
   <div class="panel panel-default">
     <div class="panel-body">
 
-      <%= form_for(@boardgame, html: {class: "form-horizontal"}) do |f| %>
+      <%= form_for([@event, @boardgame], html: {class: "form-horizontal"}) do |f| %>
       <% if @boardgame.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@boardgame.errors.count, "error") %> prohibited this boardgame from being saved:</h2>
