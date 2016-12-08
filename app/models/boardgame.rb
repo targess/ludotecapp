@@ -31,8 +31,7 @@ class Boardgame < ApplicationRecord
     def self.bgg_get_collection(username)
       boardgames = BggApi::collection("username=#{username}&own=1")
 
-      return [] if boardgames == nil
-      return [] if boardgames['totalitems'].to_i == 0
+      return [] unless boardgames && boardgames['totalitems'].to_i.positive?
 
       boardgames['item'].map do |boardgame|
         {id: boardgame["objectid"], name: boardgame["name"].first["content"]}
