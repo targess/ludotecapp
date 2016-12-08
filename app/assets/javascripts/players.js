@@ -1,9 +1,7 @@
 function idFromUri (eventUri) {
 	var uriSegments = eventUri.split("/");
 	var element = uriSegments.length - 2;
-	console.log(element);
 	if (!isNaN(parseInt(uriSegments[element]))) {
-		console.log(element);
 		return uriSegments[element];	
 	}
 	element = uriSegments.length - 3;
@@ -46,7 +44,7 @@ $(document).on ('ready', function() {
 	});
 
 	$('[data-playerId]').on ('click', function(myEvent) {
-		myEvent.preventDefault();
+		// myEvent.preventDefault();
 		var eventUri = $(document).context.URL;
 		var eventId  = idFromUri(eventUri);
 		playerId = $('[data-playerId]').data('playerId');
