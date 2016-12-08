@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
   resources :events do
-    resources :loans
+    get '/players/show_by_dni', to: 'players#show_by_dni'
     resources :players
+    resources :loans
     resources :boardgames
   end
 

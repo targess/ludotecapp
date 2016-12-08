@@ -8,6 +8,16 @@ class PlayersController < ApplicationController
     @player = @event.players.find_by(id: params[:id])
   end
 
+  def show_by_dni
+    player = Player.find_by(dni: params[:dni])
+    unless player
+      render json: {error: "player not found"},
+      status: 404
+      return
+    end
+    render json: player
+  end
+
   def new
     @player = @event.players.new
   end
@@ -19,7 +29,7 @@ class PlayersController < ApplicationController
   def create
     @player = @event.players.new(player_params)
     if @player.save
-      redirect_to @player, notice: 'User was successfully created.'
+      redirect_to [@event, @player], notice: 'User was successfully created.'
     else
       render :new
     end
@@ -27,8 +37,14 @@ class PlayersController < ApplicationController
 
   def update
     @player = @event.players.find_by(id: params[:id])
+
+    unless @player
+      @player = Player.find_by(id: params[:id])
+      @event.players.push(@player)
+    end
+
     if @player.update(player_params)
-      redirect_to @player
+      redirect_to [@event, @player], notice: 'User was successfully included.'
     else
       render :edit
     end
@@ -37,9 +53,8 @@ class PlayersController < ApplicationController
   def destroy
     @player = @event.players.find_by(id: params[:id])
     @player.destroy
-    redirect_to players_path
+    redirect_to event_players_path
   end
-
 
   private
 
