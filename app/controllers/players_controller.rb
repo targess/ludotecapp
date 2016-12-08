@@ -2,6 +2,7 @@ class PlayersController < ApplicationController
   before_action :find_event
   def index
     @players = @event.players.all
+    @player  = @event.players.new
   end
 
   def show

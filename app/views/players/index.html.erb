@@ -2,41 +2,51 @@
    Players
    <small>Total players</small>
 </div>
-<div class="row">
-   <div class="col-sm-12">
-      <div class="panel panel-default">
-         <div class="panel-heading">Players list</div>
-         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-               <thead>
-                  <tr>
-                     <th>#</th>
-                     <th>DNI</th>
-                     <th>Nombre</th>
-                     <th>Apellidos</th>
-                     <th>Ciudad</th>
-                     <th>Provincia</th>
-                     <th>Edad</th>
-                     <th>View</th>
-                  </tr>
-               </thead>
-               <tbody>
-
-                  <% @players.each_with_index do |player, index| %>
-                  <tr>
-                     <td><%= index+1 %></td>
-                     <td><%= player[:dni] %></td>
-                     <td><%= player[:firstname] %></td>
-                     <td><%= player[:lastname] %></td>
-                     <td><%= player[:city] %></td>
-                     <td><%= player[:province] %></td>
-                     <td><%= player.age %></td>
-                     <td><%= link_to 'Show', event_player_path(@event, player), { class: "btn btn-default btn-sm" } %></td>
-                  </tr>
-                  <% end %>
-
-               </tbody>
-            </table>
+<div>
+   <div class="panel panel-default">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs nav-justified" role="tablist">
+         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Inscribir</a></li>
+         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Jugadores</a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+         <div role="tabpanel" class="tab-pane active" id="home">
+            <div class="row">
+               <%= render 'form' %>
+            </div>
+         </div>
+         <div role="tabpanel" class="tab-pane" id="profile">
+            <div class="table-responsive">
+               <table class="table table-bordered table-hover">
+                  <thead>
+                     <tr>
+                        <th>#</th>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Ciudad</th>
+                        <th>Provincia</th>
+                        <th>Edad</th>
+                        <th>View</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <% @players.each_with_index do |player, index| %>
+                     <tr>
+                        <td><%= index+1 %></td>
+                        <td><%= player[:dni] %></td>
+                        <td><%= player[:firstname] %></td>
+                        <td><%= player[:lastname] %></td>
+                        <td><%= player[:city] %></td>
+                        <td><%= player[:province] %></td>
+                        <td><%= player.age %></td>
+                        <td><%= link_to 'Show', event_player_path(@event, player), { class: "btn btn-default btn-sm" } %></td>
+                     </tr>
+                     <% end %>
+                  </tbody>
+               </table>
+            </div>
          </div>
       </div>
    </div>
