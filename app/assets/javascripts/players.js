@@ -1,8 +1,8 @@
-function idFromUri (eventUri, position = -2) {
+function idFromUri (eventUri, position) {
 	var uriSegments = eventUri.split("/");
 	var secondLast = uriSegments.length + position;
 	return uriSegments[secondLast];
-};
+}
 
 function getPlayerToUpdate (player) {
 
@@ -15,18 +15,17 @@ function getPlayerToUpdate (player) {
 	$('[data-phone]').val(player.phone);
 	$('[data-playerId').data('playerId', player.id);
 	$('[data-playerId]').text('Inscribir');
-};
+}
 
 function handleOnError (error) {
-};
+}
 
 $(document).on ('ready', function() {
 
 	$('.js-dni-autocomplete').on ('change', function(event) {
-		var inputDni = $(event.target).val()
+		var inputDni = $(event.target).val();
 
 		if (inputDni.length === 9) {
-			console.log('bien campeón! eso es un DNI!')
 			var eventUri = $(document).context.URL;
 			var eventId  = idFromUri(eventUri, -3);
 
@@ -37,14 +36,14 @@ $(document).on ('ready', function() {
 				success: getPlayerToUpdate,
 				error: handleOnError
 			});
-		};
+		}
 	});
 
 	$('[data-playerId]').on ('click', function(myEvent) {
 		myEvent.preventDefault();
 		var eventUri = $(document).context.URL;
 		var eventId  = idFromUri(eventUri, -3);
-		playerId = $('[data-playerId]').data('playerId')
+		playerId = $('[data-playerId]').data('playerId');
 		if (playerId) {
 			var myPlayer = {
 				firstname: 	$('[data-firstname]').val(),
@@ -61,6 +60,6 @@ $(document).on ('ready', function() {
 				url: '/events/'+eventId+'/players/'+myPlayer.id,
 				data: { player: myPlayer }
 			});
-		};
+		}
 	});
 });
