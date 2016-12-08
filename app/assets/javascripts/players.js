@@ -1,7 +1,13 @@
-function idFromUri (eventUri, position) {
+function idFromUri (eventUri) {
 	var uriSegments = eventUri.split("/");
-	var secondLast = uriSegments.length + position;
-	return uriSegments[secondLast];
+	var element = uriSegments.length - 2;
+	console.log(element);
+	if (!isNaN(parseInt(uriSegments[element]))) {
+		console.log(element);
+		return uriSegments[element];	
+	}
+	element = uriSegments.length - 3;
+		return uriSegments[element];
 }
 
 function getPlayerToUpdate (player) {
@@ -27,7 +33,7 @@ $(document).on ('ready', function() {
 
 		if (inputDni.length === 9) {
 			var eventUri = $(document).context.URL;
-			var eventId  = idFromUri(eventUri, -3);
+			var eventId  = idFromUri(eventUri);
 
 			$.ajax({
 				type: 'GET',
@@ -42,7 +48,7 @@ $(document).on ('ready', function() {
 	$('[data-playerId]').on ('click', function(myEvent) {
 		myEvent.preventDefault();
 		var eventUri = $(document).context.URL;
-		var eventId  = idFromUri(eventUri, -3);
+		var eventId  = idFromUri(eventUri);
 		playerId = $('[data-playerId]').data('playerId');
 		if (playerId) {
 			var myPlayer = {
