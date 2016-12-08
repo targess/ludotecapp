@@ -19,20 +19,17 @@ class PlayersController < ApplicationController
     render json: player
   end
 
-  def new
-    @player = @event.players.new
-  end
-
   def edit
     @player = @event.players.find_by(id: params[:id])
   end
 
   def create
+    @players = @event.players.all
     @player = @event.players.new(player_params)
     if @player.save
       redirect_to [@event, @player], notice: 'User was successfully created.'
     else
-      render :new
+      render :index
     end
   end
 
@@ -49,12 +46,6 @@ class PlayersController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def destroy
-    @player = @event.players.find_by(id: params[:id])
-    @player.destroy
-    redirect_to event_players_path
   end
 
   private
