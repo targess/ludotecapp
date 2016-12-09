@@ -2,7 +2,13 @@ class LoansController < ApplicationController
   before_action :find_event
 
   def index
-    @loans = @event.loans.all
+    @loans         = @event.loans.all
+
+    if params[:search].present?
+      @boardgames  = @event.boardgames.where("lower(name) LIKE ?", "%#{params[:search][:keywords]}%".downcase)
+    else
+      @boardgames  = []
+    end
   end
 
   def show

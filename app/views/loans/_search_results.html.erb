@@ -1,0 +1,60 @@
+<!-- START panel-->
+<div class="panel">
+ <div class="panel-heading">
+    <a href="#" data-tool="panel-refresh" data-toggle="tooltip" title="Refresh Panel" class="pull-right">
+       <em class="fa fa-refresh"></em>
+    </a>Resultados</div>
+ <!-- START table-responsive-->
+ <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+       <thead>
+          <tr>
+             <th>Juegos de mesa</th>
+          </tr>
+       </thead>
+       <tbody>
+	       <% @boardgames.each do |boardgame| %>     	
+	          <tr>
+	             <td>
+	                <div class="media-box">
+	                   <a href="#" class="pull-left">
+	                      <img src="http://<%= boardgame.thumbnail %>" alt="<%= boardgame.name %>" class="media-box-object img-responsive img-rounded thumb64">
+	                   </a>
+	                   <div class="media-box-body">
+	                      <div class="pull-right btn btn-info btn-sm">Prestar</div>
+	                      <h4 class="media-box-heading"><%= boardgame.name %></h4>
+	                      <small class="text-muted">
+	                      	Players: <%= players_number(boardgame.minplayers, boardgame.maxplayers) %>
+	                      </small>
+	                      <p>Sed gravida auctor odio. Sed viverra rutrum hendrerit. Praesent dapibus justo dolor. Suspendisse rhoncus consectetur eros vehicula accumsan.</p>
+	                   </div>
+	                </div>
+	             </td>
+	          </tr>
+	       <% end %>
+       </tbody>
+    </table>
+ </div>
+ <!-- END table-responsive-->
+ <div class="panel-footer">
+    <div class="row">
+       <div class="col-lg-2">
+          <button class="btn btn-sm btn-default">Clear</button>
+       </div>
+       <div class="col-lg-8"></div>
+       <div class="col-lg-2 text-right">
+          <ul class="pagination pagination-sm">
+             <li class="active"><a href="#">1</a>
+             </li>
+             <li><a href="#">2</a>
+             </li>
+             <li><a href="#">3</a>
+             </li>
+             <li><a href="#">»</a>
+             </li>
+          </ul>
+       </div>
+    </div>
+ </div>
+</div>
+<!-- END panel-->

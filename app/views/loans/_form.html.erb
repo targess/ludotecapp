@@ -1,0 +1,12 @@
+	<%= form_for(:search, url: event_loans_path, html: { method: 'GET'}) do |f| %>
+		<div class="col-lg-8 col-lg-offset-2">
+			<div class="input-group input-group-lg mb-xl">      
+		        <%= f.text_field :keywords, {class: "form-control js-loan-search-input", 
+		          		placeholder: "Introduzca nombre o código del juego", 
+		          		data: { loansearch: "" }} %>  
+			    <span class="input-group-btn">
+				    <%= f.button "Buscar", {class: "btn btn-default js-loan-search-button"} %>
+			    </span>
+			</div>
+		</div>
+<% end %>

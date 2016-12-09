@@ -1,49 +1,62 @@
 <div class="content-heading">
    Loans - <%= @event.name %> Event
 </div>
-<div class="row">
-   <div class="col-sm-12">
-      <div class="panel panel-default">
-         <div class="panel-heading">Loans list</div>
-         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-               <thead>
-                  <tr>
-                     <th>#</th>
-                     <th>Picture</th>
-                     <th>Boardgame</th>
-                     <th>DNI</th>
-                     <th>Name</th>
-                     <th>Start</th>
-                     <th>End</th>
-                     <th>Action</th>
-                  </tr>
-               </thead>
-               <tbody>
-
-                  <% @loans.each_with_index do |loan, index| %>
-                  <tr>
-                     <td><%= index+1 %></td>
-                     <td>
-                        <div class="media">
-                        <img src=<%= "http://#{loan.boardgame[:thumbnail]}" %> alt=<%= "#{loan.boardgame[:name]}"%> class="img-responsive thumb64">
-                        </div>
-                     </td>
-                     <td><%= loan.boardgame[:name] %></td>
-                     <td><%= loan.player[:dni] %></td>
-                     <td><%= loan.player.name %></td>
-                     <td><%= loan.created_at %></td>
-                     <td><%= loan.returned_at %></td>
-                     <td><%=  %></td>
-                  </tr>
-                  <% end %>
-
-               </tbody>
-            </table>
+<div>
+   <div class="panel panel-default">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs nav-justified mb-xl" role="tablist">
+         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Nuevo</a></li>
+         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Préstamos</a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+         <div role="tabpanel" class="tab-pane active" id="home">
+            <div class="row">
+                  <%= render 'form' %>
+            </div>
+            <div class="row">
+               <div class="col-log-12">
+                  <%= render 'search_results' %>
+               </div>
+               
+            </div>
+         </div>
+         <div role="tabpanel" class="tab-pane" id="profile">
+            <div class="table-responsive">
+               <table class="table table-bordered table-hover">
+                  <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>Picture</th>
+                        <th>Boardgame</th>
+                        <th>DNI</th>
+                        <th>Name</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Action</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <% @loans.each_with_index do |loan, index| %>
+                        <tr>
+                           <td><%= index+1 %></td>
+                           <td>
+                              <div class="media">
+                              <img src=<%= "http://#{loan.boardgame[:thumbnail]}" %> alt=<%= "#{loan.boardgame[:name]}"%> class="img-responsive thumb64">
+                              </div>
+                           </td>
+                           <td><%= loan.boardgame[:name] %></td>
+                           <td><%= loan.player[:dni] %></td>
+                           <td><%= loan.player.name %></td>
+                           <td><%= loan.created_at %></td>
+                           <td><%= loan.returned_at %></td>
+                           <td><%=  %></td>
+                        </tr>
+                     <% end %>
+                  </tbody>
+               </table>
+            </div>
          </div>
       </div>
    </div>
 </div>
-
-
-
