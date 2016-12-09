@@ -26,7 +26,7 @@ class BoardgamesController < ApplicationController
 
   def create
     @boardgame = @event.boardgames.new(boardgame_params)
-    if @boardgame.save
+    if @event.save
       redirect_to @boardgame, notice: 'Boardgame was successfully created.'
     else
       render :new

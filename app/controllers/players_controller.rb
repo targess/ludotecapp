@@ -26,7 +26,7 @@ class PlayersController < ApplicationController
   def create
     @players = @event.players.all
     @player = @event.players.new(player_params)
-    if @player.save
+    if @event.save
       redirect_to [@event, @player], notice: 'User was successfully created.'
     else
       render :index
