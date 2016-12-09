@@ -6,4 +6,8 @@ module ApplicationHelper
   def action?(*action)
     action.include?(params[:action])
   end
+
+  def players_number(min, max)
+    (min == max) ? min : "#{min} - #{max}"
+  end
 end
