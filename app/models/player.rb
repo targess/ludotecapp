@@ -22,6 +22,7 @@ class Player < ApplicationRecord
   end
 
   def age
+    return "" unless birthday
     today = Date.today
     day = Date.new(today.year, birthday.month, birthday.day)
     day.year - birthday.year - (day > today ? 1 : 0)

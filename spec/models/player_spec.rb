@@ -27,6 +27,11 @@ RSpec.describe Player, type: :model do
     Timecop.return
   end
 
+  it 'returns empty string when has no birthday' do
+    player = build(:player, birthday: nil)
+    expect(player.age).to eq("")
+  end
+
   context 'DNI' do
     it 'is invalid without it' do
       player = build(:player, dni: "")
