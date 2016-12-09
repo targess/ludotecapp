@@ -6,21 +6,21 @@
          <li class="nav-heading">
             <span>Main Navigation</span>
          </li>
-         <li class="<%= 'active' if controller?('boardgames') && action?('index') %>">
+         <li class="<%= 'active' if controller?('admin/boardgames') && action?('index') %>">
             <a href="/admin/boardgames" title="Boardgames list">
-               <em class="icon-speedometer"></em>
+               <em class="fa fa-cubes"></em>
                <span>Boardgames</span>
             </a>
          </li>
-         <li class="<%= 'active' if controller?('players') && action?('index') %>">
+         <li class="<%= 'active' if controller?('admin/players') && action?('index') %>">
             <a href="/admin/players" title="Players list">
-               <em class="icon-speedometer"></em>
+               <em class="fa fa-users"></em>
                <span>Players</span>
             </a>
          </li>
          <li class="<%= 'active' if controller?('events') && action?('index') %>">
             <a href="/events" title="Events list">
-               <em class="icon-speedometer"></em>
+               <em class="fa fa-bullhorn"></em>
                <span>Events</span>
             </a>
          </li>
