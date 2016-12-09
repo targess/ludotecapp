@@ -7,6 +7,13 @@ class BoardgamesController < ApplicationController
 
   def show
     @boardgame = @event.boardgames.find_by(id: params[:id])
+
+
+    respond_to do |format|
+      format.html
+      format.json { render json: { attributes: @boardgame, free: @boardgame.free_to_loan? }}
+      # format.json { render json: @boardgame }
+    end
   end
 
   def new
