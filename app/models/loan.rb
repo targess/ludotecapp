@@ -3,10 +3,15 @@ class Loan < ApplicationRecord
   belongs_to :event
   belongs_to :player
 
-  validate :returned_at_cannot_be_before_created_at, :boardgame_not_available, :player_not_returned_limit_rearched
+  validate :returned_at_cannot_be_before_created_at, :player_not_returned_limit_rearched
+  validate :boardgame_not_available, on: :create
 
   def self.ordered_loans
     where(returned_at: nil).order(created_at: :desc) + order(returned_at: :desc)
+  end
+
+  def return (time = Time.now)
+    update(returned_at: time)
   end
 
   private
@@ -21,7 +26,7 @@ class Loan < ApplicationRecord
 
     def boardgame_not_available
       if !boardgame.loans.where(returned_at: nil).count.zero?
-        errors.add(:boardgame, "is invalid")
+        errors.add(:boardgame, "is invalid loan")
       end
     end
 

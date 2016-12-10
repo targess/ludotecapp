@@ -9,9 +9,8 @@ function idFromUri (eventUri) {
 }
 
 function getBoardgameFromId (boardgame) {
-	boardgameAttr = boardgame.attributes;
-
-	console.log(boardgame.free);
+	boardgameAttr 	= boardgame.attributes;
+	active_loan		= boardgame.loan;
 
 	$('[data-name]').text(boardgameAttr.name);
 	$('[data-playingtime]').text(boardgameAttr.playingtime+" minutes");
@@ -25,15 +24,16 @@ function getBoardgameFromId (boardgame) {
 
 	}
 
-	$('.js-loan-form label').first().hide();
-	$('.js-loan-form input').first().hide();
+	if (active_loan) {
 
-	console.log(this);
-	if (!boardgame.free) {
-		$('.js-loan-form input').first().val("Joselito");
+		$('[data-loanid]').data("loanid", active_loan.id);
+
+		$('.js-loan-form label').first().show();
+		$('.js-loan-form input').first().show();
+		$('.js-loan-form input').first().val(active_loan.name);
 		$('.js-loan-form input').first().attr('disabled','disabled');
 
-		$('.js-loan-form input').last().val("12345");
+		$('.js-loan-form input').last().val(active_loan.dni);
 		$('.js-loan-form input').last().attr('disabled','disabled');
 
 		$('.js-loan-form button').text('Devolver');
@@ -46,11 +46,8 @@ function handleOnError (error) {
 
 $(document).on ('ready', function() {
 	$('.js-loans-modal').on ('click', function() {
-		boardgameId = $(this).data("boardgameid");
-
+		var boardgameId = $(this).data("boardgameid");
 		var eventId  = idFromUri($(document).context.URL);
-
-		console.log(eventId);
 
 		$.ajax({
 			type: 'GET',
@@ -61,4 +58,27 @@ $(document).on ('ready', function() {
 		});
 
 	});
+	$('.js-loan-button').on ('click', function(event) {
+		var loanId   	= $('[data-loanid]').data("loanid");
+		var eventId  	= idFromUri($(document).context.URL);
+		var boardgameId = $('.js-loans-modal').data("boardgameid");
+		var dni 		= $('.js-loan-form input').last().val();
+
+
+		if (loanId) {
+			$.ajax({
+				type: 'PATCH',
+				url: '/events/'+eventId+'/loans/'+loanId
+			});
+		} else {
+			var loanData = { boardgame_id: boardgameId };
+			$.ajax({
+				type: 'POST',
+				url: '/events/'+eventId+'/loans/',
+				data: { loan: loanData, dni: dni }
+			});
+		}
+	});
 });
+
+

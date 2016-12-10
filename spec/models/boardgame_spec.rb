@@ -72,6 +72,20 @@ describe Boardgame do
 
       expect(boardgame.free_to_loan?).to eq(false)
     end
+
+    it 'returns not returned loans from an event' do
+      boardgame = create(:boardgame)
+      event     = create(:event)
+      loan      = create(:not_returned_loan, boardgame: boardgame, event: event)
+      expect(boardgame.active_loans(event)).to eq([loan])
+    end
+
+    it 'returns empty array if in case all loans returned' do
+      boardgame = create(:boardgame)
+      event     = create(:event)
+      loan      = create(:loan, boardgame: boardgame, event: event)
+      expect(boardgame.active_loans(event)).to eq([])
+    end
   end
 
   context 'Associations' do

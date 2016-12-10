@@ -4,7 +4,6 @@ class LoansController < ApplicationController
   def index
     @loans = @event.loans.ordered_loans
 
-
     if params[:search].present?
       @boardgames  = @event.boardgames.where("lower(name) LIKE ?", "%#{params[:search][:keywords]}%".downcase)
     else
@@ -12,47 +11,32 @@ class LoansController < ApplicationController
     end
   end
 
-  def show
-    @loan = @event.loans.find_by(id: params[:id])
-  end
-
-  def new
-    @loan = @event.loans.new
-  end
-
-  def edit
-    @loan = @event.loans.find_by(id: params[:id])
-  end
-
   def create
-    @loan = @event.loans.new(loan_params)
-    if @loan.save
-      redirect_to @loan, notice: 'Loan was successfully created.'
+    player = @event.players.find_by(dni: params[:dni])
+    if player
+
+      @loan = @event.loans.new(boardgame_id: params[:loan][:boardgame_id], player: player)
+
+      if @event.save
+        redirect_to event_loans_url(@event), notice: 'Loan was successfully created.'
+      else
+        render :index, notice: 'Loans fails to start.'
+      end
     else
-      render :new
+        render :index, notice: 'Invalid DNI, loans fails to start.'
     end
   end
 
-  def update
+  def return
     @loan = @event.loans.find_by(id: params[:id])
-    if @loan.update(loan_params)
-      redirect_to @loan
+    if @loan.return
+      redirect_to event_loans_url(@event), notice: 'Loan was successfully returned.'
     else
-      render :edit
+      render :index, notice: 'Loan fails to return.'
     end
-  end
-
-  def destroy
-    @loan = @event.loans.find_by(id: params[:id])
-    @loan.destroy
-    redirect_to event_loans_path
   end
 
   private
-
-    def loan_params
-      params.require(:loan).permit(:returned_at, :boardgame_id, :player_id)
-    end
 
     def find_event
       @event = Event.find(params[:event_id])

@@ -11,6 +11,10 @@ class Boardgame < ApplicationRecord
     loans.where(returned_at: nil).count.zero?
   end
 
+  def active_loans(event)
+    loans.where(returned_at:nil, event: event)
+  end
+
   private
 
     def self.bgg_search_by_name(name = "los colonos de catan")

@@ -54,15 +54,25 @@ RSpec.describe Loan, type: :model do
   end
 
   context 'boardgames' do
-    it 'is invalid when has a no returned loans' do
+    it 'new is invalid when has a no returned loans' do
       boardgame = create(:boardgame)
       create(:loan, boardgame: boardgame, returned_at: nil)
 
       loan = build(:not_returned_loan, boardgame: boardgame)
       loan.valid?
-      expect(loan.errors[:boardgame]).to include('is invalid')
+      expect(loan.errors[:boardgame]).to include('is invalid loan')
     end
-    it 'is valid when has all loans returned' do
+
+    it 'return is valid when is the current loan' do
+      Timecop.travel Time.parse("2/1/2016")
+      boardgame = create(:boardgame)
+      loan      = create(:not_returned_loan, boardgame: boardgame, created_at: '1/1/2016')
+      loan.return
+      expect(loan).to be_valid
+      Timecop.return
+    end
+
+    it 'new is valid when has all loans returned' do
       boardgame = create(:boardgame)
       loan = build(:not_returned_loan, boardgame: boardgame)
       expect(loan).to be_valid

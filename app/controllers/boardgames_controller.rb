@@ -7,12 +7,22 @@ class BoardgamesController < ApplicationController
 
   def show
     @boardgame = @event.boardgames.find_by(id: params[:id])
+    @loan      = @boardgame.active_loans(@event)[0]
 
+    if @loan
+      loan_json = {
+        id:  @loan.id,
+        dni: @loan.player.dni,
+        name: @loan.player.name
+      }
+    end
 
     respond_to do |format|
       format.html
-      format.json { render json: { attributes: @boardgame, free: @boardgame.free_to_loan? }}
-      # format.json { render json: @boardgame }
+      format.json { render json: {
+                    attributes: @boardgame,
+                    loan:       loan_json
+                  }}
     end
   end
 
