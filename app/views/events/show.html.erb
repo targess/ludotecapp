@@ -1,5 +1,6 @@
 <div class="content-heading">
 	<%= @event.name %>
+   <%= link_to 'Volver', :back, { class: "mb-lg btn btn-default btn-lg pull-right" } %>
 </div>
 
 <div class="row">
@@ -13,12 +14,12 @@
                </div>
                <div class="col-xs-9 text-right">
                   <div class="text-lg"><%= @players_count %></div>
-                  <p class="m0">New Users!</p>
+                  <p class="m0">Jugadores</p>
                </div>
             </div>
          </div>
          <a href=<%= event_players_path(@event) %> class="panel-footer bg-gray-dark bt0 clearfix btn-block">
-            <span class="pull-left">View Details</span>
+            <span class="pull-left">Entrar</span>
             <span class="pull-right">
                <em class="fa fa-chevron-circle-right"></em>
             </span>
@@ -36,12 +37,12 @@
                </div>
                <div class="col-xs-9 text-right">
                   <div class="text-lg"><%= @boardgames_count %></div>
-                  <p class="m0">Boardgames!</p>
+                  <p class="m0">Juegos</p>
                </div>
             </div>
          </div>
          <a href=<%= event_boardgames_path(@event) %> class="panel-footer bg-gray-dark bt0 clearfix btn-block">
-            <span class="pull-left">View Details</span>
+            <span class="pull-left">Entrar</span>
             <span class="pull-right">
                <em class="fa fa-chevron-circle-right"></em>
             </span>
@@ -59,12 +60,12 @@
                </div>
                <div class="col-xs-9 text-right">
                   <div class="text-lg"><%= @loans_count %></div>
-                  <p class="m0">New Loans!</p>
+                  <p class="m0">Préstamos</p>
                </div>
             </div>
          </div>
          <a href=<%= event_loans_path(@event) %> class="panel-footer bg-gray-dark bt0 clearfix btn-block">
-            <span class="pull-left">View Details</span>
+            <span class="pull-left">Entrar</span>
             <span class="pull-right">
                <em class="fa fa-chevron-circle-right"></em>
             </span>
@@ -78,16 +79,16 @@
          <div class="panel-heading">
             <div class="row">
                <div class="col-xs-3">
-                  <em class="fa fa-bullhorn fa-5x"></em>
+                  <em class="fa fa-handshake-o fa-5x"></em>
                </div>
                <div class="col-xs-9 text-right">
                   <div class="text-lg">13</div>
-                  <p class="m0">Activities!</p>
+                  <p class="m0">Torneos</p>
                </div>
             </div>
          </div>
          <a href="#" class="panel-footer bg-gray-dark bt0 clearfix btn-block">
-            <span class="pull-left">View Details</span>
+            <span class="pull-left">Entrar</span>
             <span class="pull-right">
                <em class="fa fa-chevron-circle-right"></em>
             </span>
@@ -98,18 +99,17 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-6 col-lg-offset-3">
 		<!-- START widget-->
 		<div class="panel panel-default">
 		   <div class="panel-body">
 		      <div class="text-center">
 		         <h3 class="mt0"><%= @event.name %></h3>
-		         <p>Event</p>
 		      </div>
 		      <hr>
 		      <ul class="list-unstyled ph-xl">
 		         <li>
-		            <em class="fa fa-home fa-fw mr-lg"></em><%= @event.city + "(" + @event.province + ")" %>
+		            <em class="fa fa-map-marker fa-fw mr-lg"></em><%= @event.city + "(" + @event.province + ")" %>
 		         </li>
 		         
 		      </ul>
@@ -118,15 +118,16 @@
 		   <tbody>
 		      <tr>
 		         <td>
-		            <strong>Start date</strong>
+		            <strong>Comienza</strong>
 		         </td>
-		         <td><%= @event.start_date %></td>
+		         <td><%= beauty_date(@event.start_date) %></td>
+
 		      </tr>
 		      <tr>
 		         <td>
-		            <strong>Start date</strong>
+		            <strong>Finaliza</strong>
 		         </td>
-		         <td><%= @event.end_date %></td>
+		         <td><%= beauty_date(@event.end_date) %></td>
 		      </tr>
 			</tbody>
 			</table>

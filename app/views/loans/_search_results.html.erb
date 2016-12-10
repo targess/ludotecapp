@@ -28,9 +28,9 @@
 
 	                      <h4 class="media-box-heading"><%= boardgame.name %></h4>
 	                      <small class="text-muted">
-	                      	Players: <%= players_number(boardgame.minplayers, boardgame.maxplayers) %>
+	                      	Nº de jugadores: <%= players_number(boardgame.minplayers, boardgame.maxplayers) %>
 	                      </small>
-	                      <p>Sed gravida auctor odio. Sed viverra rutrum hendrerit. Praesent dapibus justo dolor. Suspendisse rhoncus consectetur eros vehicula accumsan.</p>
+	                      <p><%= truncate(boardgame.description, length: 200, escape: false) %></p>
 	                   </div>
 	                </div>
 	             </td>

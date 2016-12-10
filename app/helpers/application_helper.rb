@@ -10,4 +10,12 @@ module ApplicationHelper
   def players_number(min, max)
     (min == max) ? min : "#{min} - #{max}"
   end
+
+  def min_age(age)
+    age.to_s+"+"
+  end
+
+  def beauty_date(date)
+    l(date, format: "%H:%M %e-%m-%Y") if date
+  end
 end

@@ -1,23 +1,23 @@
 <div class="content-heading">
-   Boardgames
-   <small>Total boardgames</small>
+   Juegos de mesa
+   <%= link_to 'Volver', :back, { class: "mb-lg btn btn-default btn-lg pull-right" } %>
 </div>
 <div class="row">
    <div class="col-sm-12">
-      <div class="panel panel-default">
-         <div class="panel-heading">Boardgames list</div>
+      <div class="panel">
+         <div class="panel-heading"></div>
          <div class="table-responsive">
             <table class="table table-bordered table-hover">
                <thead>
                   <tr>
                      <th>#</th>
-                     <th>Picture</th>
-                     <th>BGG Code</th>
-                     <th>Name</th>
-                     <th>Min players</th>
-                     <th>Max players</th>
-                     <th>Playing time</th>
-                     <th>View</th>
+                     <th>Portada</th>
+                     <th>BGG</th>
+                     <th>Nombre</th>
+                     <th>Jugadores</th>
+                     <th>Edad</th>
+                     <th>Duración</th>
+                     <th></th>
                   </tr>
                </thead>
                <tbody>
@@ -32,8 +32,8 @@
                      </td>
                      <td><%= boardgame[:bgg_id] %></td>
                      <td><%= boardgame[:name] %></td>
-                     <td><%= boardgame[:minplayers] %></td>
-                     <td><%= boardgame[:maxplayers] %></td>
+                     <td><%= players_number(boardgame[:minplayers],boardgame[:minplayers]) %></td>
+                     <td><%= min_age(boardgame[:minage]) %></td>
                      <td><%= boardgame[:playingtime] %></td>
                      <td><%= link_to 'Mostrar', event_boardgame_path(@event, boardgame), { class: "btn btn-default btn-sm bg-gray-lighter" } %></td>
                   </tr>

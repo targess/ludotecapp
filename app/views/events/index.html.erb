@@ -1,22 +1,21 @@
 <div class="content-heading">
-   Events
-   <small>Total events</small>
+   Eventos
 </div>
 <div class="row">
    <div class="col-sm-12">
-      <div class="panel panel-default">
-         <div class="panel-heading">Events list</div>
+      <div class="panel">
+         <div class="panel-heading"></div>
          <div class="table-responsive">
             <table class="table table-bordered table-hover">
                <thead>
                   <tr>
                      <th>#</th>
-                     <th>name</th>
-                     <th>start</th>
-                     <th>end</th>
-                     <th>city</th>
-                     <th>Province</th>
-                     <th>View</th>
+                     <th>Nombre</th>
+                     <th>Comienza</th>
+                     <th>Finaliza</th>
+                     <th>Ciudad</th>
+                     <th>Provincia</th>
+                     <th></th>
                   </tr>
                </thead>
                <tbody>
@@ -25,8 +24,8 @@
                   <tr>
                      <td><%= index+1 %></td>
                      <td><%= event[:name] %></td>
-                     <td><%= event[:start_date] %></td>
-                     <td><%= event[:end_date] %></td>
+                     <td><%= beauty_date(event[:start_date]) %></td>
+                     <td><%= beauty_date(event[:end_date]) %></td>
                      <td><%= event[:city] %></td>
                      <td><%= event[:province] %></td>
                      <td><%= link_to 'Mostrar', event_path(event), { class: "btn btn-default btn-sm bg-gray-lighter" } %></td>

@@ -15,9 +15,6 @@ Rails.application.routes.draw do
   end
 
   # defaults to dashboard
-  root :to => redirect('/singleview')
-
-  # view routes
-  get '/singleview' => 'singleview#index'
+  root :to => redirect('/events')
 
 end

@@ -1,11 +1,11 @@
 <div class="content-heading">
-   Players
-   <small>Total players</small>
+   Jugadores
+   <%= link_to 'Volver', :back, { class: "mb-lg btn btn-default btn-lg pull-right" } %>
 </div>
 <div>
    <div class="panel panel-default">
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs nav-justified" role="tablist">
+      <ul class="nav nav-tabs nav-justified mb-xl" role="tablist">
          <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Inscribir</a></li>
          <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Jugadores</a></li>
       </ul>
@@ -17,6 +17,8 @@
             </div>
          </div>
          <div role="tabpanel" class="tab-pane" id="profile">
+            <div class="panel">
+
             <div class="table-responsive">
                <table class="table table-bordered table-hover">
                   <thead>
@@ -24,11 +26,10 @@
                         <th>#</th>
                         <th>DNI</th>
                         <th>Nombre</th>
-                        <th>Apellidos</th>
                         <th>Ciudad</th>
                         <th>Provincia</th>
                         <th>Edad</th>
-                        <th>View</th>
+                        <th></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -36,8 +37,7 @@
                      <tr>
                         <td><%= index+1 %></td>
                         <td><%= player[:dni] %></td>
-                        <td><%= player[:firstname] %></td>
-                        <td><%= player[:lastname] %></td>
+                        <td><%= player.name %></td>
                         <td><%= player[:city] %></td>
                         <td><%= player[:province] %></td>
                         <td><%= player.age %></td>
@@ -46,6 +46,7 @@
                      <% end %>
                   </tbody>
                </table>
+            </div>
             </div>
          </div>
       </div>

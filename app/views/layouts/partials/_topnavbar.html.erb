@@ -2,7 +2,7 @@
 <nav role="navigation" class="navbar topnavbar">
    <!-- START navbar header-->
    <div class="navbar-header">
-      <a href="#/" class="navbar-brand">
+      <a href="/" class="navbar-brand">
          <div class="brand-logo">
             <img src="<%= image_path('logo-ludotecapp.png') %>" alt="App Logo" class="img-responsive" />
          </div>
@@ -17,12 +17,21 @@
          <!-- START Left navbar-->
          <ul class="nav navbar-nav">
             <li>
-               <a href="/admin/boardgames">Boardgames</a>
+               <a href="#" data-toggle="dropdown" title="Events list">
+                  <em class="fa fa-bullhorn"></em>
+                  <span>Eventos</span>
+               </a>
+                  <ul class="dropdown-menu animated fadeIn">
+                     <li><a href="/events">Lista</a>
+                     </li>
+                     <li><a href="/events/new">Nuevo</a>
+                     </li>
+                  </ul>
             </li>
             <li>
                <a href="#" data-toggle="dropdown" title="Players list">
                   <em class="fa fa-users"></em>
-                  <span>Players</span>
+                  <span>Jugadores</span>
                </a>
                   <ul class="dropdown-menu animated fadeIn">
                      <li><a href="/admin/players">Lista</a>
@@ -30,6 +39,12 @@
                      <li><a href="/admin/players/new">Nuevo</a>
                      </li>
                   </ul>
+            </li>
+            <li>
+               <a href="/admin/boardgames" title="Boardgames list">
+                  <em class="fa fa-cubes"></em>
+                  <span>Juegos de mesa</span>
+               </a>
             </li>
          </ul>
          <!-- END Left navbar-->
