@@ -1,8 +1,9 @@
 <div class="content-heading">
 	<%= @player.name %>
+	<%= link_to 'Volver', :back, { class: "mb-lg btn btn-default btn-lg pull-right" } %>
 </div>
 <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-6 col-lg-offset-3">
 		<!-- START widget-->
 		<div class="panel panel-default">
 		   <div class="panel-body">
@@ -13,10 +14,10 @@
 		      <hr>
 		      <ul class="list-unstyled ph-xl">
 		         <li>
-		            <em class="fa fa-book fa-fw mr-lg"></em><%= @player.dni %>
+		            <em class="fa fa-id-card-o fa-fw mr-lg"></em><%= @player.dni %>
 		         </li>
 		         <li>
-		            <em class="fa fa-home fa-fw mr-lg"></em><%= @player.city + " (" + @player.province + ")" %>
+		            <em class="fa fa-map-marker fa-fw mr-lg"></em><%= @player.city + " (" + @player.province + ")" %>
 		         </li>
 		         <li>
 		            <em class="fa fa-envelope fa-fw mr-lg"></em><%= @player.email %>
