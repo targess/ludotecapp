@@ -2,6 +2,7 @@ class LoansController < ApplicationController
   before_action :find_event
 
   def index
+    @loan = Loan.new
     @loans = @event.loans.ordered_loans
 
     if params[:search].present?
@@ -20,10 +21,10 @@ class LoansController < ApplicationController
       if @event.save
         redirect_to event_loans_url(@event), notice: 'Loan was successfully created.'
       else
-        render :index, notice: 'Loans fails to start.'
+        redirect_to event_loans_url(@event), alert: 'Loans fails to start.'
       end
     else
-        render :index, notice: 'Invalid DNI, loans fails to start.'
+        redirect_to event_loans_url(@event), alert: 'Invalid DNI, loans fails to start.'
     end
   end
 
@@ -32,7 +33,7 @@ class LoansController < ApplicationController
     if @loan.return
       redirect_to event_loans_url(@event), notice: 'Loan was successfully returned.'
     else
-      render :index, notice: 'Loan fails to return.'
+      redirect_to event_loans_url(@event), alert: 'Loan fails to return.'
     end
   end
 

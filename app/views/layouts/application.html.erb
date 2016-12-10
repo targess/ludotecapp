@@ -33,6 +33,24 @@
       <section>
          <!-- Page content-->
          <div class="content-wrapper">
+
+            <% if notice.present? %>
+            <div class="alert alert-success alert-dismissible fade in">
+               <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+                  <span aria-hidden="true">×</span>
+               </button>
+               <%= notice %>
+            </div>
+            <% end %>
+            <% if alert.present? %>
+            <div class="alert alert-danger alert-dismissible fade in">
+               <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+                  <span aria-hidden="true">×</span>
+               </button>
+               <%= alert %>
+            </div>
+            <% end %>
+
             <%= yield %>
          </div>
       </section>

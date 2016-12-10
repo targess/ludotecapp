@@ -5,15 +5,20 @@
 
       <%= form_for(@event, html: {class: "form-horizontal"}) do |f| %>
       <% if @event.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+        <div class="alert bg-danger-light alert-dismissible fade in">
+          <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <div id="error_explanation">
+            <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-        <ul>
-          <% @event.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
+            <ul>
+              <% @event.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
       <% end %>
 
       <div class="form-group">
