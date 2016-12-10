@@ -5,6 +5,10 @@ class Loan < ApplicationRecord
 
   validate :returned_at_cannot_be_before_created_at, :boardgame_not_available, :player_not_returned_limit_rearched
 
+  def self.ordered_loans
+    where(returned_at: nil).order(created_at: :desc) + order(returned_at: :desc)
+  end
+
   private
 
     def returned_at_cannot_be_before_created_at
