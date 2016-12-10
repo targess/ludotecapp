@@ -10,6 +10,8 @@
    <%= csrf_meta_tags %>
 
    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+   <!-- =============== APP SCRIPTS ===============-->
+   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 </head>
 
@@ -41,9 +43,6 @@
    </div>
    <!-- loans modal -->
    <%= render partial: "layouts/partials/loans_modal" %>
-
-   <!-- =============== APP SCRIPTS ===============-->
-   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
    <%= yield :body_area %> 
 
