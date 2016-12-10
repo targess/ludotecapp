@@ -29,7 +29,7 @@ boardgames_count = Boardgame.count
 
 5.times do |i|
 
-  start_date = Faker::Date.between(2.days.ago, 10.days.from_now)
+  start_date = Faker::Date.between(4.days.ago, 1.days.ago)
   end_date   = start_date + rand(2)
 
   event = Event.create(
@@ -62,6 +62,15 @@ boardgames_count = Boardgame.count
             boardgame:   event.boardgames[rand(boardgames_event_count)]
         )
     end
+    rand(10..20).times do
+            event.loans.create(
+                created_at:  Faker::Time.between(start_date, start_date, :evening),
+                returned_at: nil,
+                player:      event.players[rand(players_event_count)],
+                boardgame:   event.boardgames[rand(boardgames_event_count)]
+            )
+        end
+
 end
 
 
