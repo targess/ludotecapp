@@ -28,12 +28,15 @@ gem 'jbuilder', '~> 2.5'
 
 # Bootstrap and font-simple-line-icons
 gem 'bootstrap-sass', '~> 3.3.7'
-gem 'simple-line-icons-rails'
 # Font awesome icons
 gem "font-awesome-rails"
 
 # gem 'bgg' to parse BoardGameGeek API
 gem 'bgg'
+
+# Datetime picker
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
