@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
 
-  has_and_belongs_to_many :boardgames
-  has_and_belongs_to_many :players
+  has_and_belongs_to_many :boardgames, -> { distinct }
+  has_and_belongs_to_many :players, -> { distinct }
   has_many :loans
 
   validates :name, presence: true

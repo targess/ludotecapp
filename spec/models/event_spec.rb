@@ -34,6 +34,9 @@ RSpec.describe Event, type: :model do
     expect(event.errors[:start_date]).to include ("can't be after end_date")
   end
 
+  pending 'boardgame has to be unique'
+  pending 'player has to be unique'
+
   describe 'Associations' do
     it 'has and belongs to many boardgames' do
       association = described_class.reflect_on_association(:boardgames)
