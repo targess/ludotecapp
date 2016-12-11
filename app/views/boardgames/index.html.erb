@@ -14,14 +14,14 @@
          <div role="tabpanel" class="tab-pane active" id="home">
             <div class="row">
                <div class="col-sm-12">
-                  <%= render partial: 'boardgames_list', locals: { boardgames: @boardgames } %>     
+                  <%= render partial: 'boardgames_list', locals: { boardgames: @boardgames, at_event: true } %>     
                </div>
             </div>
          </div>
          <div role="tabpanel" class="tab-pane" id="profile">
             <div class="row">
                <div class="col-sm-12">
-                  <%= render partial: 'boardgames_list', locals: { boardgames: @boardgames_not_included } %>     
+                  <%= render partial: 'boardgames_list', locals: { boardgames: @boardgames_not_included, at_event: false } %>     
                </div>
             </div>
          </div>

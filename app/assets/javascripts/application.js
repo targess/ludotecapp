@@ -17,4 +17,11 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require moment/es
+//= require data-confirm-modal
 //= require_tree .
+
+dataConfirmModal.setDefaults({
+  title: '¿Estás seguro?',
+  commit: 'Confirmar',
+  cancel: 'Cancelar'
+});

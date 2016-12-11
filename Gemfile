@@ -38,6 +38,9 @@ gem 'bgg'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.43'
 
+# Data confirm boostrap modal style
+gem 'data-confirm-modal'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
