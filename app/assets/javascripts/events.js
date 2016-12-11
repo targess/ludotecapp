@@ -1,4 +1,4 @@
-$(document).on ('ready', function() {
+$(document).on ('turbolinks:load', function() {
   $('.datetimepicker').datetimepicker({
   	locale: moment.locale(),
   	icons: {

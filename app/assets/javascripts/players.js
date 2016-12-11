@@ -24,7 +24,7 @@ function getPlayerToUpdate (player) {
 function handleOnError (error) {
 }
 
-$(document).on ('ready', function() {
+$(document).on ('turbolinks:load', function() {
 
 	$('.js-dni-autocomplete').on ('change', function(event) {
 		var inputDni = $(event.target).val();

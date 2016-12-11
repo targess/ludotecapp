@@ -44,7 +44,7 @@ function getBoardgameFromId (boardgame) {
 function handleOnError (error) {
 }
 
-$(document).on ('ready', function() {
+$(document).on ('turbolinks:load', function() {
 	$('.js-loans-modal').on ('click', function() {
 		var boardgameId = $(this).data("boardgameid");
 		var eventId  = idFromUri($(document).context.URL);
