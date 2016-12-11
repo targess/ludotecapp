@@ -15,7 +15,7 @@ function getBoardgameFromId (boardgame) {
 	$('[data-name]').text(boardgameAttr.name);
 	$('[data-playingtime]').text(boardgameAttr.playingtime+" minutes");
 	$('[data-minage]').text(boardgameAttr.minage+"+");
-	$('[data-thumbnail]').attr('src', 'http://'+boardgameAttr.thumbnail);
+	$('[data-thumbnail]').attr('src', boardgameAttr.thumbnail);
 
 	if (boardgameAttr.minplayers === boardgameAttr.maxplayers) {
 		$('[data-players]').text(boardgameAttr.minplayers);

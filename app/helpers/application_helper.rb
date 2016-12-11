@@ -25,9 +25,9 @@ module ApplicationHelper
 
   def img_boardgame(boardgame, size = "thumbnail" )
     if size == "thumbnail"
-      image_tag('http://'+boardgame[:thumbnail], class: "img-responsive thumb64", alt: boardgame[:name])
+      image_tag(boardgame[:thumbnail], class: "img-responsive thumb64", alt: boardgame[:name])
     elsif size == "image"
-      image_tag('http://'+boardgame[:image], class: "img-responsive", alt: boardgame[:name])
+      image_tag(boardgame[:image], class: "img-responsive", alt: boardgame[:name])
     end
   end
 end
