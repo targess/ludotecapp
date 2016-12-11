@@ -22,39 +22,39 @@
       <% end %>
 
       <div class="form-group">
-        <%= f.label :firstname, {class: "col-lg-2 control-label"} %>
-        <div class="col-lg-10">
-          <%= f.text_field :firstname, {class: "form-control"} %>  
-        </div>
-      </div>
-      <div class="form-group">
-        <%= f.label :lastname, {class: "col-lg-2 control-label"} %>
-        <div class="col-lg-10">
-          <%= f.text_field :lastname, {class: "form-control"} %>  
-        </div>
-      </div>
-      <div class="form-group">
         <%= f.label :dni, {class: "col-lg-2 control-label"} %>
         <div class="col-lg-10">
           <%= f.text_field :dni, {class: "form-control"} %>  
         </div>
       </div>
       <div class="form-group">
-        <%= f.label :city, {class: "col-lg-2 control-label"} %>
+        <%= f.label :nombre, {class: "col-lg-2 control-label"} %>
+        <div class="col-lg-10">
+          <%= f.text_field :firstname, {class: "form-control"} %>  
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :apellidos, {class: "col-lg-2 control-label"} %>
+        <div class="col-lg-10">
+          <%= f.text_field :lastname, {class: "form-control"} %>  
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :ciudad, {class: "col-lg-2 control-label"} %>
         <div class="col-lg-10">
           <%= f.text_field :city, {class: "form-control"} %>  
         </div>
       </div>
       <div class="form-group">
-        <%= f.label :province, {class: "col-lg-2 control-label"} %>
+        <%= f.label :provincia, {class: "col-lg-2 control-label"} %>
         <div class="col-lg-10">
           <%= f.text_field :province, {class: "form-control"} %>  
         </div>
       </div>
       <div class="form-group">
-        <%= f.label :birthday, {class: "col-lg-2 control-label"} %>
+        <%= f.label :cumpleaños, {class: "col-lg-2 control-label"} %>
         <div class="col-lg-10">
-          <%= f.date_field :birthday, {class: "form-control"} %>  
+          <%= f.date_select :birthday, {class: "form-control"} %>  
         </div>
       </div>
       <div class="form-group">
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="form-group">
-        <%= f.label :phone, {class: "col-lg-2 control-label"} %>
+        <%= f.label :teléfono, {class: "col-lg-2 control-label"} %>
         <div class="col-lg-10">
           <%= f.number_field :phone, {class: "form-control"} %>  
         </div>
