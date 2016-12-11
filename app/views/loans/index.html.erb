@@ -44,7 +44,7 @@
                               <td><%= index+1 %></td>
                               <td>
                                  <div class="media">
-                                 <img src=<%= "http://#{loan.boardgame[:thumbnail]}" %> alt=<%= "#{loan.boardgame[:name]}"%> class="img-responsive thumb64">
+                                 <%= img_boardgame(loan.boardgame) %>
                                  </div>
                               </td>
                               <td><%= loan.boardgame[:name] %></td>

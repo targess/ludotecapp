@@ -21,7 +21,7 @@
                <td><%= index+1 %></td>
                <td>
                   <div class="media">
-                  <img src=<%= "http://#{boardgame[:thumbnail]}" %> alt=<%= "#{boardgame[:name]}"%> class="img-responsive thumb64">
+                  <%= img_boardgame(boardgame) %>
                   </div>
                </td>
                <td><%= boardgame[:bgg_id] %></td>

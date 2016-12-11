@@ -22,4 +22,12 @@ module ApplicationHelper
   def location(city, province)
     "#{city} (#{province})" if city && province
   end
+
+  def img_boardgame(boardgame, size = "thumbnail" )
+    if size == "thumbnail"
+      image_tag('http://'+boardgame[:thumbnail], class: "img-responsive thumb64", alt: boardgame[:name])
+    elsif size == "image"
+      image_tag('http://'+boardgame[:image], class: "img-responsive", alt: boardgame[:name])
+    end
+  end
 end
