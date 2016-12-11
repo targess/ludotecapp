@@ -19,29 +19,6 @@ function getPlayerToUpdate (player) {
 	$('[data-phone]').val(player.phone);
 	$('[data-playerId').data('playerId', player.id);
 	$('[data-playerId]').text('Inscribir');
-}
-
-function handleOnError (error) {
-}
-
-$(document).on ('turbolinks:load', function() {
-
-	$('.js-dni-autocomplete').on ('change', function(event) {
-		var inputDni = $(event.target).val();
-
-		if (inputDni.length === 9) {
-			var eventUri = $(document).context.URL;
-			var eventId  = idFromUri(eventUri);
-
-			$.ajax({
-				type: 'GET',
-				url: '/events/'+eventId+'/players/show_by_dni?dni='+inputDni,
-				dataType: 'json',
-				success: getPlayerToUpdate,
-				error: handleOnError
-			});
-		}
-	});
 
 	$('[data-playerId]').on ('click', function(myEvent) {
 		myEvent.preventDefault();
@@ -63,6 +40,29 @@ $(document).on ('turbolinks:load', function() {
 				type: 'PATCH',
 				url: '/events/'+eventId+'/players/'+myPlayer.id,
 				data: { player: myPlayer }
+			});
+		}
+	});
+}
+
+function handleOnError (error) {
+}
+
+$(document).on ('turbolinks:load', function() {
+
+	$('.js-dni-autocomplete').on ('change', function(event) {
+		var inputDni = $(event.target).val();
+
+		if (inputDni.length === 9) {
+			var eventUri = $(document).context.URL;
+			var eventId  = idFromUri(eventUri);
+
+			$.ajax({
+				type: 'GET',
+				url: '/events/'+eventId+'/players/show_by_dni?dni='+inputDni,
+				dataType: 'json',
+				success: getPlayerToUpdate,
+				error: handleOnError
 			});
 		}
 	});
