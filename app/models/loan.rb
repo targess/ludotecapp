@@ -7,7 +7,7 @@ class Loan < ApplicationRecord
   validate :boardgame_not_available, on: :create
 
   def self.ordered_loans
-    where(returned_at: nil).order(created_at: :desc) + order(returned_at: :desc)
+    where(returned_at: nil).order(created_at: :desc) + where.not(returned_at: nil).order(returned_at: :desc)
   end
 
   def return (time = Time.now)
