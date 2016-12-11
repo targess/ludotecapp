@@ -44,7 +44,7 @@ $(document).on ('turbolinks:load', function() {
 	});
 
 	$('[data-playerId]').on ('click', function(myEvent) {
-		// myEvent.preventDefault();
+		myEvent.preventDefault();
 		var eventUri = $(document).context.URL;
 		var eventId  = idFromUri(eventUri);
 		playerId = $('[data-playerId]').data('playerId');

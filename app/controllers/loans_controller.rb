@@ -18,7 +18,7 @@ class LoansController < ApplicationController
 
       @loan = @event.loans.new(boardgame_id: params[:loan][:boardgame_id], player: player)
 
-      if @event.save
+      if @loan.save
         redirect_to event_loans_url(@event), notice: 'Loan was successfully created.'
       else
         redirect_to event_loans_url(@event), alert: 'Loans fails to start.'

@@ -59,6 +59,7 @@ $(document).on ('turbolinks:load', function() {
 
 	});
 	$('.js-loan-button').on ('click', function(event) {
+		event.preventDefault();
 		var loanId   	= $('[data-loanid]').data("loanid");
 		var eventId  	= idFromUri($(document).context.URL);
 		var boardgameId = $('.js-loans-modal').data("boardgameid");
