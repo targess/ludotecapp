@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :loans, only: [ :index, :create ]
     patch '/boardgames/:id/add', to: 'boardgames#add', as: 'add_boardgame'
     patch '/boardgames/:id/del', to: 'boardgames#del', as: 'del_boardgame'
-    resources :boardgames
+    resources :boardgames, only: [ :index, :show ]
   end
 
   namespace :admin do

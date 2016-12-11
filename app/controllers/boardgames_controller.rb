@@ -2,20 +2,20 @@ class BoardgamesController < ApplicationController
   before_action :find_event
 
   def index
-    @boardgames              = @event.boardgames.all
+    @boardgames              = @event.boardgames.order(name: :asc)
     @boardgames_not_included = Boardgame.where.not(id: @boardgames)
 
   end
 
   def show
-    @boardgame = @event.boardgames.find_by(id: params[:id])
-    @loan      = @boardgame.active_loans(@event)[0]
+    @boardgame = Boardgame.find_by(id: params[:id])
+    @loan      = @boardgame.active_loans(@event)
 
-    if @loan
+    if @loan.present?
       loan_json = {
-        id:  @loan.id,
-        dni: @loan.player.dni,
-        name: @loan.player.name
+        id:  @loan[0].id,
+        dni: @loan[0].player.dni,
+        name: @loan[0].player.name
       }
     end
 
@@ -31,53 +31,16 @@ class BoardgamesController < ApplicationController
   def add
     @boardgame = Boardgame.find_by(id: params[:id])
     @event.boardgames.push(@boardgame)
-    redirect_to event_boardgames_path, notice: 'Boardgame was successfully added.'
+    redirect_to event_boardgames_path, notice: 'Juego añadido al evento.'
   end
 
   def del
     @boardgame = Boardgame.find_by(id: params[:id])
     @event.boardgames.delete(@boardgame)
-    redirect_to event_boardgames_path, notice: 'Boardgame was successfully deleted.'
+    redirect_to event_boardgames_path, notice: 'Juego eliminado del evento.'
   end
-
-  def new
-    @boardgame = @event.boardgames.new
-  end
-
-  def edit
-    @boardgame = @event.boardgames.find_by(id: params[:id])
-  end
-
-  def create
-    @boardgame = @event.boardgames.new(boardgame_params)
-    if @event.save
-      redirect_to @boardgame, notice: 'Boardgame was successfully created.'
-    else
-      render :new
-    end
-  end
-
-  def update
-    @boardgame = @event.boardgames.find_by(id: params[:id])
-    if @boardgame.update(boardgame_params)
-      redirect_to @boardgame
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @boardgame = @event.boardgames.find_by(id: params[:id])
-    @boardgame.destroy
-    redirect_to boardgames_path
-  end
-
 
   private
-
-    def boardgame_params
-      params.require(:boardgame).permit(:name, :thumbnail, :image, :description, :minplayers, :maxplayers, :playingtime, :minage, :bgg_id)
-    end
 
     def find_event
       @event = Event.find(params[:event_id])
