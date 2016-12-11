@@ -18,4 +18,8 @@ module ApplicationHelper
   def beauty_date(date)
     l(date, format: "%H:%M %e-%m-%Y") if date
   end
+
+  def location(city, province)
+    "#{city} (#{province})" if city && province
+  end
 end

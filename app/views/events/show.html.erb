@@ -109,7 +109,7 @@
 		      <hr>
 		      <ul class="list-unstyled ph-xl">
 		         <li>
-		            <em class="fa fa-map-marker fa-fw mr-lg"></em><%= @event.city + "(" + @event.province + ")" %>
+		            <em class="fa fa-map-marker fa-fw mr-lg"></em><%= location(@event.city, @event.province) %>
 		         </li>
 		         
 		      </ul>
