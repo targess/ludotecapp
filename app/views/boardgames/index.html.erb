@@ -1,6 +1,6 @@
-<div class="content-heading">
-   Juegos de mesa
-   <%= link_to 'Volver', :back, { class: "mb-lg btn btn-default btn-lg pull-right" } %>
+<div class="content-heading">      
+   Juegos de mesa - <%= @event.name %>
+   <%= link_to 'Volver', event_path(@event), { class: "mb-lg btn btn-default btn-lg pull-right" } %>
 </div>
 <div class="row">
    <div class="col-sm-12">
