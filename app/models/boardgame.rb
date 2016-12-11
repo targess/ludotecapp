@@ -15,6 +15,10 @@ class Boardgame < ApplicationRecord
     loans.where(returned_at:nil, event: event)
   end
 
+  def at_event?(event)
+    events.find_by(id: event)
+  end
+
   private
 
     def self.bgg_search_by_name(name = "los colonos de catan")

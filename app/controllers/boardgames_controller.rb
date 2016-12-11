@@ -2,7 +2,9 @@ class BoardgamesController < ApplicationController
   before_action :find_event
 
   def index
-    @boardgames = @event.boardgames.all
+    @boardgames              = @event.boardgames.all
+    @boardgames_not_included = Boardgame.where.not(id: @boardgames)
+
   end
 
   def show
@@ -24,6 +26,18 @@ class BoardgamesController < ApplicationController
                     loan:       loan_json
                   }}
     end
+  end
+
+  def add
+    @boardgame = Boardgame.find_by(id: params[:id])
+    @event.boardgames.push(@boardgame)
+    redirect_to event_boardgames_path, notice: 'Boardgame was successfully added.'
+  end
+
+  def del
+    @boardgame = Boardgame.find_by(id: params[:id])
+    @event.boardgames.delete(@boardgame)
+    redirect_to event_boardgames_path, notice: 'Boardgame was successfully deleted.'
   end
 
   def new

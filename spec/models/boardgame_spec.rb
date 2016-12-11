@@ -99,4 +99,21 @@ describe Boardgame do
     end
   end
 
+  context 'Event' do
+    before(:each) do
+      @boardgame = create(:boardgame)
+      @event     = create(:event)
+    end
+    it 'is present in current event' do
+      @event.boardgames.push(@boardgame)
+      expect(@boardgame.at_event?(@event)).to be_truthy
+    end
+    it 'isnt present in current event' do
+      expect(@boardgame.at_event?(@event)).not_to be_truthy
+    end
+
+    pending 'add'
+    pending 'delete'
+  end
+
 end

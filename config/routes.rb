@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
     patch '/loans/:id', to: 'loans#return'
     resources :loans, only: [ :index, :create ]
+    patch '/boardgames/:id/add', to: 'boardgames#add', as: 'add_boardgame'
+    patch '/boardgames/:id/del', to: 'boardgames#del', as: 'del_boardgame'
     resources :boardgames
   end
 
