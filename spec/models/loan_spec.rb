@@ -14,6 +14,25 @@ RSpec.describe Loan, type: :model do
     loan = build(:loan, created_at: '10/1/2016 11:23:17', returned_at: '10/1/2016 11:23:17')
     expect(loan).to be_valid
   end
+  it 'is valid with event, boardgame and player' do
+      loan = build(:loan)
+      expect(loan).to be_valid
+  end
+  it 'is invalid without event' do
+      loan = build(:loan, event: nil)
+      loan.valid?
+      expect(loan.errors[:event]).to include("can't be blank")
+  end
+  it 'is invalid without boardgame' do
+      loan = build(:loan, boardgame: nil)
+      loan.valid?
+      expect(loan.errors[:boardgame]).to include("can't be blank")
+  end
+  it 'is invalid without player' do
+      loan = build(:loan, player: nil)
+      loan.valid?
+      expect(loan.errors[:player]).to include("can't be blank")
+  end
 
   context 'players' do
     it 'is valid when player has all loans returned' do

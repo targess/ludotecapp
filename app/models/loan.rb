@@ -3,6 +3,10 @@ class Loan < ApplicationRecord
   belongs_to :event
   belongs_to :player
 
+  validates :boardgame, presence: true
+  validates :event, presence: true
+  validates :player, presence: true
+
   validate :returned_at_cannot_be_before_created_at, :player_not_returned_limit_rearched
   validate :boardgame_not_available, on: :create
 
@@ -25,12 +29,14 @@ class Loan < ApplicationRecord
     end
 
     def boardgame_not_available
+      return nil unless boardgame.present?
       if !boardgame.loans.where(returned_at: nil).count.zero?
         errors.add(:boardgame, "is invalid loan")
       end
     end
 
     def player_not_returned_limit_rearched
+      return nil unless event.present?
       player_not_returned_loans = event.loans.where(returned_at: nil, player: player).count
       unless event.loans_limits == 0
         if player_not_returned_loans >= event.loans_limits
