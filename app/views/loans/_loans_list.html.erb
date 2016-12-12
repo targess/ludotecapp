@@ -1,0 +1,37 @@
+<div class="panel">
+   <div class="panel-heading"></div>
+   <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+         <thead>
+            <tr>
+               <th>#</th>
+               <th>Portada</th>
+               <th>Nombre</th>
+               <th>DNI</th>
+               <th>Nombre</th>
+               <th>Hora salida</th>
+               <th>Hora entrada</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            <% loans.each_with_index do |loan, index| %>
+            <tr>
+               <td><%= index+1 %></td>
+               <td>
+                  <div class="media">
+                     <%= img_boardgame(loan.boardgame) %>
+                  </div>
+               </td>
+               <td><%= loan.boardgame[:name] %></td>
+               <td><%= loan.player[:dni] %></td>
+               <td><%= loan.player.name %></td>
+               <td><%= beauty_date(loan.created_at) %></td>
+               <td><%= beauty_date(loan.returned_at) %></td>
+               <td></td>
+            </tr>
+            <% end %>
+         </tbody>
+      </table>
+   </div>
+</div>

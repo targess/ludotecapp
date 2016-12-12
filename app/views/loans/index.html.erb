@@ -1,65 +1,29 @@
 <div class="content-heading">
-   Préstamos - <%= @event.name %>
-   <%= link_to 'Volver', event_path(@event), { class: "mb-lg btn btn-default btn-lg pull-right" } %>
+    Préstamos - <%= @event.name %>
+    <%= link_to 'Volver', event_path(@event), { class: "mb-lg btn btn-default btn-lg pull-right" } %>
 </div>
 <div>
-   <div class="panel panel-default">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs nav-justified mb-xl" role="tablist">
-         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Nuevo</a></li>
-         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Préstamos</a></li>
-      </ul>
-      <!-- Tab panes -->
-      <div class="tab-content">
-         <div role="tabpanel" class="tab-pane active" id="home">
-            <div class="row">
-                  <%= render 'form' %>
+    <div class="panel panel-default">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified mb-xl" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Nuevo</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Préstamos</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="row">
+                    <%= render 'form' %>
+                </div>
+                <div class="row">
+                    <div class="col-log-12">
+                        <%= render 'search_results' %>
+                    </div>        
+                </div>
             </div>
-            <div class="row">
-               <div class="col-log-12">
-                  <%= render 'search_results' %>
-               </div>
-               
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <%= render partial: 'loans_list', locals: { loans: @loans } %>     
             </div>
-         </div>
-         <div role="tabpanel" class="tab-pane" id="profile">
-            <div class="panel">
-               <div class="table-responsive">
-                  <table class="table table-bordered table-hover">
-                     <thead>
-                           <tr>
-                           <th>#</th>
-                           <th>Portada</th>
-                           <th>Nombre</th>
-                           <th>DNI</th>
-                           <th>Nombre</th>
-                           <th>Hora salida</th>
-                           <th>Hora entrada</th>
-                           <th></th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <% @loans.each_with_index do |loan, index| %>
-                           <tr>
-                              <td><%= index+1 %></td>
-                              <td>
-                                 <div class="media">
-                                 <%= img_boardgame(loan.boardgame) %>
-                                 </div>
-                              </td>
-                              <td><%= loan.boardgame[:name] %></td>
-                              <td><%= loan.player[:dni] %></td>
-                              <td><%= loan.player.name %></td>
-                              <td><%= beauty_date(loan.created_at) %></td>
-                              <td><%= beauty_date(loan.returned_at) %></td>
-                              <td><%=  %></td>
-                           </tr>
-                        <% end %>
-                     </tbody>
-                  </table>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
