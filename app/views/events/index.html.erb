@@ -28,7 +28,11 @@
                      <td><%= beauty_date(event[:end_date]) %></td>
                      <td><%= event[:city] %></td>
                      <td><%= event[:province] %></td>
-                     <td><%= link_to 'Mostrar', event_path(event), { class: "btn btn-default btn-sm bg-gray-lighter" } %></td>
+                     <td>
+                        <%= link_to 'Mostrar', event_path(event), { class: "btn btn-default btn-sm bg-gray-lighter" } %>
+                        <%= link_to '', edit_event_path(event), { class: "btn btn-success btn-sm bg-success-light fa fa-pencil" } %>
+
+                        </td>
                   </tr>
                   <% end %>
 

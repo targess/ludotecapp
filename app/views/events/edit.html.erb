@@ -1,5 +1,6 @@
 <div class="content-heading">
 	Editar <%= @event.name %>
+   <%= link_to 'Volver', events_path(@event), { class: "mb-lg btn btn-default btn-lg pull-right" } %>
 </div>
 <div class="row">
 	<%= render 'form' %>

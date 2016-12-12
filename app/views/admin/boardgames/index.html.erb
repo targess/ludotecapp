@@ -35,7 +35,10 @@
                      <td><%= players_number(boardgame[:minplayers],boardgame[:minplayers]) %></td>
                      <td><%= min_age(boardgame[:minage]) %></td>
                      <td><%= boardgame[:playingtime] %></td>
-                     <td><%= link_to 'Mostrar', admin_boardgame_path(boardgame), { class: "btn btn-default btn-sm bg-gray-lighter" } %></td>
+                     <td><%= link_to 'Mostrar', admin_boardgame_path(boardgame), { class: "btn btn-sm bg-gray-lighter" } %>
+                        <%= link_to '', edit_admin_boardgame_path(boardgame), { class: "btn btn-success bg-success-light btn-sm fa fa-pencil" } %>
+                        <%= link_to '', admin_boardgame_path(boardgame), { method: :delete, class: "btn btn-danger bg-danger-light btn-sm fa fa-trash-o" } %>
+                     </td>
                   </tr>
                   <% end %>
                </tbody>

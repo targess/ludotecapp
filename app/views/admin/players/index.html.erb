@@ -29,7 +29,11 @@
                      <td><%= player[:city] %></td>
                      <td><%= player[:province] %></td>
                      <td><%= player.age %></td>
-                     <td><%= link_to 'Mostrar', admin_player_path(player), { class: "btn btn-default btn-sm bg-gray-lighter" } %></td>
+                     <td>
+                        <%= link_to 'Mostrar', admin_player_path(player), { class: "btn btn-sm bt-primary bg-gray-lighter" } %>
+                        <%= link_to '', edit_admin_player_path(player), { class: "btn btn-success btn-sm bg-success-light fa fa-pencil" } %>
+                        <%= link_to '', admin_player_path(player), { method: :delete, class: "btn btn-danger btn-sm bg-danger-light fa fa-trash-o" } %>
+                        </td>
                   </tr>
                   <% end %>
 
