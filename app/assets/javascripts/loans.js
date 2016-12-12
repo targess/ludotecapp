@@ -12,6 +12,7 @@ function getBoardgameFromId (boardgame) {
 	boardgameAttr 	= boardgame.attributes;
 	active_loan		= boardgame.loan;
 
+	$('.js-loan-button').data("loanboardgameid",boardgameAttr.id);
 	$('[data-name]').text(boardgameAttr.name);
 	$('[data-playingtime]').text(boardgameAttr.playingtime+" minutes");
 	$('[data-minage]').text(boardgameAttr.minage+"+");
@@ -44,8 +45,9 @@ function getBoardgameFromId (boardgame) {
 function handleOnError (error) {
 }
 
-$(document).on ('turbolinks:load', function() {
-	$('.js-loans-modal').on ('click', function() {
+$(document).on('turbolinks:load', function() {
+
+	$('.js-loans-modal').on ('click', function(event) {
 		var boardgameId = $(this).data("boardgameid");
 		var eventId  = idFromUri($(document).context.URL);
 
@@ -58,13 +60,13 @@ $(document).on ('turbolinks:load', function() {
 		});
 
 	});
-	$('.js-loan-button').on ('click', function(event) {
+	$('.js-loan-button').on('click', function(event) {
 		event.preventDefault();
 		var loanId   	= $('[data-loanid]').data("loanid");
 		var eventId  	= idFromUri($(document).context.URL);
-		var boardgameId = $('.js-loans-modal').data("boardgameid");
+		var boardgameId = $('.js-loan-button').data("loanboardgameid");
 		var dni 		= $('.js-loan-form input').last().val();
-
+		debugger
 
 		if (loanId) {
 			$.ajax({
