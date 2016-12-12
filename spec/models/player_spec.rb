@@ -114,5 +114,9 @@ RSpec.describe Player, type: :model do
       association = described_class.reflect_on_association(:loans)
       expect(association.macro).to eq :has_many
     end
+    it 'has many participants' do
+      association = described_class.reflect_on_association(:participants)
+      expect(association.macro).to eq :has_many
+    end
   end
 end

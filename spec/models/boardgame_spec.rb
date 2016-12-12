@@ -97,6 +97,10 @@ describe Boardgame do
       association = described_class.reflect_on_association(:loans)
       expect(association.macro).to eq :has_many
     end
+    it 'has many tournaments' do
+      association = described_class.reflect_on_association(:tournaments)
+      expect(association.macro).to eq :has_many
+    end
   end
 
   context 'Event' do
