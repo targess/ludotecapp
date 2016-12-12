@@ -34,6 +34,8 @@ RSpec.describe Loan, type: :model do
       expect(loan.errors[:player]).to include("can't be blank")
   end
 
+  pending 'returns a list of loans by date, with not returned_at first (ordered_loans)'
+
   context 'players' do
     it 'is valid when player has all loans returned' do
       player    = create(:player)
@@ -73,13 +75,13 @@ RSpec.describe Loan, type: :model do
   end
 
   context 'boardgames' do
-    it 'new is invalid when has a no returned loans' do
+    it 'new is invalid when has a no returned loans at event' do
       boardgame = create(:boardgame)
       create(:loan, boardgame: boardgame, returned_at: nil)
 
       loan = build(:not_returned_loan, boardgame: boardgame)
       loan.valid?
-      expect(loan.errors[:boardgame]).to include('is invalid loan')
+      expect(loan.errors[:boardgame]).to include("can't be loaned if boardgame not available")
     end
 
     it 'return is valid when is the current loan' do
@@ -96,6 +98,8 @@ RSpec.describe Loan, type: :model do
       loan = build(:not_returned_loan, boardgame: boardgame)
       expect(loan).to be_valid
     end
+
+    pending 'cant be loaned or added to event if has present loan on another event'
   end
 
   describe 'Associations' do

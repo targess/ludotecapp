@@ -35,7 +35,7 @@ class Player < ApplicationRecord
     dni_numbers = dni.chop
 
     if dni != dni_numbers + nif_letters[dni_numbers.to_i % nif_letters.length]
-      errors.add(:dni, "is invalid")
+      errors.add(:dni, "is invalid dni")
     end
   end
 end

@@ -8,7 +8,7 @@ class Loan < ApplicationRecord
   validates :player, presence: true
 
   validate :returned_at_cannot_be_before_created_at, :player_not_returned_limit_rearched
-  validate :boardgame_not_available, on: :create
+  validate :boardgame_not_available_at_event, on: :create
 
   def self.ordered_loans
     where(returned_at: nil).order(created_at: :desc) + where.not(returned_at: nil).order(returned_at: :desc)
@@ -28,10 +28,10 @@ class Loan < ApplicationRecord
       end
     end
 
-    def boardgame_not_available
+    def boardgame_not_available_at_event
       return nil unless boardgame.present?
-      if !boardgame.loans.where(returned_at: nil).count.zero?
-        errors.add(:boardgame, "is invalid loan")
+      if !event.loans.where(returned_at: nil, boardgame: boardgame).count.zero?
+        errors.add(:boardgame, "can't be loaned if boardgame not available")
       end
     end
 

@@ -21,7 +21,7 @@ class LoansController < ApplicationController
       if @loan.save
         redirect_to event_loans_url(@event), notice: 'Loan was successfully created.'
       else
-        redirect_to event_loans_url(@event), alert: 'Loans fails to start.'
+        redirect_to event_loans_url(@event), alert: 'Sorry, loans fails to start.'
       end
     else
         redirect_to event_loans_url(@event), alert: 'Invalid DNI, loans fails to start.'
