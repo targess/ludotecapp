@@ -2,7 +2,7 @@ class BoardgamesController < ApplicationController
   before_action :find_event
 
   def index
-    @boardgames              = @event.boardgames.order(name: :asc)
+    @boardgames              = @event.boardgames.order(name: :asc).to_a
     @boardgames_not_included = Boardgame.where.not(id: @boardgames)
 
   end
