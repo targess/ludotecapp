@@ -29,7 +29,7 @@ class Loan < ApplicationRecord
     end
 
     def boardgame_not_available_at_event
-      return nil unless boardgame.present?
+      return nil unless boardgame.present? && event.present?
       if !event.loans.where(returned_at: nil, boardgame: boardgame).count.zero?
         errors.add(:boardgame, "can't be loaned if boardgame not available")
       end

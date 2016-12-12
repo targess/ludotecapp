@@ -75,11 +75,12 @@ RSpec.describe Loan, type: :model do
   end
 
   context 'boardgames' do
-    it 'new is invalid when has a no returned loans at event' do
-      boardgame = create(:boardgame)
-      create(:loan, boardgame: boardgame, returned_at: nil)
+    it 'new is invalid when has a no returned loan at event' do
+      boardgame  = create(:boardgame)
+      event      = create(:event)
+      loan_first = create(:loan, boardgame: boardgame, event: event, returned_at: nil)
 
-      loan = build(:not_returned_loan, boardgame: boardgame)
+      loan       = build(:not_returned_loan, boardgame: boardgame, event: event)
       loan.valid?
       expect(loan.errors[:boardgame]).to include("can't be loaned if boardgame not available")
     end

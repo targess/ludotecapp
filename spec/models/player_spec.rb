@@ -60,7 +60,7 @@ RSpec.describe Player, type: :model do
     it 'is invalid with incorrect format' do
       player = build(:player, dni: "48960950A")
       player.valid?
-      expect(player.errors[:dni]).to include("is invalid")
+      expect(player.errors[:dni]).to include("is invalid dni")
     end
     it 'is invalid if with duplicates' do
       jose   = create(:player, firstname: "Jose", dni: "48960950E")
