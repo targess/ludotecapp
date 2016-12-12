@@ -66,7 +66,6 @@ $(document).on('turbolinks:load', function() {
 		var eventId  	= idFromUri($(document).context.URL);
 		var boardgameId = $('.js-loan-button').data("loanboardgameid");
 		var dni 		= $('.js-loan-form input').last().val();
-		debugger
 
 		if (loanId) {
 			$.ajax({
