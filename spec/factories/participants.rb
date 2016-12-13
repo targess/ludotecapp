@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :participant do
     confirmed    false
-    waiting_list false
+    substitute   false
     player       { FactoryGirl.create(:player) }
     tournament   { FactoryGirl.create(:tournament) }
 

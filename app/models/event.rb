@@ -3,6 +3,7 @@ class Event < ApplicationRecord
   has_and_belongs_to_many :boardgames, -> { distinct }
   has_and_belongs_to_many :players, -> { distinct }
   has_many :loans
+  has_many :tournaments
 
   validates :name, presence: true
   validates :start_date, presence: true

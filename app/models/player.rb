@@ -1,6 +1,7 @@
 class Player < ApplicationRecord
   has_and_belongs_to_many :events
   has_many :loans
+  has_many :participants
 
   validates :firstname, presence: true
   validates :lastname, presence: true
