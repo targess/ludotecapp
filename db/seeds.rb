@@ -10,7 +10,7 @@
 
 Faker::Config.locale = 'es'
 
-100.times do |i|
+200.times do |i|
 
   players = Player.create(
     dni:        Faker::DNI.dni,
@@ -27,13 +27,13 @@ end
 players_count    = Player.count
 boardgames_count = Boardgame.count
 
-5.times do |i|
+2.times do |i|
 
-  start_date = Faker::Date.between(4.days.ago, 1.days.ago)
-  end_date   = start_date + rand(2)
+  start_date = Faker::Time.between(4.days.ago, 1.days.ago, :morning)
+  end_date   = start_date + rand(2..4).days
 
   event = Event.create(
-    name:         Faker::Space.moon,
+    name:         Faker::StarWars.planet,
     start_date:   start_date,
     end_date:     end_date,
     city:         Faker::Address.city,
@@ -41,12 +41,12 @@ boardgames_count = Boardgame.count
     loans_limits:  0
     )
 
-    rand(20..50).times do
+    rand(80..120).times do
         player = Player.all[rand(players_count)]
         event.players.push(player)
     end
 
-    rand(30..50).times do
+    rand(50..80).times do
         boardgame = Boardgame.all[rand(boardgames_count)]
         event.boardgames.push(boardgame)
     end
@@ -54,7 +54,7 @@ boardgames_count = Boardgame.count
     players_event_count    = event.players.count
     boardgames_event_count = event.boardgames.count
 
-    rand(100..200).times do
+    rand(100..300).times do
         event.loans.create(
             created_at:  Faker::Time.between(start_date, start_date, :morning),
             returned_at: Faker::Time.between(start_date, start_date, :afternoon),
@@ -63,14 +63,27 @@ boardgames_count = Boardgame.count
         )
     end
     rand(10..20).times do
-            event.loans.create(
-                created_at:  Faker::Time.between(start_date, start_date, :evening),
-                returned_at: nil,
-                player:      event.players[rand(players_event_count)],
-                boardgame:   event.boardgames[rand(boardgames_event_count)]
+        event.loans.create(
+            created_at:  Faker::Time.between(start_date, start_date, :evening),
+            returned_at: nil,
+            player:      event.players[rand(players_event_count)],
+            boardgame:   event.boardgames[rand(boardgames_event_count)]
+        )
+    end
+
+    rand(2..5).times do
+        tournament = event.tournaments.create(
+            name:            Faker::StarWars.specie,
+            date:            Faker::Time.between(start_date, start_date + 12.hours, :afternoon),
+            max_competitors: rand(8..16),
+            max_substitutes: rand(6..10),
+            minage:          8,
+            boardgame:       event.boardgames[rand(boardgames_event_count)]
+        )
+        rand(10..20).times do
+            tournament.participants.create(
+                player: event.players[rand(players_event_count)]
             )
         end
-
+    end
 end
-
-
