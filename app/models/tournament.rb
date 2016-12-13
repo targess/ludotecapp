@@ -10,6 +10,14 @@ class Tournament < ApplicationRecord
     max_competitors + max_substitutes
   end
 
+  def get_competitors
+    participants.where(substitute: false)
+  end
+
+  def get_substitutes
+    participants.where(substitute: true)
+  end
+
   private
 
   def date_must_be_at_event_range

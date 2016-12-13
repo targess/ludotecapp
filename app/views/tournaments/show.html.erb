@@ -14,11 +14,11 @@
 					</div>
 					<div class="col-xs-4">
 						<p>Participantes</p>
-						<h3 class="m0 text-inherit"><%= @competitors.count %> / <%= @tournament.max_competitors %></h3>
+						<h3 class="m0 text-inherit"><%= paint_participants(@competitors.count, @tournament.max_competitors) %></h3>
 					</div>
 					<div class="col-xs-4">
 						<p>Reservas</p>
-						<h3 class="m0 text-inherit"><%= @substitutes.count %> / <%= @tournament.max_substitutes %></h3>
+						<h3 class="m0 text-inherit"><%= paint_participants(@substitutes.count, @tournament.max_substitutes) %></h3>
 					</div>
 				</div>
 				<hr>

@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     patch '/boardgames/:id/add', to: 'boardgames#add', as: 'add_boardgame'
     patch '/boardgames/:id/del', to: 'boardgames#del', as: 'del_boardgame'
     resources :boardgames, only: [ :index, :show ]
-    resources :tournaments, only: [:index, :show, :edit]
+    resources :tournaments, except: [:new, :edit] do
+      get :autocomplete_boardgame_name, :on => :collection
+    end
   end
 
   namespace :admin do

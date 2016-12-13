@@ -16,22 +16,6 @@
 @import "bootstrap";
 @import "angle/*";
 @import "font-awesome";
-@import 'bootstrap-datetimepicker';
+@import "bootstrap-datetimepicker";
+@import "*"
 // @import "angle/**/*"
-
-.topnavbar .navbar-header {
-	background-image: #E6332A;
-	background-image: linear-gradient(to right, #E6332A 0%, #E6332A 100%);
-
-}
-
-.topnavbar .nav-wrapper {
-background-image: #E6332A;
-background-image: linear-gradient(to right, #E6332A 0%, #E6332A 100%);
-
-}
-
-.topnavbar {
-background-image: #E6332A;
-background-image: linear-gradient(to right, #E6332A 0%, #E6332A 100%);
-}

@@ -3,7 +3,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
 
-            <%= form_for([@event, @tournament], html: {class: "form-horizontal"}) do |f| %>
+            <%= form_for([@event, @tournament], html: {id: "search-boardgame", class: "form-horizontal"}) do |f| %>
                 <% if @tournament.errors.any? %>
                 <div class="alert bg-danger-light alert-dismissible fade in">
                     <button type="button" data-dismiss="alert" aria-label="Close" class="close">
@@ -30,7 +30,11 @@
                 <div class="form-group">
                     <%= f.label :juego, {class: "col-lg-2 control-label" } %>
                     <div class="col-lg-10">
-                        <%= f.text_field :boardgame, {class: "form-control"} %>  
+                    <%= f.hidden_field :boardgame_id, id: 'my_boardgame_id' %>
+                        <%= f.autocomplete_field :boardgame, 
+                        autocomplete_boardgame_name_event_tournaments_path,
+                        id_element: '#my_boardgame_id', 
+                        class: "form-control" %>
                     </div>
                 </div>
                 <div class="form-group">
@@ -76,3 +80,4 @@
         </div>
     </div>
 </div>
+
