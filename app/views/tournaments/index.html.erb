@@ -1,0 +1,28 @@
+<div class="content-heading">      
+   Torneos - <%= @event.name %>
+   <%= link_to 'Volver', event_path(@event), { class: "mb-lg btn btn-default btn-lg pull-right" } %>
+</div>
+<div>
+   <div class="panel panel-default">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs nav-justified mb-xl" role="tablist">
+         <li role="presentation"><a href="#new" aria-controls="new" role="tab" data-toggle="tab">Nuevo</a></li>
+         <li role="presentation" class="active"><a href="#list" aria-controls="list" role="tab" data-toggle="tab">Torneos</a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+         <div role="tabpanel" class="tab-pane" id="new">
+            <div class="row">
+                  <%= render 'form' %>     
+            </div>
+         </div>
+         <div role="tabpanel" class="tab-pane active" id="list">
+            <div class="row">
+               <div class="col-sm-12">
+                  <%= render partial: 'tournaments_list', locals: { tournaments: @tournaments } %>     
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

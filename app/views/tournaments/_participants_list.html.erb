@@ -1,0 +1,25 @@
+<div class="panel">
+   <div class="panel-heading"></div>
+   <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+         <thead>
+            <tr>
+               <th>#</th>
+               <th>DNI</th>
+               <th>Nombre</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            <% participants.each_with_index do |participant, index| %>
+               <tr>
+                  <td><%= index+1 %></td>
+                  <td><%= participant.player[:dni] %></td>
+                  <td><%= participant.player.name %></td>
+                  <td></td>
+               </tr>
+            <% end %>
+         </tbody>
+      </table>
+   </div>
+</div>

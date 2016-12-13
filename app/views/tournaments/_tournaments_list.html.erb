@@ -1,0 +1,44 @@
+<div class="panel">
+   <div class="panel-heading"></div>
+   <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+         <thead>
+            <tr>
+               <th>#</th>
+               <th>Portada</th>
+               <th>Nombre</th>
+               <th>juego</th>
+               <th>Fecha</th>
+               <th>Participantes</th>
+               <th>Lista de espera</th>
+               <th>Edad</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+
+            <% tournaments.each_with_index do |tournament, index| %>
+            <tr>
+               <td><%= index+1 %></td>
+               <td>
+                  <div class="media">
+                  <%= img_boardgame(tournament.boardgame) %>
+                  </div>
+               </td>
+               <td><%= tournament[:name] %></td>
+               <td><%= tournament.boardgame[:name] %></td>
+               <td><%= beauty_date(tournament[:date]) %></td>
+               <td><%= tournament[:max_competitors] %></td>
+               <td><%= tournament[:max_substitutes] %></td>
+               <td><%= tournament[:minage] %></td>
+               <td>
+                  <%= link_to 'Mostrar', event_tournament_path(@event, tournament), { class: "btn btn-default btn-sm bg-gray-lighter" } %>
+                  <%= link_to '', edit_event_tournament_path(@event, tournament), { class: "btn btn-success btn-sm bg-success-light fa fa-pencil" } %>  
+               </td>
+            </tr>
+            <% end %>
+
+         </tbody>
+      </table>
+   </div>
+</div>

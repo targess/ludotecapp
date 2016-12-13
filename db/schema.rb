@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212174850) do
+ActiveRecord::Schema.define(version: 20161213092936) do
 
   create_table "boardgames", force: :cascade do |t|
     t.string   "name"
@@ -65,11 +65,11 @@ ActiveRecord::Schema.define(version: 20161212174850) do
 
   create_table "participants", force: :cascade do |t|
     t.boolean  "confirmed"
-    t.boolean  "substitute"
+    t.boolean  "substitute",    default: false
     t.integer  "player_id"
     t.integer  "tournament_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.index ["player_id"], name: "index_participants_on_player_id"
     t.index ["tournament_id"], name: "index_participants_on_tournament_id"
   end

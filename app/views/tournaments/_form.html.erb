@@ -1,0 +1,78 @@
+<div class="col-sm-12">
+<!-- START panel-->
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <%= form_for([@event, @tournament], html: {class: "form-horizontal"}) do |f| %>
+                <% if @tournament.errors.any? %>
+                <div class="alert bg-danger-light alert-dismissible fade in">
+                    <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <div id="error_explanation">
+                        <h2><%= pluralize(@tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
+
+                        <ul>
+                            <% @tournament.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+                <% end %>
+
+                <div class="form-group">
+                    <%= f.label :nombre, {class: "col-lg-2 control-label"} %>
+                    <div class="col-lg-10">
+                        <%= f.text_field :name, {class: "form-control js-dni-autocomplete" } %>  
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.label :juego, {class: "col-lg-2 control-label" } %>
+                    <div class="col-lg-10">
+                        <%= f.text_field :boardgame, {class: "form-control"} %>  
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.label :fecha, {class: "col-lg-2 control-label"} %>
+                    <div class="col-lg-10">
+                        <%= f.datetime_select :date, {class: "form-control"} %>  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <%= f.label :máximo_participantes, {class: "col-lg-7 control-label"} %>
+                                <div class="col-lg-5">
+                                    <%= f.number_field :max_competitors, {class: "form-control"} %>  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <%= f.label :máximo_reservas, {class: "col-lg-7 control-label"} %>
+                                <div class="col-lg-5">
+                                    <%= f.number_field :max_substitutes, {class: "form-control"} %>  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <%= f.label :edad_minima, {class: "col-lg-7 control-label"} %>
+                                <div class="col-lg-5">
+                                    <%= f.number_field :minage, {class: "form-control"} %>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <%= f.button "Guardar cambios", {class: "btn btn-lg btn-primary"} %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

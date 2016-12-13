@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :tournaments
   resources :events do
     get   '/players/show_by_dni', to: 'players#show_by_dni'
     resources :players, except: [ :new, :destroy ]
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
     patch '/boardgames/:id/add', to: 'boardgames#add', as: 'add_boardgame'
     patch '/boardgames/:id/del', to: 'boardgames#del', as: 'del_boardgame'
     resources :boardgames, only: [ :index, :show ]
+    resources :tournaments, only: [:index, :show, :edit]
   end
 
   namespace :admin do

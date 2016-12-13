@@ -33,7 +33,7 @@ boardgames_count = Boardgame.count
   end_date   = start_date + rand(2..4).days
 
   event = Event.create(
-    name:         Faker::StarWars.planet,
+    name:         Faker::Space.moon,
     start_date:   start_date,
     end_date:     end_date,
     city:         Faker::Address.city,
@@ -73,7 +73,7 @@ boardgames_count = Boardgame.count
 
     rand(2..5).times do
         tournament = event.tournaments.create(
-            name:            Faker::StarWars.specie,
+            name:            Faker::Space.galaxy,
             date:            Faker::Time.between(start_date, start_date + 12.hours, :afternoon),
             max_competitors: rand(8..16),
             max_substitutes: rand(6..10),

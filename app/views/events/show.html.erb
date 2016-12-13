@@ -82,12 +82,12 @@
                   <em class="fa fa-handshake-o fa-5x"></em>
                </div>
                <div class="col-xs-9 text-right">
-                  <div class="text-lg">13</div>
+                  <div class="text-lg"><%= @tournaments_count %></div>
                   <p class="m0">Torneos</p>
                </div>
             </div>
          </div>
-         <a href="#" class="panel-footer bg-gray-dark bt0 clearfix btn-block">
+         <a href=<%= event_tournaments_path(@event) %> class="panel-footer bg-gray-dark bt0 clearfix btn-block">
             <span class="pull-left">Entrar</span>
             <span class="pull-right">
                <em class="fa fa-chevron-circle-right"></em>
