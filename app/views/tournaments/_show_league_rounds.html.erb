@@ -1,0 +1,45 @@
+<% if @league_rounds.present? %>
+
+   <div class="panel widget">
+      <div class="panel-heading text-center">
+      </div>
+      <div class="panel-body text-center">
+         <div class="row">
+            <h3>Modo Liga</h3>
+         <hr>            
+         </div>
+
+
+         <% @league_rounds[:home].each_with_index do |round, index| %>
+            <div class="col-lg-4">
+               <div class="panel panel-default">
+                  <div class="panel-heading"> <h4 class="text-center"">Ronda <%= index + 1%></h4></div>
+                  <div class="table-responsive">
+                     <table class="table table-striped">
+                        <thead>
+                           <tr>
+                              <th>#</th>
+                              <th>Local</th>
+                              <th></th>
+                              <th>Visitante</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <% round.each_with_index do |match, match_index| %>
+                              <tr>
+                                 <td><%= match_index +1 %></td>
+                                 <td><i class="fa fa-user-o"> </i> <%= match[0].player.name %></td>
+                                 <td><i class="fa fa-exchange" aria-hidden="true"></i></td>
+                                 <td><i class="fa fa-user"> </i> <%= match[1].player.name %></td>
+                              </tr>
+                           <% end %>
+                        </tbody>
+                     </table>
+                  </div> 
+               </div>
+            </div>
+         <% end %>
+         
+      </div>
+   </div>
+<% end %>

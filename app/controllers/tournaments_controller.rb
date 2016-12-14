@@ -9,11 +9,13 @@ class TournamentsController < ApplicationController
   end
 
   def show
-    @tournament  = @event.tournaments.find_by(id: params[:id])
-    @boardgame   = @tournament.boardgame
-    @competitors = @tournament.get_competitors
-    @substitutes = @tournament.get_substitutes
-    @participant = @tournament.participants.new
+    @tournament    = @event.tournaments.find_by(id: params[:id])
+    @boardgame     = @tournament.boardgame
+    @competitors   = @tournament.get_competitors
+    @substitutes   = @tournament.get_substitutes
+    @participant   = @tournament.participants.new
+    @confirmed     = @tournament.get_confirmed
+    @league_rounds = @tournament.league_system(@confirmed) if @confirmed.present?
   end
 
   def create
@@ -65,6 +67,14 @@ class TournamentsController < ApplicationController
 
     @tournament.participants.destroy(@participant)
     redirect_to event_tournament_path(@event, @tournament), notice: 'Jugador eliminado del torneo.'
+  end
+
+  def confirm
+    @tournament  = @event.tournaments.find_by(id: params[:tournament_id])
+    @participant = @tournament.participants.find_by(id: params[:id])
+    @participant.toggle_confirmed
+    @participant.save
+    redirect_to event_tournament_path(@event, @tournament), notice: 'Jugador confirmado.'
   end
 
   private

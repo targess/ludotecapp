@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214102836) do
+ActiveRecord::Schema.define(version: 20161214185001) do
 
   create_table "boardgames", force: :cascade do |t|
     t.string   "name"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20161214102836) do
   end
 
   create_table "participants", force: :cascade do |t|
-    t.boolean  "confirmed"
+    t.boolean  "confirmed",     default: false
     t.boolean  "substitute",    default: false
     t.integer  "player_id"
     t.integer  "tournament_id"

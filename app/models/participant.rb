@@ -9,6 +9,10 @@ class Participant < ApplicationRecord
   before_save    :supplent_when_competitors_reached, on: :create
   after_destroy :supplent_to_competitor_whe_competitor_destroyed
 
+  def toggle_confirmed
+    self.confirmed ? (self.confirmed = false) : (self.confirmed = true)
+  end
+
   private
 
   def max_participants_rearched

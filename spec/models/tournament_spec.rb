@@ -60,6 +60,13 @@ RSpec.describe Tournament, type: :model do
     end
   end
 
+  context 'Participants' do
+    pending 'gives a list of competitors'
+    pending 'gives a list of substitutes'
+    pending 'gives a list of confirmed'
+    pending 'gives a list of league system rounds and matches form participants'
+  end
+
   describe 'Associations' do
     it 'belongs to boardgame' do
       association = described_class.reflect_on_association(:boardgame)

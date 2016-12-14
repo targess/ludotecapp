@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get :autocomplete_player_dni, :on => :collection
       patch '/participants/:id/del', to: 'tournaments#del', as: 'del_participant'
       patch '/participants/:id/add', to: 'tournaments#add', as: 'add_participant'
+      patch '/participants/:id/confirm', to: 'tournaments#confirm', as: 'confirm_participant'
 
     end
 

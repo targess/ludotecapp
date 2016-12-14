@@ -18,6 +18,41 @@ class Tournament < ApplicationRecord
     participants.where(substitute: true)
   end
 
+  def get_confirmed
+    participants.where(confirmed: true)
+  end
+
+  def league_system(my_teams = get_confirmed)
+    teams             = my_teams.to_a
+    rounds            = {}
+    rounds[:home]     = []
+    rounds[:away]     = []
+    number_of_rounds  = teams.length - 1
+    number_of_matches = teams.length / 2
+
+    number_of_rounds.times do
+      matches_home = []
+      matches_away = []
+
+      number_of_matches.times do |index|
+        team_1 = teams[index]
+        team_2 = teams[number_of_rounds - index]
+
+        matches_home << [team_1, team_2]
+        matches_away << [team_2, team_1]
+      end
+
+      rounds[:home] << matches_home
+      rounds[:away] << matches_away
+
+      # rotate teams
+      last = teams.pop
+      teams.insert(1, last)
+    end
+
+    return rounds
+  end
+
   private
 
   def date_must_be_at_event_range

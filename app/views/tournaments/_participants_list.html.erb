@@ -17,8 +17,19 @@
                   <td><%= participant.player[:dni] %></td>
                   <td><%= participant.player.name %></td>
                   <td>
-                     <%= link_to '', event_tournament_del_participant_path(@event, @tournament, participant), 
-                     { class: "btn btn-danger btn-sm fa fa-minus", method: :patch, 
+                     <%= link_to_unless participant.confirmed?, " Confirmar", 
+                     event_tournament_confirm_participant_path(@event, @tournament, participant), 
+                     { class: "btn btn-default bg-gray-light btn-sm fa fa-user-plus", method: :patch } do
+
+                        link_to " Deshacer", 
+                        event_tournament_confirm_participant_path(@event, @tournament, participant), 
+                        { class: "btn btn-default bg-gray-light btn-sm fa fa-user-times", method: :patch }
+
+                     end %>
+
+                     <%= link_to '', 
+                     event_tournament_del_participant_path(@event, @tournament, participant), 
+                     { class: "btn btn-danger bg-danger-light btn-sm fa fa-minus pull-right", method: :patch, 
                         data: { 
                            confirm: "Esto eliminará a #{participant.player.name} del torneo, ¿estás seguro?" } } %>
                   </td>
