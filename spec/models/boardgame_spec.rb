@@ -16,6 +16,9 @@ describe Boardgame do
     expect(boardgame.errors[:maxplayers]).to include("can't be blank")
   end
 
+  pending 'is invalid with higher than 13 numbers barcode'
+  pending 'is invalid with higher than 5 chars internalcode'
+
   context 'BggParser' do
     describe 'Search a boardgame' do
       it 'returns an array when does a valid search' do

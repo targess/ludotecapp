@@ -101,6 +101,9 @@ RSpec.describe Loan, type: :model do
     end
 
     pending 'cant be loaned or added to event if has present loan on another event'
+    pending 'returns boardgames coincidences if name includes search text'
+    pending 'returns boardgame coincidence with search text if barcode with match exact'
+    pending 'returns boardgame coincidence with search text if internalcode with match exact'
   end
 
   describe 'Associations' do
