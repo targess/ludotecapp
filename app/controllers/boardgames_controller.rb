@@ -4,7 +4,6 @@ class BoardgamesController < ApplicationController
   def index
     @boardgames              = @event.boardgames.order(name: :asc).to_a
     @boardgames_not_included = Boardgame.where.not(id: @boardgames)
-
   end
 
   def show
@@ -24,7 +23,7 @@ class BoardgamesController < ApplicationController
       format.json { render json: {
                     attributes: @boardgame,
                     loan:       loan_json
-                  }}
+      }}
     end
   end
 

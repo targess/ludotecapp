@@ -2,12 +2,13 @@ class LoansController < ApplicationController
   before_action :find_event
 
   def index
-    @loan = Loan.new
+    @loan  = Loan.new
     @loans = @event.loans.ordered_loans
 
     # Pending to move to correct model
     if params[:search].present?
       keyword = params[:search][:keywords]
+
       if keyword.length == 13 && (Float(keyword) rescue nil)
         @boardgames  = Boardgame.search_by_barcode(keyword, @event)
       elsif keyword.length == 5 && keyword.match(/^[a-zA-Z]{2}\d{3}/)
@@ -22,8 +23,8 @@ class LoansController < ApplicationController
 
   def create
     player = @event.players.find_by(dni: params[:dni])
-    if player
 
+    if player
       @loan = @event.loans.new(boardgame_id: params[:loan][:boardgame_id], player: player)
 
       if @loan.save
@@ -38,6 +39,7 @@ class LoansController < ApplicationController
 
   def return
     @loan = @event.loans.find_by(id: params[:id])
+
     if @loan.return
       redirect_to event_loans_url(@event), notice: 'Loan was successfully returned.'
     else

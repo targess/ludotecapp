@@ -37,66 +37,59 @@ RSpec.describe Loan, type: :model do
   pending 'returns a list of loans by date, with not returned_at first (ordered_loans)'
 
   context 'players' do
+    before(:each) do
+      @player    = create(:player)
+      @boardgame = create(:boardgame)
+    end
     it 'is valid when player has all loans returned' do
-      player    = create(:player)
       event     = create(:event)
-      boardgame = create(:boardgame)
-      loan      = build(:not_returned_loan, player: player, event: event, boardgame: boardgame)
+      loan      = build(:not_returned_loan, player: @player, event: event, boardgame: @boardgame)
       expect(loan).to be_valid
     end
     it 'is valid when player hasnt rearched max event concurrent loans' do
-      player    = create(:player)
       event     = create(:event, loans_limits: 1 )
-      boardgame = create(:boardgame, name: 'Los Colonos de Catan')
-      loan 		= build(:not_returned_loan, player: player, event: event, boardgame: boardgame)
-
+      loan 		  = build(:not_returned_loan, player: @player, event: event, boardgame: @boardgame)
       expect(loan).to be_valid
     end
     it 'is invalid when player has rearched max event concurrent loans' do
-      player    = create(:player)
       event     = create(:event, loans_limits: 1 )
-      catan     = create(:boardgame, name: 'Los Colonos de Catan')
-      create(:not_returned_loan, player: player, event: event, boardgame: catan)
+      create(:not_returned_loan, player: @player, event: event, boardgame: @boardgame)
 
-      carcassonne = create(:boardgame, name: 'Carcassonne')
-      loan        = build(:not_returned_loan, player: player, event: event, boardgame: carcassonne)
+      catan       = create(:boardgame, name: 'Los Colonos de Catan')
+      loan        = build(:not_returned_loan, player: @player, event: event, boardgame: catan)
       loan.valid?
       expect(loan.errors[:player]).to include ('max loans rearched')
     end
     it 'is valid when max concurrent loans has no limits (is cero)' do
-      player    = create(:player)
       event     = create(:event, loans_limits: 0 )
-      boardgame = create(:boardgame)
-      loan 		= build(:not_returned_loan, player: player, event: event, boardgame: boardgame)
-
+      loan 		  = build(:not_returned_loan, player: @player, event: event, boardgame: @boardgame)
       expect(loan).to be_valid
     end
-
   end
 
   context 'boardgames' do
+    before(:each) do
+      @boardgame  = create(:boardgame)
+    end
     it 'new is invalid when has a no returned loan at event' do
-      boardgame  = create(:boardgame)
       event      = create(:event)
-      loan_first = create(:loan, boardgame: boardgame, event: event, returned_at: nil)
+      loan_first = create(:loan, boardgame: @boardgame, event: event, returned_at: nil)
 
-      loan       = build(:not_returned_loan, boardgame: boardgame, event: event)
+      loan       = build(:not_returned_loan, boardgame: @boardgame, event: event)
       loan.valid?
       expect(loan.errors[:boardgame]).to include("can't be loaned if boardgame not available")
     end
 
     it 'return is valid when is the current loan' do
       Timecop.travel Time.parse("2/1/2016")
-      boardgame = create(:boardgame)
-      loan      = create(:not_returned_loan, boardgame: boardgame, created_at: '1/1/2016')
+      loan      = create(:not_returned_loan, boardgame: @boardgame, created_at: '1/1/2016')
       loan.return
       expect(loan).to be_valid
       Timecop.return
     end
 
     it 'new is valid when has all loans returned' do
-      boardgame = create(:boardgame)
-      loan = build(:not_returned_loan, boardgame: boardgame)
+      loan = build(:not_returned_loan, boardgame: @boardgame)
       expect(loan).to be_valid
     end
 

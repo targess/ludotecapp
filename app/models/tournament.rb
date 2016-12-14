@@ -28,5 +28,4 @@ class Tournament < ApplicationRecord
       errors.add(:date, "can't be afer event end date")
     end
   end
-
 end

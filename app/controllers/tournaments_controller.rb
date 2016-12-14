@@ -1,9 +1,8 @@
 class TournamentsController < ApplicationController
   autocomplete :boardgame, :name, full: true, limit: 20, extra_data: [:thumbnail]
   autocomplete :player, :dni, limit: 20, extra_data: [:firstname, :lastname], display_value: :get_dni_and_name
-
-
   before_action :find_event
+
   def index
     @tournaments = @event.tournaments.all
     @tournament  = @event.tournaments.new
@@ -20,6 +19,7 @@ class TournamentsController < ApplicationController
   def create
     @tournaments = @event.tournaments.all
     @tournament  = @event.tournaments.new(tournament_params)
+
     if @event.save
       redirect_to [@event, @tournament], notice: 'Tournament was successfully created.'
     else
@@ -33,6 +33,7 @@ class TournamentsController < ApplicationController
 
   def update
     @tournament = @event.tournaments.find_by(id: params[:id])
+
     if @tournament.update(tournament_params)
       redirect_to [@event, @tournament], notice: 'Tournament was successfully updated.'
     else
@@ -44,8 +45,8 @@ class TournamentsController < ApplicationController
     @tournaments = @event.tournaments.all
     @tournament  = @event.tournaments.find_by(id: params[:tournament_id])
     player       = @event.players.find_by(id: params[:search][:player_id])
-    if player
 
+    if player
       @participant = @tournament.participants.new({player_id: params[:search][:player_id]})
 
       if @participant.save
@@ -54,7 +55,7 @@ class TournamentsController < ApplicationController
         redirect_to event_tournament_path(@event, @tournament), alert: 'El jugador no pudo ser añadido. Puede que ya esté en el torneo, o no existan más plazas libres'
       end
     else
-        redirect_to event_tournament_path(@event, @tournament), alert: 'DNI no válido, no se pudo añadir al jugador al torneo.'
+      redirect_to event_tournament_path(@event, @tournament), alert: 'DNI no válido, no se pudo añadir al jugador al torneo.'
     end
   end
 
@@ -69,13 +70,13 @@ class TournamentsController < ApplicationController
   private
 
     def get_autocomplete_items(parameters)
-     items = active_record_get_autocomplete_items(parameters)
-     if parameters[:model]    == Boardgame
-       @event.boardgames & items
-     elsif parameters[:model] == Player
-       @event.players & items
-     end
+      items = active_record_get_autocomplete_items(parameters)
 
+      if parameters[:model]    == Boardgame
+       @event.boardgames & items
+      elsif parameters[:model] == Player
+       @event.players & items
+      end
     end
 
     def tournament_params

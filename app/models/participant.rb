@@ -38,5 +38,4 @@ class Participant < ApplicationRecord
       end
     end
   end
-
 end

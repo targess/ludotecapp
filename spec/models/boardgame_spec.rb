@@ -29,8 +29,10 @@ describe Boardgame do
         search = Boardgame.bgg_search_by_name(' ')
         expect(search).to eq([])
       end
+
       pending 'returns an empty array when gives less than four chars search'
     end
+
     describe 'Get from bgg id' do
       it 'returns a hash when inputs a valid integer' do
         get_boardgame = Boardgame.bgg_get_by_id('1')
@@ -45,6 +47,7 @@ describe Boardgame do
         expect(get_boardgame).to be nil
       end
     end
+
     describe 'Search BGG Collection' do
       it 'returns an array when request a valid collection' do
         get_collection = Boardgame.bgg_get_collection('targess')
@@ -53,40 +56,37 @@ describe Boardgame do
       it 'returns an empty array when collection not found' do
         get_collection = Boardgame.bgg_get_collection('sksdjfñklasdjnxcvaksñfn')
         expect(get_collection).to eq([])
-
       end
     end
   end
+
   context 'Import from BGG' do
+
     pending '#new_from_bgg_id'
     pending '#import_from_bgg_collection'
   end
 
   context 'Loans' do
+    before(:each) do
+      @boardgame = create(:boardgame)
+      @event     = create(:event)
+    end
     it 'returns true state (free) when all loans returned' do
-      boardgame = create(:boardgame)
-      expect(boardgame.free_to_loan?).to eq(true)
+      expect(@boardgame.free_to_loan?).to eq(true)
     end
     it 'returns false state (loaned) when has an active loan' do
-      boardgame = create(:boardgame)
-      event     = create(:event)
-      loan      = create(:not_returned_loan, boardgame: boardgame, event: event)
-
-      expect(boardgame.free_to_loan?).to eq(false)
+      loan      = create(:not_returned_loan, boardgame: @boardgame, event: @event)
+      expect(@boardgame.free_to_loan?).to eq(false)
     end
 
     it 'returns not returned loans from an event' do
-      boardgame = create(:boardgame)
-      event     = create(:event)
-      loan      = create(:not_returned_loan, boardgame: boardgame, event: event)
-      expect(boardgame.active_loans(event)).to eq([loan])
+      loan      = create(:not_returned_loan, boardgame: @boardgame, event: @event)
+      expect(@boardgame.active_loans(@event)).to eq([loan])
     end
 
     it 'returns empty array if in case all loans returned' do
-      boardgame = create(:boardgame)
-      event     = create(:event)
-      loan      = create(:loan, boardgame: boardgame, event: event)
-      expect(boardgame.active_loans(event)).to eq([])
+      loan      = create(:loan, boardgame: @boardgame, event: @event)
+      expect(@boardgame.active_loans(@event)).to eq([])
     end
   end
 
@@ -118,8 +118,8 @@ describe Boardgame do
       expect(@boardgame.at_event?(@event)).not_to be_truthy
     end
 
-    pending 'add'
-    pending 'delete'
+    pending 'add boardgame to event'
+    pending 'delete boardgame from event'
   end
 
 end

@@ -25,7 +25,7 @@ class Admin::BoardgamesController < ApplicationController
   end
 
   def import_from_bgg
-    @boardgame  = Boardgame.new
+    @boardgame = Boardgame.new
     if params[:search].present?
       @boardgames = Boardgame.bgg_search_by_name(params[:search][:keywords])
     else
@@ -57,11 +57,9 @@ class Admin::BoardgamesController < ApplicationController
     redirect_to admin_boardgames_path
   end
 
-
   private
 
     def boardgame_params
       params.require(:boardgame).permit(:name, :thumbnail, :image, :description, :minplayers, :maxplayers, :playingtime, :minage, :bgg_id, :barcode, :internalcode)
     end
-
 end

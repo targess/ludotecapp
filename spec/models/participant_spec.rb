@@ -39,12 +39,12 @@ RSpec.describe Participant, type: :model do
 
   context 'Tournament' do
     it 'is participant when max competitors arent rearched' do
-      tournament = create(:tournament, max_competitors: 1)
+      tournament  = create(:tournament, max_competitors: 1)
       participant = create(:participant, tournament: tournament)
       expect(participant.substitute).to be(false)
     end
     it 'is substitute when max competitors are rearched' do
-      tournament = create(:tournament, max_competitors: 1)
+      tournament  = create(:tournament, max_competitors: 1)
       create(:participant, tournament: tournament)
       participant = create(:participant, tournament: tournament)
       expect(participant.substitute).to be(true)
@@ -87,6 +87,7 @@ RSpec.describe Participant, type: :model do
       expect(participant.errors[:tournament]).to include ("player under minimal age")
       Timecop.return
     end
+
     pending 'is valid if are at same event'
     pending 'is invalid if arent in same event'
     pending 'is ready to compete when marked as confirmed'

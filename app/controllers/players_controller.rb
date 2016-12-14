@@ -25,7 +25,7 @@ class PlayersController < ApplicationController
 
   def create
     @players = @event.players.all
-    @player = @event.players.new(player_params)
+    @player  = @event.players.new(player_params)
     if @event.save
       redirect_to [@event, @player], notice: 'User was successfully created.'
     else
@@ -35,7 +35,6 @@ class PlayersController < ApplicationController
 
   def update
     @player = @event.players.find_by(id: params[:id])
-
     unless @player
       @player = Player.find_by(id: params[:id])
       @event.players.push(@player)
