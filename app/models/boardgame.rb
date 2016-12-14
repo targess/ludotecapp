@@ -47,12 +47,12 @@ class Boardgame < ApplicationRecord
   private
 
     def self.bgg_search_by_name(name = "los colonos de catan")
-      return [] if name.match(/^\s*$/)
+      return [] if name.match(/^\s*$/) && name.length <= 3
       searched_boardgames = BggApi::search("query=#{name}")
       return [] unless searched_boardgames['total'].to_i > 0
 
       searched_boardgames['item'].map do |boardgame|
-        [boardgame["id"], boardgame["name"].first["value"]]
+        {id: boardgame["id"], name: boardgame["name"].first["value"]}
       end
     end
 
@@ -71,9 +71,9 @@ class Boardgame < ApplicationRecord
       end
     end
 
-    def self.create_from_bgg_id(id, name=nil)
+    def self.new_from_bgg_id(id, name=nil)
       boardgame = self.bgg_get_by_id(id)
-      my_boardgame = Boardgame.new(
+      Boardgame.new(
         name:        name || boardgame['name'].first['value'],
         image:       'http://'+boardgame['image'].first[2..-1],
         thumbnail:   'http://'+boardgame['thumbnail'].first[2..-1],
@@ -83,13 +83,13 @@ class Boardgame < ApplicationRecord
         playingtime: boardgame['playingtime'].first['value'],
         minage:      boardgame['minage'].first['value'],
         bgg_id:      boardgame['id'])
-      my_boardgame.save
     end
 
     def self.import_from_bgg_collection(username)
       collection = bgg_get_collection(username)
       collection.each do |boardgame|
-        create_from_bgg_id(boardgame[:id], boardgame[:name])
+        boardgame = new_from_bgg_id(boardgame[:id], boardgame[:name])
+        boardgame.save
         sleep(0.5)
       end
     end

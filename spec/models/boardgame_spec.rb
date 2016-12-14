@@ -29,6 +29,7 @@ describe Boardgame do
         search = Boardgame.bgg_search_by_name(' ')
         expect(search).to eq([])
       end
+      pending 'returns an empty array when gives less than four chars search'
     end
     describe 'Get from bgg id' do
       it 'returns a hash when inputs a valid integer' do
@@ -49,8 +50,6 @@ describe Boardgame do
         get_collection = Boardgame.bgg_get_collection('targess')
         expect(get_collection).to be_a_kind_of(Array)
       end
-      pending 'returns an array with status 202 when recibes a 202 response'
-
       it 'returns an empty array when collection not found' do
         get_collection = Boardgame.bgg_get_collection('sksdjfñklasdjnxcvaksñfn')
         expect(get_collection).to eq([])
@@ -59,7 +58,7 @@ describe Boardgame do
     end
   end
   context 'Import from BGG' do
-    pending '#create_from_bgg_id'
+    pending '#new_from_bgg_id'
     pending '#import_from_bgg_collection'
   end
 

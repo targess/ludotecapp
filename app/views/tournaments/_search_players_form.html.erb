@@ -17,12 +17,12 @@
 	<% end %>
 
 	<div class="col-lg-8 col-lg-offset-2">
-		<div class="input-group input-group-lg mb-xl"> 
+		<div class="input-group input-group-lg mt-xl"> 
             <%= f.hidden_field :player_id, id: 'my_player_id' %>
 			<%= f.autocomplete_field :player, 
                 autocomplete_player_dni_event_tournaments_path,
                 id_element: '#my_player_id', 
-                 class: "form-control" %>
+                 class: "form-control", placeholder: "Introduzca DNI del nuevo participante" %>
 			<span class="input-group-btn">
 				<%= f.button "Añadir", {class: "btn btn-default"} %>
 			</span>

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :players
+    get  '/boardgames/import_from_bgg',         to: 'boardgames#import_from_bgg'
+    post '/boardgames/create_from_bgg/:id', to: 'boardgames#create_from_bgg', as: 'boardgames_create_from_bgg'
     resources :boardgames
   end
 

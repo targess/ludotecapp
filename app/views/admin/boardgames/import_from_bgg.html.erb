@@ -1,0 +1,18 @@
+<div class="content-heading">
+	Importar juego de mesa
+    <%= link_to 'Volver', admin_boardgames_path, { class: "mb-lg btn btn-default btn-lg pull-right" } %>
+</div>
+<div>
+    <div class="panel">
+        <div class="row">
+        	<div class="col-lg-12">
+	            <%= render 'bgg_search_form' %>
+	        </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <%= render 'bgg_search_list' %>
+            </div>        
+        </div>
+    </div>         
+</div>
