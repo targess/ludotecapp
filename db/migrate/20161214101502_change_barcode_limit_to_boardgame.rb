@@ -1,5 +1,5 @@
 class ChangeBarcodeLimitToBoardgame < ActiveRecord::Migration[5.0]
   def change
-    change_column :boardgames, :barcode, :integer, limit: 13
+    change_column :boardgames, :barcode, :string
   end
 end
