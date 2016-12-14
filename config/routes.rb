@@ -11,7 +11,12 @@ Rails.application.routes.draw do
     resources :boardgames, only: [ :index, :show ]
     resources :tournaments, except: [:new, :edit] do
       get :autocomplete_boardgame_name, :on => :collection
+      get :autocomplete_player_dni, :on => :collection
+      patch '/participants/:id/del', to: 'tournaments#del', as: 'del_participant'
+      patch '/participants/:id/add', to: 'tournaments#add', as: 'add_participant'
+
     end
+
   end
 
   namespace :admin do

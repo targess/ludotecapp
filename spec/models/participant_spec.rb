@@ -91,6 +91,7 @@ RSpec.describe Participant, type: :model do
     pending 'is invalid if arent in same event'
     pending 'is ready to compete when marked as confirmed'
     pending 'is not ready to compete when not marked as confirmed'
+    pending 'if competitor deleted first substitute is a new competitor'
   end
 
   describe 'Associations' do

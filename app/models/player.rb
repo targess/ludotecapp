@@ -22,6 +22,10 @@ class Player < ApplicationRecord
     firstname+" "+lastname
   end
 
+  def get_dni_and_name
+    dni+" | "+firstname+" "+lastname
+  end
+
   def age
     return "" unless birthday
     today = Date.today
