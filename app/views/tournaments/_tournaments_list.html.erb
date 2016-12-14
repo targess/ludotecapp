@@ -33,6 +33,7 @@
                <td><%= tournament[:minage] %></td>
                <td>
                   <%= link_to 'Mostrar', event_tournament_path(@event, tournament), { class: "btn btn-default btn-sm bg-gray-lighter" } %>
+                  <%= link_to '', edit_event_tournament_path(@event, tournament), { class: "btn btn-success bg-success-light btn-sm fa fa-pencil" } %>
                </td>
             </tr>
             <% end %>

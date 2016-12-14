@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     patch '/boardgames/:id/add', to: 'boardgames#add', as: 'add_boardgame'
     patch '/boardgames/:id/del', to: 'boardgames#del', as: 'del_boardgame'
     resources :boardgames, only: [ :index, :show ]
-    resources :tournaments, except: [:new, :edit] do
+    resources :tournaments, except: [:new] do
       get :autocomplete_boardgame_name, :on => :collection
       get :autocomplete_player_dni, :on => :collection
       patch '/participants/:id/del', to: 'tournaments#del', as: 'del_participant'

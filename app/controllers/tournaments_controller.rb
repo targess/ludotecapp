@@ -27,6 +27,10 @@ class TournamentsController < ApplicationController
     end
   end
 
+  def edit
+    @tournament  = @event.tournaments.find_by(id: params[:id])
+  end
+
   def update
     @tournament = @event.tournaments.find_by(id: params[:id])
     if @tournament.update(tournament_params)

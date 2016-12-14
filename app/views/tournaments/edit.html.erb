@@ -1,0 +1,7 @@
+<div class="content-heading">
+	Editar torneo <%= @tournament.name %> - Evento <%= @event.name %>
+	<%= link_to 'Volver', event_tournaments_path(@event), { class: "mb-lg btn btn-default btn-lg pull-right" } %>
+</div>
+<div class="row">
+	<%= render 'edit_form' %>
+</div>
