@@ -20,6 +20,30 @@ class Boardgame < ApplicationRecord
     events.find_by(id: event)
   end
 
+  def self.search_by_name(keyword, event = nil)
+    if event.present?
+      event.boardgames.where("lower(name) LIKE ?", "%#{keyword}%".downcase)
+    else
+      Boardgame.where("lower(name) LIKE ?", "%#{keyword}%".downcase)
+    end
+  end
+
+  def self.search_by_barcode(keyword, event = nil)
+    if event.present?
+      event.boardgames.where("barcode = ?", keyword)
+    else
+      Boardgame.where("barcode = ?", keyword)
+    end
+  end
+
+  def self.search_by_internalcode(keyword, event = nil)
+    if event.present?
+      event.boardgames.where("lower(internalcode) = ?", keyword.downcase)
+    else
+      Boardgame.where("lower(internalcode) = ?", keyword.downcase)
+    end
+  end
+
   private
 
     def self.bgg_search_by_name(name = "los colonos de catan")

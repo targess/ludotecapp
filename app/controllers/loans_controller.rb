@@ -5,8 +5,16 @@ class LoansController < ApplicationController
     @loan = Loan.new
     @loans = @event.loans.ordered_loans
 
+    # Pending to move to correct model
     if params[:search].present?
-      @boardgames  = @event.boardgames.where("lower(name) LIKE ?", "%#{params[:search][:keywords]}%".downcase)
+      keyword = params[:search][:keywords]
+      if keyword.length == 13 && (Float(keyword) rescue nil)
+        @boardgames  = Boardgame.search_by_barcode(keyword, @event)
+      elsif keyword.length == 5 && keyword.match(/^[a-zA-Z]{2}\d{3}/)
+        @boardgames  = Boardgame.search_by_internalcode(keyword, @event)
+      else
+        @boardgames  = Boardgame.search_by_name(keyword, @event)
+      end
     else
       @boardgames  = []
     end
