@@ -1,24 +1,37 @@
-# README
+# Ludotecapp
+Aplicación para la gestión de la ludoteca en jornadas y eventos de juegos de mesa.
+Tradicionalmente este proceso se ha realizado de forma manual, pero conforme ha ido creciendo el número de asistentes (1.700 jugadores en la última edición) se ha detectado la necesidad de automatizar los procesos para agilizar la gestión de la misma.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Funcionalidades
+Para tratar que se entienda mejor el proceso, trataremos de definir las principales funcionalidades, quedando algunas de ellas pendientes de un mayor nivel de detalle.
 
-Things you may want to cover:
+Puede acceder al desarrollo de la idea de proyecto a través del siguiente enlace:
 
-* Ruby version
+https://gist.github.com/targess/3f340914bd503e0322025850965a489f
 
-* System dependencies
+## Puesta en marcha
+Para instalar Ludotecapp debe realizar los siguientes pasos:
 
-* Configuration
+Clonar el repositorio:
+```
+git clone git@github.com:targess/ludotecapp.git
+```
 
-* Database creation
+Realizar bundle install:
+```
+% bundle
+```
 
-* Database initialization
+Realizar las migraciones correspondientes:
+```
+% rails db:migrate
+```
 
-* How to run the test suite
+Realizar una carga inicial de datos de prueba:
+```
+% rails c
+pry(main)> Boardgame.import_from_bgg_collection("targess")
+pry(main)> exit
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+%  rails db:seed
+```
