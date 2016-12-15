@@ -3,7 +3,7 @@ class BoardgamesController < ApplicationController
 
   def index
     @boardgames              = @event.boardgames.order(name: :asc).to_a
-    @boardgames_not_included = Boardgame.where.not(id: @boardgames)
+    @boardgames_not_included = Boardgame.where.not(id: @boardgames).order(name: :asc)
   end
 
   def show
