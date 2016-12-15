@@ -6,7 +6,7 @@ class Participant < ApplicationRecord
   validates_uniqueness_of :player, :scope => :tournament
   validate :max_participants_rearched, :must_have_at_least_tournament_minage, on: :create
 
-  before_save    :supplent_when_competitors_reached, on: :create
+  before_create :supplent_when_competitors_reached
   after_destroy :supplent_to_competitor_whe_competitor_destroyed
 
   def toggle_confirmed
