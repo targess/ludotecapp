@@ -22,7 +22,7 @@ class LoansController < ApplicationController
   end
 
   def create
-    player = @event.players.find_by(dni: params[:dni])
+    player = @event.players.search_by_dni(params[:dni])
 
     if player
       @loan = @event.loans.new(boardgame_id: params[:loan][:boardgame_id], player: player)

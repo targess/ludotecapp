@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
   end
 
   def show_by_dni
-    player = Player.find_by(dni: params[:dni])
+    player = Player.search_by_dni(params[:dni])
     unless player
       render json: {error: "player not found"},
       status: 404

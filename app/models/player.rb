@@ -33,6 +33,10 @@ class Player < ApplicationRecord
     day.year - birthday.year - (day > today ? 1 : 0)
   end
 
+  def self.search_by_dni(keyword)
+    Player.find_by("lower(dni) = ?", "#{keyword}".downcase)
+  end
+
   private
 
   def dni_must_have_valid_format
