@@ -12,6 +12,13 @@ function getBoardgameFromId (boardgame) {
 	boardgameAttr 	= boardgame.attributes;
 	active_loan		= boardgame.loan;
 
+	$('[data-loanid]').data("loanid", "");
+	$('.js-loan-form label').first().hide();
+	$('.js-loan-form input').first().hide();
+	$('.js-loan-form input').last().val("");
+	$('.js-loan-form input').last().prop("disabled", false);
+	$('.js-loan-form button').text('Prestar');
+
 	$('.js-loan-button').data("loanboardgameid",boardgameAttr.id);
 	$('[data-name]').text(boardgameAttr.name);
 	$('[data-playingtime]').text(boardgameAttr.playingtime+" minutes");
