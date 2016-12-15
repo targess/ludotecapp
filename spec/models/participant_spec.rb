@@ -19,7 +19,16 @@ RSpec.describe Participant, type: :model do
     competitor = build(:competitor)
     expect(competitor.confirmed).to be(true)
   end
-  pending 'can toggle from confirmed to unconfirmed'
+  it 'can toggle from unconfirmed to confirmed' do
+    participant = create(:participant, confirmed: false)
+    participant.toggle_confirmed
+    expect(participant.confirmed).to be(true)
+  end
+  it 'can toggle from confirmed to unconfirmed' do
+    participant = create(:participant, confirmed: true)
+    participant.toggle_confirmed
+    expect(participant.confirmed).to be(false)
+  end
 
   context 'player' do
     before(:each) do
