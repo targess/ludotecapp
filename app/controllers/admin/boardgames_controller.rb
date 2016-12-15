@@ -1,6 +1,6 @@
 class Admin::BoardgamesController < ApplicationController
   def index
-    @boardgames = Boardgame.page(params[:page])
+    @boardgames = Boardgame.order(name: :asc).page(params[:page])
   end
 
   def show
