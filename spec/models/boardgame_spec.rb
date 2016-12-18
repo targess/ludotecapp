@@ -122,4 +122,20 @@ describe Boardgame do
     pending 'delete boardgame from event'
   end
 
+  context 'deleted' do
+    pending 'is setted when we try to destroy it'
+    pending 'fails to be setted when arent market at DELETED when try to destroy'
+    pending 'is valid when internal code is setted as DELETED'
+    pending 'cant be displayed at boardgames lists'
+    pending 'fails when are displayed at boardgames lists'
+    pending 'cant be loaned'
+    pending 'past tournaments are displayed'
+    pending 'participants cant be added at future tournaments'
+    pending 'tournaments with deleted boardgames are recommended to be DELETED'
+    pending 'at loans lists displays only name and DNI as DELETED'
+    pending 'cant be deleted with active loans'
+    pending 'are counted at past event boardgames counts'
+    pending 'is showed at past tournaments lists'
+  end
+
 end
