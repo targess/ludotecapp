@@ -64,7 +64,8 @@ RSpec.describe Tournament, type: :model do
     pending 'gives a list of competitors'
     pending 'gives a list of substitutes'
     pending 'gives a list of confirmed'
-    pending 'gives a list of league system rounds and matches form participants'
+    pending 'gives a list of league system rounds and matches from confirmed participants'
+    pending 'gives an empty list of participants for league system when not confirmed participants'
   end
 
   describe 'Associations' do

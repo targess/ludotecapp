@@ -97,12 +97,15 @@ RSpec.describe Participant, type: :model do
       expect(participant.errors[:tournament]).to include ("player under minimal age")
       Timecop.return
     end
-
+    pending 'cant be unsuscribed from past tournaments'
+    pending 'are deleted when unsuscribed from future or present tournaments'
     pending 'is valid if are at same event'
     pending 'is invalid if arent in same event'
     pending 'is ready to compete when marked as confirmed'
     pending 'is not ready to compete when not marked as confirmed'
+    pending 'confirmed matches at league sytems '
     pending 'if competitor deleted first substitute is a new competitor'
+    pending 'fails when competitor deleted and first substitute isnt a new competitor'
   end
 
   describe 'Associations' do
