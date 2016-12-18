@@ -105,6 +105,23 @@ RSpec.describe Player, type: :model do
     end
   end
 
+  context 'deleted' do
+    pending 'is setted when we try to destroy it'
+    pending 'fails to be setted when arent market at DELTED when try to destroy'
+    pending 'is valid when firstname, lastname, email and DNI are setted to DELETED'
+    pending 'is invalid with no changes firstname to DELETED'
+    pending 'is invalid with no changes lastname to DELETED'
+    pending 'is invalid with no changes email to DELETED'
+    pending 'is invalid with no changes DNI to DELETED'
+    pending 'cant be displayed at players lists'
+    pending 'fails when are displayed at players lists'
+    pending 'at loans lists displays only name and DNI as DELETED'
+    pending 'are counted at players counts'
+    pending 'is removed from participants at future tournaments'
+    pending 'isnt removed from participants at past tournaments'
+    pending 'is showed at past tournaments lists'
+  end
+
   describe 'Associations' do
     it 'has and belongs to many events' do
       association = described_class.reflect_on_association(:events)
