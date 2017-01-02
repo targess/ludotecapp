@@ -5,6 +5,7 @@ class Participant < ApplicationRecord
   validates_presence_of :player, :tournament
   validates_uniqueness_of :player, :scope => :tournament
   validate :max_participants_rearched, :must_have_at_least_tournament_minage, on: :create
+  validate :tournament_must_have_not_deleted_boardgame
 
   before_create :supplent_when_competitors_reached
   after_destroy :supplent_to_competitor_whe_competitor_destroyed
@@ -41,5 +42,11 @@ class Participant < ApplicationRecord
         first_substitute.update(substitute: false)
       end
     end
+  end
+
+  def tournament_must_have_not_deleted_boardgame
+    return nil unless tournament.present?
+    boardgame = tournament.boardgame
+    errors.add(:tournament, "tournament with invalid boardgame") unless boardgame.deleted_at.nil?
   end
 end

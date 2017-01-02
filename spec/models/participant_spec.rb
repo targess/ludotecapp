@@ -97,6 +97,17 @@ RSpec.describe Participant, type: :model do
       expect(participant.errors[:tournament]).to include ("player under minimal age")
       Timecop.return
     end
+    it 'participants cant be added to future tournaments with deleted Boardgame' do
+      Timecop.travel Time.parse("1/01/2016")
+      boardgame   = create(:boardgame)
+      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
+      boardgame.destroy
+      participant = build(:participant, tournament: tournament)
+      participant.valid?
+      expect(participant.errors[:tournament]).to include('tournament with invalid boardgame')
+      Timecop.return
+    end
     pending 'cant be unsuscribed from past tournaments'
     pending 'are deleted when unsuscribed from future or present tournaments'
     pending 'is valid if are at same event'

@@ -49,8 +49,15 @@ gem 'kaminari'
 # easy and unobtrusive way to use jQuery's autocomplete
 gem 'rails-jquery-autocomplete'
 
+# soft delete
+gem "paranoia"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+gem "faker"
+# Faker DNI and NIE
+gem "dni_faker"
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -58,7 +65,6 @@ group :development, :test do
   # Set of gems to-do testing
   gem "rspec-rails"
   gem "factory_girl_rails"
-  gem "faker"
   gem "guard-rspec"
   gem 'spring-commands-rspec'
   gem 'rails-controller-testing'
@@ -66,9 +72,6 @@ group :development, :test do
   gem 'timecop'
 
   gem 'pry-rails'
-
-  # Faker DNI and NIE
-  gem 'dni_faker'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -86,8 +89,6 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'pg'
-  gem "faker"
-  gem 'dni_faker'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214185001) do
+ActiveRecord::Schema.define(version: 20170102184621) do
 
   create_table "boardgames", force: :cascade do |t|
     t.string   "name"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20161214185001) do
     t.datetime "updated_at",                            null: false
     t.string   "barcode",      limit: 13, default: "0"
     t.string   "internalcode",            default: "0"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_boardgames_on_deleted_at"
   end
 
   create_table "boardgames_events", id: false, force: :cascade do |t|

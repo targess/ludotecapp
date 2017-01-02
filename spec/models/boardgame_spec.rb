@@ -123,19 +123,52 @@ describe Boardgame do
   end
 
   context 'deleted' do
-    pending 'is setted when we try to destroy it'
-    pending 'fails to be setted when arent market at DELETED when try to destroy'
-    pending 'is valid when internal code is setted as DELETED'
-    pending 'cant be displayed at boardgames lists'
-    pending 'fails when are displayed at boardgames lists'
-    pending 'cant be loaned'
-    pending 'past tournaments are displayed'
-    pending 'participants cant be added at future tournaments'
-    pending 'tournaments with deleted boardgames are recommended to be DELETED'
-    pending 'at loans lists displays only name and DNI as DELETED'
-    pending 'cant be deleted with active loans'
-    pending 'are counted at past event boardgames counts'
-    pending 'is showed at past tournaments lists'
+    before(:each) do
+      @boardgame = create(:boardgame)
+      create(:loan, boardgame: @boardgame)
+      create(:tournament, boardgame: @boardgame)
+    end
+    it 'is setted when we try to destroy it' do
+      @boardgame.destroy
+      expect(@boardgame.deleted_at).to be_truthy
+    end
+    it 'fails to be setted when arent market to destroy' do
+      expect(@boardgame.deleted_at).not_to be_truthy
+    end
+    it 'is valid when internal code is setted as DELETED' do
+      @boardgame.destroy
+      expect(@boardgame.internalcode).to include('DEL')
+    end
+    it 'cant be displayed at boardgames lists' do
+      expect { @boardgame.destroy }.to change(Boardgame, :count).by(-1)
+    end
+    it 'cant be loaned' do
+      @boardgame.destroy
+      expect(@boardgame.free_to_loan?).to eq(false)
+    end
+    it 'past tournaments are displayed' do
+      @boardgame.destroy
+      tournament = build(:tournament, boardgame: @boardgame, date: "11/01/2016")
+      expect(tournament).to be_valid
+    end
+    it 'at loans lists can be displayed' do
+      loan = create(:loan, boardgame: @boardgame)
+      @boardgame.destroy
+      expect(Loan.all).to include(loan)
+    end
+    pending 'cant be deleted with active loans' do
+      create(:not_returned_loan, boardgame: @boardgame)
+      expect { @boardgame.destroy }.not_to change(Boardgame, :count)
+    end
+    it 'are counted at past event boardgames counts' do
+      event = create(:event)
+      event.boardgames.push(@boardgame)
+      expect { @boardgame.destroy }.not_to change(event.boardgames.with_deleted, :count)
+    end
+    it 'is hard deleted when has no one loans nor tournaments' do
+      boardgame = create(:boardgame)
+      expect { boardgame.destroy }.to change(Boardgame.with_deleted, :count).by(-1)
+    end
   end
 
 end
