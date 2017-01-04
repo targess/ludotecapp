@@ -62,7 +62,7 @@ class Boardgame < ApplicationRecord
   end
 
     def self.bgg_search_by_name(name = "los colonos de catan")
-      return [] if name.match(/^\s*$/) && name.length <= 3
+      return [] if name.match(/^\s*$/) || name.length <= 3
       searched_boardgames = BggApi::search("query=#{name}")
       return [] unless searched_boardgames['total'].to_i > 0
 

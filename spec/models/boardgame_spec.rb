@@ -37,8 +37,10 @@ describe Boardgame do
         search = Boardgame.bgg_search_by_name(' ')
         expect(search).to eq([])
       end
-
-      pending 'returns an empty array when gives less than four chars search'
+      it 'returns an empty array when gives less than four chars search' do
+        search = Boardgame.bgg_search_by_name('123')
+        expect(search).to eq([])
+      end
     end
 
     describe 'Get from bgg id' do
