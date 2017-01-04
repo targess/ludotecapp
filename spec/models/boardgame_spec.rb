@@ -16,8 +16,16 @@ describe Boardgame do
     expect(boardgame.errors[:maxplayers]).to include("can't be blank")
   end
 
-  pending 'is invalid with higher than 13 numbers barcode'
-  pending 'is invalid with higher than 5 chars internalcode'
+  it 'is invalid with higher than 13 numbers barcode' do
+    boardgame = build(:boardgame, barcode: "1234557890")
+    boardgame.valid?
+    expect(boardgame.errors[:barcode]).to include("is the wrong length (should be 13 characters)")
+  end
+  it 'is invalid with higher than 5 chars internalcode' do
+    boardgame = build(:boardgame, internalcode: "1234")
+    boardgame.valid?
+    expect(boardgame.errors[:internalcode]).to include("is the wrong length (should be 5 characters)")
+  end
 
   context 'BggParser' do
     describe 'Search a boardgame' do
