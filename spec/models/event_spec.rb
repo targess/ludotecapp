@@ -62,4 +62,20 @@ RSpec.describe Event, type: :model do
       expect(association.macro).to eq :has_many
     end
   end
+
+  describe "Boardgame" do
+    it "is invalid if has active loan on another event" do
+      boardgame = create(:boardgame)
+      create(:not_returned_loan, boardgame: boardgame)
+      event = create(:event)
+      event.boardgames.push(boardgame)
+      expect(event.errors[:boardgame]).to include("boardgame with active loans can't be added")
+    end
+    it "cant be added if has active loan on another event" do
+      boardgame = create(:boardgame)
+      create(:not_returned_loan, boardgame: boardgame)
+      event = create(:event)
+      expect { event.boardgames.push(boardgame) }.not_to change(event.boardgames, :count)
+    end
+  end
 end
