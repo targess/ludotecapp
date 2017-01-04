@@ -34,17 +34,24 @@ RSpec.describe Event, type: :model do
     expect(event.errors[:start_date]).to include("can't be after end_date")
   end
 
-  pending "boardgame has to be unique"
-  pending "player has to be unique"
-
   describe "Associations" do
     it "has and belongs to many boardgames" do
       association = described_class.reflect_on_association(:boardgames)
       expect(association.macro).to eq :has_and_belongs_to_many
     end
+    it "boardgames has to be unique" do
+      event     = create(:event, start_date: "10/1/2016", end_date: "20/1/2016")
+      boardgame = create(:boardgame)
+      expect { 2.times { event.boardgames.push(boardgame) } }.to change(event.boardgames, :count).by(1)
+    end
     it "has and belongs to many players" do
       association = described_class.reflect_on_association(:players)
       expect(association.macro).to eq :has_and_belongs_to_many
+    end
+    it "players has to be unique" do
+      event  = create(:event, start_date: "10/1/2016", end_date: "20/1/2016")
+      player = create(:player)
+      expect { 2.times { event.players.push(player) } }.to change(event.players, :count).by(1)
     end
     it "has many loans" do
       association = described_class.reflect_on_association(:loans)
