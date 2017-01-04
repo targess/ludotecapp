@@ -154,7 +154,7 @@ describe Boardgame do
     end
     it 'cant be loaned' do
       @boardgame.destroy
-      expect(@boardgame.free_to_loan?).to eq(false)
+      expect(@boardgame.deleted_at?).to eq(true)
     end
     it 'past tournaments are displayed' do
       @boardgame.destroy
@@ -166,7 +166,7 @@ describe Boardgame do
       @boardgame.destroy
       expect(Loan.all).to include(loan)
     end
-    pending 'cant be deleted with active loans' do
+    it 'cant be deleted with active loans' do
       create(:not_returned_loan, boardgame: @boardgame)
       expect { @boardgame.destroy }.not_to change(Boardgame, :count)
     end

@@ -12,11 +12,12 @@ class Boardgame < ApplicationRecord
 
   acts_as_paranoid
 
+  before_destroy :not_removed_with_pending_loans
   before_destroy :remove_internalcode
   after_destroy :really_destroy_when_useless
 
   def free_to_loan?
-    loans.where(returned_at: nil).count.zero? && deleted_at.nil?
+    loans.where(returned_at: nil).count.zero?
   end
 
   def active_loans(event)
@@ -59,6 +60,11 @@ class Boardgame < ApplicationRecord
 
   def really_destroy_when_useless
     really_destroy! unless loans.present? || tournaments.present? || frozen?
+  end
+
+  def not_removed_with_pending_loans
+    errors.add(:base, "Cannot delete boardgames with pending loans") unless free_to_loan?
+    throw(:abort) unless free_to_loan?
   end
 
     def self.bgg_search_by_name(name = "los colonos de catan")
