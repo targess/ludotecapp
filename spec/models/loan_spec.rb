@@ -33,8 +33,11 @@ RSpec.describe Loan, type: :model do
     loan.valid?
     expect(loan.errors[:player]).to include("can't be blank")
   end
-
-  pending "returns a list of loans by date, with not returned_at first (ordered_loans)"
+  it "returns a list of loans by date, with not returned_at first (ordered_loans)" do
+    loan              = create(:loan)
+    not_returned_loan = create(:not_returned_loan)
+    expect(Loan.ordered_loans).to eq([not_returned_loan, loan])
+  end
 
   context "players" do
     before(:each) do
@@ -92,11 +95,6 @@ RSpec.describe Loan, type: :model do
       loan = build(:not_returned_loan, boardgame: @boardgame)
       expect(loan).to be_valid
     end
-
-    pending "cant be loaned or added to event if has present loan on another event"
-    pending "returns boardgames coincidences if name includes search text"
-    pending "returns boardgame coincidence with search text if barcode with match exact"
-    pending "returns boardgame coincidence with search text if internalcode with match exact"
   end
 
   describe "Associations" do
