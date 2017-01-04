@@ -75,6 +75,45 @@ describe Boardgame do
     pending "#import_from_bgg_collection"
   end
 
+  context "search coincidences" do
+    before(:each) do
+      @carcassonne = create(:boardgame, name: "Carcassonne", barcode: "2222222222222", internalcode: "QJ001")
+      @catan       = create(:boardgame, name: "Catan", barcode: "1111111111111", internalcode: "QJ002")
+      @aventureros = create(:boardgame, name: "Aventureros", barcode: "2222222233333", internalcode: "QJ003")
+      @event       = create(:event)
+    end
+    it "returns boardgames that name includes search text" do
+      expect(Boardgame.search_by_name("Ca")).to include(@carcassonne, @catan)
+    end
+    it "returns boardgame if barcode with match exact" do
+      expect(Boardgame.search_by_barcode("2222222233333")).to include(@aventureros)
+    end
+    it "returns boardgame if internalcode with match exact" do
+      expect(Boardgame.search_by_internalcode("QJ001")).to include(@carcassonne)
+    end
+    it "returns boardgames by name at selected event" do
+      @event.boardgames.push(@carcassonne)
+      expect(Boardgame.search_by_name("Ca", @event)).to include(@carcassonne)
+    end
+    it "not returns boardgame by name if not included at selected event" do
+      expect(Boardgame.search_by_name("Ca", @event)).not_to include(@carcassonne)
+    end
+    it "returns boardgame if barcode with match exact at selected event" do
+      @event.boardgames.push(@aventureros)
+      expect(Boardgame.search_by_barcode("2222222233333", @event)).to include(@aventureros)
+    end
+    it "not returns boardgame by barcode if not included at selected event" do
+      expect(Boardgame.search_by_barcode("2222222233333", @event)).not_to include(@aventureros)
+    end
+    it "returns boardgame if internalcode with match exact at selected event" do
+      @event.boardgames.push(@aventureros)
+      expect(Boardgame.search_by_internalcode("QJ003", @event)).to include(@aventureros)
+    end
+    it "not returns boardgame by internalcode if not included at selected event" do
+      expect(Boardgame.search_by_internalcode("QJ003", @event)).not_to include(@aventureros)
+    end
+  end
+
   context "Loans" do
     before(:each) do
       @boardgame = create(:boardgame)
