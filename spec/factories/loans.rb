@@ -6,7 +6,6 @@ FactoryGirl.define do
     boardgame    { FactoryGirl.create(:boardgame) }
     event        { FactoryGirl.create(:event) }
 
-
     factory :not_returned_loan do
       returned_at nil
     end
