@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
   autocomplete :boardgame, :name, full: true, limit: 20, extra_data: [:thumbnail]
-  autocomplete :player, :dni, limit: 20, extra_data: [:firstname, :lastname], display_value: :get_dni_and_name
+  autocomplete :player, :dni, limit: 20, extra_data: [:firstname, :lastname], display_value: :dni_plus_name
   before_action :find_event
 
   def index
