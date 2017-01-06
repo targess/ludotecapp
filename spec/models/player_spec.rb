@@ -19,14 +19,16 @@ RSpec.describe Player, type: :model do
     player = build(:player, firstname: "Manolete", lastname: "El del Bombo")
     expect(player.name).to eq("Manolete El del Bombo")
   end
-
+  it "returns dni plus name with dni, firsname and lastname as string" do
+    player = build(:player, firstname: "Manolete", lastname: "El del Bombo", dni: "48960950E")
+    expect(player.dni_plus_name).to eq("48960950E | Manolete El del Bombo")
+  end
   it "returns age when has a valid birthday" do
     Timecop.travel Time.parse("7/12/2016")
     player = build(:player, birthday: "19/04/1981")
     expect(player.age).to eq(35)
     Timecop.return
   end
-
   it "returns empty string when has no birthday" do
     player = build(:player, birthday: nil)
     expect(player.age).to eq("")
