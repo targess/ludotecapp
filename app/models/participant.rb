@@ -14,6 +14,10 @@ class Participant < ApplicationRecord
     self.confirmed ? (self.confirmed = false) : (self.confirmed = true)
   end
 
+  def at_future_tournament
+    tournament.date > Time.now
+  end
+
   private
 
   def max_participants_rearched

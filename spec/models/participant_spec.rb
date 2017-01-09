@@ -71,7 +71,6 @@ RSpec.describe Participant, type: :model do
       participant.valid?
       expect(participant.errors[:tournament]).to include("max participants are rearched")
     end
-
     it "over minimal age can be inscribed" do
       Timecop.travel Time.parse("2/1/2020")
       tournament  = create(:tournament, minage: 10)
@@ -106,6 +105,24 @@ RSpec.describe Participant, type: :model do
       participant = build(:participant, tournament: tournament)
       participant.valid?
       expect(participant.errors[:tournament]).to include("tournament with invalid boardgame")
+      Timecop.return
+    end
+    it "participant belongs to future tournament" do
+      Timecop.travel Time.parse("1/01/2016")
+      boardgame   = create(:boardgame)
+      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
+      participant = create(:participant, tournament: tournament)
+      expect(participant.at_future_tournament).to be_truthy
+      Timecop.return
+    end
+    it "participant belongs to started tournament" do
+      Timecop.travel Time.parse("2/02/2016")
+      boardgame   = create(:boardgame)
+      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
+      participant = create(:participant, tournament: tournament)
+      expect(participant.at_future_tournament).to be_falsey
       Timecop.return
     end
     pending "cant be unsuscribed from past tournaments"
