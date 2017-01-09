@@ -61,6 +61,15 @@ RSpec.describe Tournament, type: :model do
   end
 
   context "Participants" do
+    it "returns true when max participants are rearched" do
+      tournament = create(:tournament, max_competitors: 1, max_substitutes: 0)
+      create(:participant, tournament: tournament)
+      expect(tournament.max_participants_rearched).to be_truthy
+    end
+    it "returns false when max participants arent rearched" do
+      tournament = create(:tournament, max_competitors: 1, max_substitutes: 0)
+      expect(tournament.max_participants_rearched).to be_falsey
+    end
     pending "gives a list of competitors"
     pending "gives a list of substitutes"
     pending "gives a list of confirmed"

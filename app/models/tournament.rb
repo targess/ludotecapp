@@ -10,6 +10,10 @@ class Tournament < ApplicationRecord
     max_competitors + max_substitutes
   end
 
+  def max_participants_rearched
+    participants.count >= max_participants
+  end
+
   def get_competitors
     participants.where(substitute: false)
   end
