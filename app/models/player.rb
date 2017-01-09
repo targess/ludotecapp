@@ -61,7 +61,7 @@ class Player < ApplicationRecord
   def remove_future_participants
     false unless participants.present?
     participants.each do |participant|
-      participant.destroy if participant.at_future_tournament
+      participant.destroy if participant.at_future_tournament?
     end
   end
 end

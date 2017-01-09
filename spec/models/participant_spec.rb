@@ -113,7 +113,7 @@ RSpec.describe Participant, type: :model do
       event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
       tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
       participant = create(:participant, tournament: tournament)
-      expect(participant.at_future_tournament).to be_truthy
+      expect(participant.at_future_tournament?).to be_truthy
       Timecop.return
     end
     it "participant belongs to started tournament" do
@@ -122,7 +122,7 @@ RSpec.describe Participant, type: :model do
       event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
       tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
       participant = create(:participant, tournament: tournament)
-      expect(participant.at_future_tournament).to be_falsey
+      expect(participant.at_future_tournament?).to be_falsey
       Timecop.return
     end
     pending "cant be unsuscribed from past tournaments"

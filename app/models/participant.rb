@@ -14,7 +14,7 @@ class Participant < ApplicationRecord
     confirmed ? (self.confirmed = false) : (self.confirmed = true)
   end
 
-  def at_future_tournament
+  def at_future_tournament?
     tournament.date > Time.now
   end
 
