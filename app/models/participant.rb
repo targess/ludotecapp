@@ -32,12 +32,12 @@ class Participant < ApplicationRecord
 
   def supplent_when_competitors_reached
     return false unless tournament.present?
-    self.substitute = true if tournament.get_competitors.count >= tournament.max_competitors
+    self.substitute = true if tournament.competitors.count >= tournament.max_competitors
   end
 
   def supplent_to_competitor_whe_competitor_destroyed
     return false unless substitute
-    first_substitute = tournament.get_substitutes.first
+    first_substitute = tournament.substitutes.first
     first_substitute.update(substitute: false) if first_substitute.present?
   end
 

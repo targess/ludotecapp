@@ -11,10 +11,10 @@ class TournamentsController < ApplicationController
   def show
     @tournament    = @event.tournaments.find_by(id: params[:id])
     @boardgame     = @tournament.boardgame
-    @competitors   = @tournament.get_competitors
-    @substitutes   = @tournament.get_substitutes
+    @competitors   = @tournament.competitors
+    @substitutes   = @tournament.substitutes
     @participant   = @tournament.participants.new
-    @confirmed     = @tournament.get_confirmed
+    @confirmed     = @tournament.confirmed
     @league_rounds = @tournament.league_system(@confirmed) if @confirmed.present?
   end
 

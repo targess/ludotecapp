@@ -14,19 +14,19 @@ class Tournament < ApplicationRecord
     participants.count >= max_participants
   end
 
-  def get_competitors
+  def competitors
     participants.where(substitute: false)
   end
 
-  def get_substitutes
+  def substitutes
     participants.where(substitute: true)
   end
 
-  def get_confirmed
+  def confirmed
     participants.where(confirmed: true)
   end
 
-  def league_system(my_teams = get_confirmed)
+  def league_system(my_teams = confirmed)
     teams             = my_teams.to_a
     rounds            = {}
     rounds[:home]     = []
@@ -39,11 +39,11 @@ class Tournament < ApplicationRecord
       matches_away = []
 
       number_of_matches.times do |index|
-        team_1 = teams[index]
-        team_2 = teams[number_of_rounds - index]
+        team1 = teams[index]
+        team2 = teams[number_of_rounds - index]
 
-        matches_home << [team_1, team_2]
-        matches_away << [team_2, team_1]
+        matches_home << [team1, team2]
+        matches_away << [team2, team1]
       end
 
       rounds[:home] << matches_home
@@ -54,13 +54,13 @@ class Tournament < ApplicationRecord
       teams.insert(1, last)
     end
 
-    return rounds
+    rounds
   end
 
   private
 
   def date_must_be_at_event_range
-    return nil unless date.present? && event.present?
+    return false unless date.present? && event.present?
     if date < event.start_date
       errors.add(:date, "can't be before event start date")
     elsif date > event.end_date

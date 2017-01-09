@@ -70,9 +70,22 @@ RSpec.describe Tournament, type: :model do
       tournament = create(:tournament, max_competitors: 1, max_substitutes: 0)
       expect(tournament.max_participants_rearched).to be_falsey
     end
-    pending "gives a list of competitors"
-    pending "gives a list of substitutes"
-    pending "gives a list of confirmed"
+    it "gives a list of competitors" do
+      tournament = create(:tournament, max_competitors: 1, max_substitutes: 0)
+      competitor = create(:participant, tournament: tournament)
+      expect(tournament.competitors).to include(competitor)
+    end
+    it "gives a list of substitutes" do
+      tournament = create(:tournament, max_competitors: 1, max_substitutes: 1)
+      create(:participant, tournament: tournament)
+      substitute = create(:participant, tournament: tournament)
+      expect(tournament.substitutes).to include(substitute)
+    end
+    it "gives a list of confirmed" do
+      tournament = create(:tournament, max_competitors: 1, max_substitutes: 0)
+      confirmed = create(:participant, tournament: tournament, confirmed: true)
+      expect(tournament.confirmed).to include(confirmed)
+    end
     pending "gives a list of league system rounds and matches from confirmed participants"
     pending "gives an empty list of participants for league system when not confirmed participants"
   end

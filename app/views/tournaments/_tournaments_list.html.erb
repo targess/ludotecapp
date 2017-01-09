@@ -28,8 +28,8 @@
                <td><%= tournament[:name] %></td>
                <td><%= tournament.boardgame[:name] %></td>
                <td><%= beauty_date(tournament[:date]) %></td>
-               <td><%= paint_participants(tournament.get_competitors.count, tournament[:max_competitors]) %></td>
-               <td><%= paint_participants(tournament.get_substitutes.count, tournament[:max_substitutes]) %></td>
+               <td><%= paint_participants(tournament.competitors.count, tournament[:max_competitors]) %></td>
+               <td><%= paint_participants(tournament.substitutes.count, tournament[:max_substitutes]) %></td>
                <td><%= tournament[:minage] %></td>
                <td>
                   <%= link_to 'Mostrar', event_tournament_path(@event, tournament), { class: "btn btn-default btn-sm bg-gray-lighter" } %>
