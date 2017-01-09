@@ -15,10 +15,6 @@ RSpec.describe Participant, type: :model do
     participant.valid?
     expect(participant.errors[:player]).to include("can't be blank")
   end
-  it "confirmed participants are competitors" do
-    competitor = build(:competitor)
-    expect(competitor.confirmed).to be(true)
-  end
   it "can toggle from unconfirmed to confirmed" do
     participant = create(:participant, confirmed: false)
     participant.toggle_confirmed

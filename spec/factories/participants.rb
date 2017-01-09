@@ -8,7 +8,7 @@ FactoryGirl.define do
     factory :substitute do
       waiting_list true
     end
-    factory :competitor do
+    factory :confirmed do
       confirmed true
     end
   end
