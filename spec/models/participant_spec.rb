@@ -121,15 +121,60 @@ RSpec.describe Participant, type: :model do
       expect(participant.at_future_tournament?).to be_falsey
       Timecop.return
     end
-    pending "cant be unsuscribed from past tournaments"
-    pending "are deleted when unsuscribed from future or present tournaments"
-    pending "is valid if are at same event"
-    pending "is invalid if arent in same event"
-    pending "is ready to compete when marked as confirmed"
-    pending "is not ready to compete when not marked as confirmed"
-    pending "confirmed matches at league sytems "
-    pending "if competitor deleted first substitute is a new competitor"
-    pending "fails when competitor deleted and first substitute isnt a new competitor"
+    it "cant be unsuscribed from past tournaments" do
+      Timecop.travel Time.parse("10/01/2016")
+      boardgame   = create(:boardgame)
+      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/01/2016")
+      participant = create(:participant, tournament: tournament)
+      expect { participant.destroy }.not_to change(Participant, :count)
+      expect(participant.errors[:base]).to include("Cannot delete participant from past tournament")
+      Timecop.return
+    end
+    it "are deleted when unsuscribed from future tournaments" do
+      Timecop.travel Time.parse("1/01/2016")
+      boardgame   = create(:boardgame)
+      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
+      participant = create(:participant, tournament: tournament)
+      expect { participant.destroy }.to change(Participant, :count).by(-1)
+      Timecop.return
+    end
+    it "are deleted when unsuscribed from present tournaments" do
+      Timecop.travel Time.parse("1/01/2016")
+      boardgame   = create(:boardgame)
+      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/01/2016")
+      participant = create(:participant, tournament: tournament)
+      expect { participant.destroy }.to change(Participant, :count).by(-1)
+      Timecop.return
+    end
+    it "is valid if are at same event" do
+      player      = create(:player)
+      event       = create(:event)
+      event.players << player
+      tournament  = create(:tournament, event: event)
+      participant = build(:participant, player: player, tournament: tournament)
+      expect(participant).to be_valid
+    end
+    pending "is invalid if arent in same event" do
+      player      = create(:player)
+      event       = create(:event)
+      tournament  = create(:tournament, event: event)
+      participant = build(:participant, player: player, tournament: tournament)
+      participant.valid?
+      expect(participant.errors[:tournament]).to include("belongs to another event")
+    end
+    it "if competitor deleted first substitute is a new competitor" do
+      Timecop.travel Time.parse("1/01/2016")
+      event      = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
+      tournament = create(:tournament, max_competitors: 1, event: event, date: "1/02/2016")
+      competitor = create(:participant, tournament: tournament)
+      create(:participant, tournament: tournament)
+      expect { competitor.destroy }.to change(tournament.substitutes, :count).by(-1)
+      Timecop.return
+    end
+    pending "confirmed matches at league sytems"
   end
 
   describe "Associations" do

@@ -8,7 +8,8 @@ class Participant < ApplicationRecord
   validate :tournament_must_have_not_deleted_boardgame
 
   before_create :supplent_when_competitors_reached
-  after_destroy :supplent_to_competitor_whe_competitor_destroyed
+  after_destroy :supplent_to_competitor_when_competitor_destroyed
+  before_destroy :not_removed_from_past_tournament
 
   def toggle_confirmed
     confirmed ? (self.confirmed = false) : (self.confirmed = true)
@@ -35,8 +36,8 @@ class Participant < ApplicationRecord
     self.substitute = true if tournament.competitors.count >= tournament.max_competitors
   end
 
-  def supplent_to_competitor_whe_competitor_destroyed
-    return false unless substitute
+  def supplent_to_competitor_when_competitor_destroyed
+    return false if substitute
     first_substitute = tournament.substitutes.first
     first_substitute.update(substitute: false) if first_substitute.present?
   end
@@ -45,5 +46,15 @@ class Participant < ApplicationRecord
     return false unless tournament.present?
     boardgame = tournament.boardgame
     errors.add(:tournament, "tournament with invalid boardgame") unless boardgame.deleted_at.nil?
+  end
+
+  def not_removed_from_past_tournament
+    errors.add(:base, "Cannot delete participant from past tournament") unless at_future_tournament?
+    throw(:abort) unless at_future_tournament?
+  end
+
+  def player_and_tournament_must_be_at_same_event
+    return false unless tournament.present? & player.present?
+    errors.add(:tournament, "belongs to another event") unless player.events.include?(tournament.event)
   end
 end
