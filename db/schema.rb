@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102184621) do
+ActiveRecord::Schema.define(version: 20170109095525) do
 
   create_table "boardgames", force: :cascade do |t|
     t.string   "name"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 20170102184621) do
     t.integer  "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_players_on_deleted_at"
   end
 
   create_table "tournaments", force: :cascade do |t|

@@ -107,21 +107,81 @@ RSpec.describe Player, type: :model do
     end
   end
 
+  context "loans" do
+    it "returns active loans number" do
+      player = create(:player)
+      create(:not_returned_loan, player: player)
+      expect(player.active_loans).to eq(1)
+    end
+  end
+
   context "deleted" do
-    pending "is setted when we try to destroy it"
-    pending "fails to be setted when arent market at DELTED when try to destroy"
-    pending "is valid when firstname, lastname, email and DNI are setted to DELETED"
-    pending "is invalid with no changes firstname to DELETED"
-    pending "is invalid with no changes lastname to DELETED"
-    pending "is invalid with no changes email to DELETED"
-    pending "is invalid with no changes DNI to DELETED"
-    pending "cant be displayed at players lists"
-    pending "fails when are displayed at players lists"
-    pending "at loans lists displays only name and DNI as DELETED"
-    pending "are counted at players counts"
-    pending "is removed from participants at future tournaments"
-    pending "isnt removed from participants at past tournaments"
-    pending "is showed at past tournaments lists"
+    before(:each) do
+      @player = create(:player)
+      create(:loan, player: @player)
+    end
+    it "is setted when we try to destroy it" do
+      @player.destroy
+      expect(@player.deleted_at).to be_truthy
+    end
+    it "fails to be setted when arent marked to destroy" do
+      expect(@player.deleted_at).to be_falsey
+    end
+    it "is valid when firstname changes to DELETED" do
+      @player.destroy
+      expect(@player.firstname).to include("DELETED")
+    end
+    it "is valid when lastname changes to DELETED" do
+      @player.destroy
+      expect(@player.lastname).to include("DELETED")
+    end
+    it "is valid when email changes to DELETED" do
+      @player.destroy
+      expect(@player.email).to include("DELETED")
+    end
+    it "is valid when DNI changes to DELETED" do
+      @player.destroy
+      expect(@player.dni).to include("DELETED")
+    end
+    it "cant be displayed at players lists" do
+      expect { @player.destroy }.to change(Player, :count).by(-1)
+    end
+    it "at loans lists can be displayed" do
+      loan = create(:loan, player: @player)
+      @player.destroy
+      expect(Loan.all).to include(loan)
+    end
+    it "cant be deleted with active loans" do
+      create(:not_returned_loan, player: @player)
+      expect { @player.destroy }.not_to change(Player, :count)
+    end
+    it "are counted at past event players count" do
+      event = create(:event)
+      event.players.push(@player)
+      expect { @player.destroy }.not_to change(event.players.with_deleted, :count)
+    end
+    it "is hard deleted when has no one loans nor events" do
+      empty_player = create(:player)
+      expect { empty_player.destroy }.to change(Player.with_deleted, :count).by(-1)
+    end
+    it "is removed from participants at future tournaments" do
+      Timecop.travel Time.parse("10/10/2016")
+      event       = create(:event, start_date: "1/10/2016", end_date: "20/10/2016")
+      tournament  = create(:tournament, event: event, date: "11/10/2016")
+      participant = create(:participant, tournament: tournament, player: @player)
+      @player.destroy
+      expect(Participant.all).not_to include(participant)
+      Timecop.return
+    end
+    it "isnt removed from participants at past tournaments" do
+      Timecop.travel Time.parse("10/10/2016")
+      event       = create(:event, start_date: "1/10/2016", end_date: "20/10/2016")
+      tournament  = create(:tournament, event: event, date: "2/10/2016")
+      participant = create(:participant, tournament: tournament, player: @player)
+      @player.destroy
+      expect(Participant.all).to include(participant)
+      Timecop.return
+    end
   end
 
   describe "Associations" do

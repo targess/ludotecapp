@@ -1,4 +1,5 @@
 class Player < ApplicationRecord
+  acts_as_paranoid
   has_and_belongs_to_many :events
   has_many :loans
   has_many :participants
@@ -13,6 +14,9 @@ class Player < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   validate :dni_must_have_valid_format
+
+  before_destroy :mark_fields_as_deleted, :not_removed_with_pending_loans
+  after_destroy :really_destroy_when_useless, :remove_future_participants
 
   def name
     firstname + " " + lastname
@@ -29,11 +33,35 @@ class Player < ApplicationRecord
     day.year - birthday.year - (day > today ? 1 : 0)
   end
 
+  def active_loans
+    loans.where(returned_at: nil).count
+  end
+
   private
 
   def dni_must_have_valid_format
     nif_letters = "TRWAGMYFPDXBNJZSQVHLCKE"
     numbers = dni.chop
     errors.add(:dni, "is invalid dni") if dni != numbers + nif_letters[numbers.to_i % nif_letters.length]
+  end
+
+  def mark_fields_as_deleted
+    update(firstname: "DELETED", lastname: "DELETED", email: "DELETED", dni: "DELETED")
+  end
+
+  def not_removed_with_pending_loans
+    errors.add(:base, "Cannot delete players with pending loans") unless active_loans.zero?
+    throw(:abort) unless active_loans.zero?
+  end
+
+  def really_destroy_when_useless
+    really_destroy! unless loans.present? || participants.present? || frozen?
+  end
+
+  def remove_future_participants
+    false unless participants.present?
+    participants.each do |participant|
+      participant.destroy if participant.at_future_tournament
+    end
   end
 end
