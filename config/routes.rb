@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   resources :events do
     get   '/players/show_by_dni', to: 'players#show_by_dni'
     resources :players, except: [ :new, :destroy ]
