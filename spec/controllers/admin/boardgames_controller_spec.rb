@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Admin::BoardgamesController, type: :controller do
+  login_user
   describe "GET #index" do
     it "populates an array of all boardgames" do
       carcassonne = create(:boardgame, name: "Carcassonne")
