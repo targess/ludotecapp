@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170127163559) do
+ActiveRecord::Schema.define(version: 20170210093837) do
 
   create_table "boardgames", force: :cascade do |t|
     t.string   "name"
@@ -22,12 +22,14 @@ ActiveRecord::Schema.define(version: 20170127163559) do
     t.integer  "playingtime"
     t.integer  "minage"
     t.integer  "bgg_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.string   "barcode",      limit: 13, default: "0"
-    t.string   "internalcode",            default: "0"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "barcode",         limit: 13, default: "0"
+    t.string   "internalcode",               default: "0"
     t.datetime "deleted_at"
+    t.integer  "organization_id"
     t.index ["deleted_at"], name: "index_boardgames_on_deleted_at"
+    t.index ["organization_id"], name: "index_boardgames_on_organization_id"
   end
 
   create_table "boardgames_events", id: false, force: :cascade do |t|
@@ -43,9 +45,11 @@ ActiveRecord::Schema.define(version: 20170127163559) do
     t.datetime "end_date"
     t.string   "city"
     t.string   "province"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "loans_limits", default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "loans_limits",    default: 0
+    t.integer  "organization_id"
+    t.index ["organization_id"], name: "index_events_on_organization_id"
   end
 
   create_table "events_players", id: false, force: :cascade do |t|
@@ -65,6 +69,17 @@ ActiveRecord::Schema.define(version: 20170127163559) do
     t.index ["boardgame_id"], name: "index_loans_on_boardgame_id"
     t.index ["event_id"], name: "index_loans_on_event_id"
     t.index ["player_id"], name: "index_loans_on_player_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "organizations_players", id: false, force: :cascade do |t|
+    t.integer "organization_id", null: false
+    t.integer "player_id",       null: false
   end
 
   create_table "participants", force: :cascade do |t|
