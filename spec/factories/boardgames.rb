@@ -6,6 +6,7 @@ FactoryGirl.define do
     maxplayers   Faker::Number.between(2, 5)
     barcode      "1234567890123"
     internalcode "12345"
+    organization { FactoryGirl.create(:organization) }
 
     factory :invalid_boardgame do
       name nil
