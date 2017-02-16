@@ -1,6 +1,7 @@
 class Player < ApplicationRecord
   acts_as_paranoid
   has_and_belongs_to_many :events
+  has_and_belongs_to_many :organizations, -> { distinct }
   has_many :loans
   has_many :participants
 

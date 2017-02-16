@@ -26,6 +26,11 @@ describe Boardgame do
     boardgame.valid?
     expect(boardgame.errors[:internalcode]).to include("is the wrong length (should be 5 characters)")
   end
+  it "is invalid without organization" do
+    boardgame = build(:boardgame, organization: nil)
+    boardgame.valid?
+    expect(boardgame.errors[:organization]).to include("can't be blank")
+  end
 
   context "BggParser" do
     describe "Search a boardgame" do
@@ -150,6 +155,10 @@ describe Boardgame do
     it "has many tournaments" do
       association = described_class.reflect_on_association(:tournaments)
       expect(association.macro).to eq :has_many
+    end
+    it "belongs to organization" do
+      association = described_class.reflect_on_association(:organization)
+      expect(association.macro).to eq :belongs_to
     end
   end
 

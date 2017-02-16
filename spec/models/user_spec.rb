@@ -20,4 +20,11 @@ RSpec.describe User, type: :model do
     expect(user.email).to eq("upper@email.com")
   end
   pending "devise modules"
+
+  describe "Associations" do
+    it "belongs to organization" do
+      association = described_class.reflect_on_association(:organization)
+      expect(association.macro).to eq :belongs_to
+    end
+  end
 end

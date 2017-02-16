@@ -33,6 +33,11 @@ RSpec.describe Player, type: :model do
     player = build(:player, birthday: nil)
     expect(player.age).to eq("")
   end
+  pending "is invalid without organization" do
+    player = build(:player, organization: nil)
+    player.valid?
+    expect(player.errors[:organization]).to include("can't be blank")
+  end
 
   context "DNI" do
     it "is invalid without it" do
@@ -196,6 +201,15 @@ RSpec.describe Player, type: :model do
     it "has many participants" do
       association = described_class.reflect_on_association(:participants)
       expect(association.macro).to eq :has_many
+    end
+    it "has and belongs to many organizations" do
+      association = described_class.reflect_on_association(:organizations)
+      expect(association.macro).to eq :has_and_belongs_to_many
+    end
+    it "players has to be unique" do
+      organization = create(:organization)
+      player = create(:player)
+      expect { 2.times { player.organizations.push(organization) } }.to change(player.organizations, :count).by(1)
     end
   end
 end

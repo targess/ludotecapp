@@ -33,6 +33,11 @@ RSpec.describe Event, type: :model do
     event.valid?
     expect(event.errors[:start_date]).to include("can't be after end_date")
   end
+  it "is invalid without organization" do
+    event = build(:event, organization: nil)
+    event.valid?
+    expect(event.errors[:organization]).to include("can't be blank")
+  end
 
   describe "Associations" do
     it "has and belongs to many boardgames" do
@@ -60,6 +65,10 @@ RSpec.describe Event, type: :model do
     it "has many tournaments" do
       association = described_class.reflect_on_association(:tournaments)
       expect(association.macro).to eq :has_many
+    end
+    it "belongs to organization" do
+      association = described_class.reflect_on_association(:organization)
+      expect(association.macro).to eq :belongs_to
     end
   end
 

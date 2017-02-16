@@ -4,9 +4,11 @@ class Boardgame < ApplicationRecord
   has_and_belongs_to_many :events
   has_many :loans
   has_many :tournaments
+  belongs_to :organization
 
   validates :name, presence: true
   validates :maxplayers, presence: true
+  validates :organization, presence: true
   validates :barcode, length: { is: 13 }
   validates :internalcode, length: { is: 5 }
 
