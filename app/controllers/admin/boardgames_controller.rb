@@ -60,6 +60,6 @@ class Admin::BoardgamesController < ApplicationController
   private
 
     def boardgame_params
-      params.require(:boardgame).permit(:name, :thumbnail, :image, :description, :minplayers, :maxplayers, :playingtime, :minage, :bgg_id, :barcode, :internalcode)
+      params.require(:boardgame).permit(:name, :thumbnail, :image, :description, :minplayers, :maxplayers, :playingtime, :minage, :bgg_id, :barcode, :internalcode, :organization_id)
     end
 end

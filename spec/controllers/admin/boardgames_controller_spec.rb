@@ -57,11 +57,11 @@ RSpec.describe Admin::BoardgamesController, type: :controller do
       it "saves the new boardgame at database" do
         expect do
           post :create, params:
-            { boardgame: attributes_for(:boardgame) }
+            { boardgame: attributes_with_foreign_keys(:boardgame) }
         end.to change(Boardgame, :count).by(1)
       end
       it "redirects to boardgames#show" do
-        post :create, params: { boardgame: attributes_for(:boardgame) }
+        post :create, params: { boardgame: attributes_with_foreign_keys(:boardgame) }
         expect(response).to redirect_to(admin_boardgame_path(assigns(:boardgame)))
       end
     end
