@@ -9,6 +9,16 @@ FactoryGirl.define do
     email       { Faker::Internet.email }
     phone       { Faker::Number.between(600_000_000, 699_999_999) }
 
+    factory :player_with_organizations do
+      transient do
+        organizations_count 1
+      end
+
+      before(:create) do |player, evaluator|
+        create_list(:organization, evaluator.organizations_count, players: [player])
+      end
+    end
+
     factory :invalid_player do
       dni nil
     end
