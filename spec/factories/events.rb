@@ -5,7 +5,7 @@ FactoryGirl.define do
     end_date    "12/01/2016"
     city        { Faker::Address.city }
     province    { Faker::Address.state }
-    organization { FactoryGirl.create(:organization) }
+    association :organization
 
     factory :invalid_event do
       name nil
