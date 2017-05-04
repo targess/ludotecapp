@@ -1,0 +1,24 @@
+.content-heading
+  | Organizaciones
+  = link_to 'Volver', :back, { class: "mb-lg btn btn-default btn-lg pull-right" }
+.row
+  .col-sm-12
+    .panel
+      .panel-heading
+      .table-responsive
+        table.table.table-bordered.table-hover
+          thead
+            tr
+              th #
+              th Nombre
+              th
+          tbody
+            - @organizations.each_with_index do |organization, index|
+              tr
+                td= index + 1
+                td= organization[:name]
+                td
+                  => link_to 'Mostrar', admin_organization_path(organization), class: "btn btn-sm bt-primary bg-gray-lighter"
+                  => link_to '', edit_admin_organization_path(organization), class: "btn btn-success btn-sm bg-success-light fa fa-pencil"
+                  => link_to '', admin_organization_path(organization), method: :delete, class: "btn btn-danger btn-sm bg-danger-light fa fa-trash-o"
+      = render partial: 'pagination_footer', locals: { elements: @organizations }

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     get  '/boardgames/import_from_bgg',         to: 'boardgames#import_from_bgg'
     post '/boardgames/create_from_bgg/:id', to: 'boardgames#create_from_bgg', as: 'boardgames_create_from_bgg'
     resources :boardgames
+    resources :organizations
   end
 
   # defaults to dashboard
