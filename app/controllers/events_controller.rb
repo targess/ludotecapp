@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
+  before_action :set_organization
   def index
-    @events = Event.all
+    @events = current_user.admin? ? Event.all : @organization.events
   end
 
   def show
@@ -21,8 +22,9 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.organization = @organization
     if @event.save
-      redirect_to @event, notice: 'Event was successfully created.'
+      redirect_to @event, notice: "Event was successfully created."
     else
       render :new
     end
@@ -45,7 +47,11 @@ class EventsController < ApplicationController
 
   private
 
-    def event_params
-      params.require(:event).permit(:name, :start_date, :end_date, :city, :province)
-    end
+  def event_params
+    params.require(:event).permit(:name, :start_date, :end_date, :city, :province)
+  end
+
+  def set_organization
+    @organization = current_user.organization
+  end
 end
