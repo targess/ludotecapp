@@ -1,5 +1,6 @@
 class PlayersController < ApplicationController
   before_action :find_event
+  before_action :set_organization, only: [:show_by_dni, :create, :update]
   def index
     @players = @event.players.all
     @player  = @event.players.new
@@ -10,10 +11,10 @@ class PlayersController < ApplicationController
   end
 
   def show_by_dni
-    player = Player.find_by(dni: params[:dni])
+    player = @organization.players.find_by(dni: params[:dni])
     unless player
-      render json: {error: "player not found"},
-      status: 404
+      render json: { error: "player not found" },
+             status: 404
       return
     end
     render json: player
@@ -26,8 +27,9 @@ class PlayersController < ApplicationController
   def create
     @players = @event.players.all
     @player  = @event.players.new(player_params)
+    @player.organizations.push(@organization)
     if @event.save
-      redirect_to [@event, @player], notice: 'User was successfully created.'
+      redirect_to [@event, @player], notice: "User was successfully created."
     else
       render :index
     end
@@ -36,12 +38,12 @@ class PlayersController < ApplicationController
   def update
     @player = @event.players.find_by(id: params[:id])
     unless @player
-      @player = Player.find_by(id: params[:id])
+      @player = @organization.players.find_by(id: params[:id])
       @event.players.push(@player)
     end
 
     if @player.update(player_params)
-      redirect_to [@event, @player], notice: 'User was successfully included.'
+      redirect_to [@event, @player], notice: "User was successfully included."
     else
       render :edit
     end
@@ -49,11 +51,15 @@ class PlayersController < ApplicationController
 
   private
 
-    def player_params
-      params.require(:player).permit(:dni, :firstname, :lastname, :city, :province, :birthday, :email, :phone)
-    end
+  def player_params
+    params.require(:player).permit(:dni, :firstname, :lastname, :city, :province, :birthday, :email, :phone)
+  end
 
-    def find_event
-      @event = Event.find(params[:event_id])
-    end
+  def find_event
+    @event = Event.find(params[:event_id])
+  end
+
+  def set_organization
+    @organization = @event.organization
+  end
 end
