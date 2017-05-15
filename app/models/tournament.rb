@@ -1,7 +1,7 @@
 class Tournament < ApplicationRecord
   belongs_to :boardgame
   belongs_to :event
-  has_many :participants
+  has_many :participants, dependent: :destroy
 
   validates_presence_of :name, :date, :max_competitors, :max_substitutes, :event, :boardgame
   validate :date_must_be_at_event_range
