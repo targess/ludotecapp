@@ -1,4 +1,4 @@
-class BoardgamesController < ApplicationController
+class Event::BoardgamesController < ApplicationController
   before_action :find_event, :set_organization_boardgames
 
   def index

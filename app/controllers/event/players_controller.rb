@@ -1,4 +1,4 @@
-class PlayersController < ApplicationController
+class Event::PlayersController < ApplicationController
   before_action :find_event
   before_action :set_organization, only: [:show_by_dni, :create, :update]
   def index

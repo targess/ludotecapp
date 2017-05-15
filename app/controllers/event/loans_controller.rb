@@ -1,4 +1,4 @@
-class LoansController < ApplicationController
+class Event::LoansController < ApplicationController
   before_action :find_event
 
   def index
