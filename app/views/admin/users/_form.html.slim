@@ -1,0 +1,33 @@
+.col-sm-12
+  <!-- START panel-->
+  .panel.panel-default
+    .panel-body
+      = form_for([:admin, @user], html: { class: "form-horizontal" }) do |f|
+        - if @user.errors.any?
+          .alert.bg-danger-light.alert-dismissible.fade.in
+            span x
+            #error_explanation
+              h2
+                = pluralize(@user.errors.count, "error")
+                prohibited this user from being saved:
+              ul
+                - @user.errors.full_messages.each do |message|
+                  li
+                    = message
+        .form-group
+          = f.label :email, class: "col-lg-2 control-label"
+          .col-lg-10
+            = f.text_field :email, class: "form-control"
+        .form-group
+          = f.label :organizacion, class: "col-lg-2 control-label"
+          .col-lg-10
+            = f.collection_select :organization_id, Organization.all, :id, :name, { }, { class: "form-control" }
+        .form-group
+          .col-lg-10.col-lg-offset-2
+            = f.password_field :password, { autocomplete: "off", placeholder: "Contraseña", class: "form-control" }
+        .form-group
+          .col-lg-10.col-lg-offset-2
+            = f.password_field :password_confirmation, { autocomplete: "off", placeholder: "Confirmar nueva contraseña", class: "form-control" }
+        .form-group
+          .col-lg-offset-2.col-lg-10
+            = f.button "Guardar cambios", class: "btn btn-lg btn-primary"

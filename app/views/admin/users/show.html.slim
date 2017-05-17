@@ -1,0 +1,16 @@
+.content-heading
+	= @user.email
+	= link_to 'Volver', :back, class: "mb-lg btn btn-default btn-lg pull-right"
+.row
+	.col-lg-6.col-lg-offset-3
+		<!-- START widget-->
+		.panel.panel-default
+			.panel-body
+				.text-center
+					h3.mt0
+						= @user.email
+				hr
+				ul.list-unstyled.ph-xl
+					li
+						em.fa.fa-institution.fa-fw.mr-lg
+						= @user.organization.name if @user.organization

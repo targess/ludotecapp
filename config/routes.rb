@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     post '/boardgames/create_from_bgg/:id', to: 'boardgames#create_from_bgg', as: 'boardgames_create_from_bgg'
     resources :boardgames
     resources :organizations
+    resources :users
   end
 
   # defaults to dashboard

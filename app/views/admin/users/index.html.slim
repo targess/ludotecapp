@@ -1,0 +1,26 @@
+.content-heading
+  | Usuarios
+  = link_to 'Volver', :back, { class: "mb-lg btn btn-default btn-lg pull-right" }
+.row
+  .col-sm-12
+    .panel
+      .panel-heading
+      .table-responsive
+        table.table.table-bordered.table-hover
+          thead
+            tr
+              th #
+              th Email
+              th Organización
+              th
+          tbody
+            - @users.each_with_index do |user, index|
+              tr
+                td= index + 1
+                td= user[:email]
+                td= user.organization.name if user.organization
+                td
+                  => link_to 'Mostrar', admin_user_path(user), class: "btn btn-sm bt-primary bg-gray-lighter"
+                  => link_to '', edit_admin_user_path(user), class: "btn btn-success btn-sm bg-success-light fa fa-pencil"
+                  => link_to '', admin_user_path(user), method: :delete, class: "btn btn-danger btn-sm bg-danger-light fa fa-trash-o"
+      = render partial: 'pagination_footer', locals: { elements: @users }
