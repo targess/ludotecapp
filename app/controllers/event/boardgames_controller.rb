@@ -1,4 +1,6 @@
 class Event::BoardgamesController < ApplicationController
+  include Events::CheckAuthorized
+
   before_action :find_event, :set_organization_boardgames
 
   def index
@@ -48,10 +50,6 @@ class Event::BoardgamesController < ApplicationController
   end
 
   def set_organization_boardgames
-    @boardgames = current_organization.boardgames
-  end
-
-  def current_organization
-    @event.organization
+    @boardgames = @event.organization.boardgames
   end
 end

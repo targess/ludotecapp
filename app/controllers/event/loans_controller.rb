@@ -1,4 +1,6 @@
 class Event::LoansController < ApplicationController
+  include Events::CheckAuthorized
+
   before_action :find_event
 
   def index

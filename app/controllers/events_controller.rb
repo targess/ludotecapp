@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_organization
+  before_action :current_user_is_the_owner, only: [:show, :edit, :update, :destroy]
+
   def index
     @events = current_user.admin? ? Event.all : @organization.events
   end
@@ -53,5 +55,12 @@ class EventsController < ApplicationController
 
   def set_organization
     @organization = current_user.organization
+  end
+
+  def current_user_is_the_owner
+    @event = Event.find_by(id: params[:id])
+    unless @event.organization == current_user.organization || current_user.admin?
+      redirect_to root_path, notice: "Acess forbidden"
+    end
   end
 end

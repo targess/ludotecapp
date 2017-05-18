@@ -1,6 +1,9 @@
 class Event::PlayersController < ApplicationController
+  include Events::CheckAuthorized
+
   before_action :find_event
   before_action :set_organization, only: [:show_by_dni, :create, :update]
+
   def index
     @players = @event.players.all
     @player  = @event.players.new
