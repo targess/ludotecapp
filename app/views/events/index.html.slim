@@ -1,0 +1,33 @@
+.content-heading
+	| Eventos
+.row
+	.col-sm-12
+		.panel
+			.panel-heading
+			.table-responsive
+				table.table.table-bordered.table-hover
+					thead
+						tr
+							th #
+							th Nombre
+							th Comienza
+							th Finaliza
+							th Ciudad
+							th Provincia
+							- if current_user.admin?
+								th Organizatión
+							th
+					tbody
+						- @events.each_with_index do |event, index|
+							tr
+								td= index + 1
+								td= event[:name]
+								td= beauty_date(event[:start_date])
+								td= beauty_date(event[:end_date])
+								td= event[:city]
+								td= event[:province]
+								- if current_user.admin?
+									td= event.organization.name 
+								td
+									= link_to 'Mostrar', event_path(event), { class: "btn btn-default btn-sm bg-gray-lighter" }
+									= link_to '', edit_event_path(event), { class: "btn btn-success btn-sm bg-success-light fa fa-pencil" }
