@@ -1,5 +1,5 @@
 class Participant < ApplicationRecord
-  belongs_to :player
+  belongs_to :player, -> { with_deleted }
   belongs_to :tournament
 
   validates_presence_of :player, :tournament

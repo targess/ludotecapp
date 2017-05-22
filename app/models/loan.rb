@@ -1,7 +1,7 @@
 class Loan < ApplicationRecord
   belongs_to :boardgame
   belongs_to :event
-  belongs_to :player
+  belongs_to :player, -> { with_deleted }
 
   validates :boardgame, :event, :player, presence: true
   validate :returned_at_cannot_be_before_created_at, :player_not_returned_limit_rearched
