@@ -1,5 +1,5 @@
 class Tournament < ApplicationRecord
-  belongs_to :boardgame
+  belongs_to :boardgame, -> { with_deleted }
   belongs_to :event
   has_many :participants, dependent: :destroy
 
