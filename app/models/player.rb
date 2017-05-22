@@ -47,7 +47,7 @@ class Player < ApplicationRecord
   end
 
   def mark_fields_as_deleted
-    update(firstname: "DELETED", lastname: "DELETED", email: "DELETED", dni: "DELETED")
+    update_columns(firstname: "DELETED", lastname: "DELETED", email: "DELETED", dni: "DELETED")
   end
 
   def not_removed_with_pending_loans
