@@ -16,7 +16,7 @@ class Player < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validate :dni_must_have_valid_format
 
-  before_destroy :mark_fields_as_deleted, :not_removed_with_pending_loans
+  before_destroy :not_removed_with_pending_loans, :mark_fields_as_deleted
   after_destroy :really_destroy_when_useless, :remove_future_participants
 
   def name
