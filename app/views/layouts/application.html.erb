@@ -18,7 +18,11 @@
    <div class="wrapper">
       <!-- top navbar-->
       <header class="topnavbar-wrapper">
-         <%= render partial: "layouts/partials/topnavbar" %>
+         <% if current_user.admin? %>
+            <%= render partial: "layouts/partials/admin_topnavbar" %>
+         <% else %>
+            <%= render partial: "layouts/partials/topnavbar" %>
+         <% end %>
       </header>
       <!-- sidebar-->
       <aside class="aside">
