@@ -108,12 +108,13 @@ class Boardgame < ApplicationRecord
         bgg_id:      boardgame['id'])
     end
 
-    def self.import_from_bgg_collection(username)
+    def self.import_from_bgg_collection(username, organization)
       collection = bgg_get_collection(username)
       collection.each do |boardgame|
         boardgame = new_from_bgg_id(boardgame[:id], boardgame[:name])
+        boardgame.organization = organization
         boardgame.save
-        sleep(0.5)
+        sleep(1)
       end
     end
 end

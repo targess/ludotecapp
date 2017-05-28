@@ -117,6 +117,8 @@ end
 def init
   generate_organizations(2)
 
+  Boardgame.import_from_bgg_collection("targess", Organization.first) if ENV["BOARDGAMES"]
+
   generate_players(300)
   organizations_count = Organization.count
 
