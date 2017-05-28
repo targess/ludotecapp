@@ -30,8 +30,8 @@ class Player < ApplicationRecord
   def age
     return "" unless birthday
     today = Date.today
-    day = Date.new(today.year, birthday.month, birthday.day)
-    day.year - birthday.year - (day > today ? 1 : 0)
+    had_birthday = today.month > birthday.month || (today.month == birthday.month && today.day >= birthday.day) ? true : false
+    today.year - birthday.year - (had_birthday ? 0 : 1)
   end
 
   def active_loans
