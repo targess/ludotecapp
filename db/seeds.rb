@@ -104,11 +104,26 @@ def assign_boardgames_to_event(event, min = 50, max = 80)
   end
 end
 
+def generate_user(organization)
+  User.create(
+    email: "#{organization}@user.demo",
+    password: "demo",
+    password_confirmation: "demo",
+    organization: organization,
+    admin: false
+  )
+end
+
 def init
   generate_organizations(2)
 
   generate_players(300)
   organizations_count = Organization.count
+
+  User.create(email: "josetoscanogil@gmail.com", password: "123456", password_confirmation: "123456", admin: true, organization: Organization.first)
+  Organization.all.each do |organization|
+    generate_user(organization)
+  end
 
   Boardgame.all.each do |boardgame|
     boardgame.organization = Organization.all[rand(organizations_count)]
