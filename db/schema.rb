@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170511192542) do
+ActiveRecord::Schema.define(version: 20170528204322) do
 
   create_table "boardgames", force: :cascade do |t|
     t.string   "name"
@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 20170511192542) do
     t.integer  "playingtime"
     t.integer  "minage"
     t.integer  "bgg_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.string   "barcode",         limit: 13, default: "0"
-    t.string   "internalcode",               default: "0"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "barcode",                    limit: 13
+    t.string   "internalcode"
     t.datetime "deleted_at"
     t.integer  "organization_id"
     t.index ["deleted_at"], name: "index_boardgames_on_deleted_at"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20170511192542) do
     t.string   "province"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.integer  "loans_limits",    default: 0
+    t.integer  "loans_limits",                default: 0
     t.integer  "organization_id"
     t.index ["organization_id"], name: "index_events_on_organization_id"
   end
@@ -141,5 +141,4 @@ ActiveRecord::Schema.define(version: 20170511192542) do
     t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end

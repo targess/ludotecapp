@@ -9,8 +9,8 @@ class Boardgame < ApplicationRecord
   validates :name, presence: true
   validates :maxplayers, presence: true
   validates :organization, presence: true
-  validates :barcode, length: { is: 13 }
-  validates :internalcode, length: { is: 5 }
+  validates :barcode, length: { is: 13 }, allow_blank: true
+  validates :internalcode, length: { is: 5 }, allow_blank: true
 
   acts_as_paranoid
 
