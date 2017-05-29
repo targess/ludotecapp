@@ -51,7 +51,7 @@ class Player < ApplicationRecord
   end
 
   def not_removed_with_pending_loans
-    errors.add(:base, "Cannot delete players with pending loans") unless active_loans.zero?
+    errors.add(:destroy, "Cannot delete players with pending loans") unless active_loans.zero?
     throw(:abort) unless active_loans.zero?
   end
 

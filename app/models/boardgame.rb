@@ -65,7 +65,7 @@ class Boardgame < ApplicationRecord
   end
 
   def not_removed_with_pending_loans
-    errors.add(:base, "Cannot delete boardgames with pending loans") unless free_to_loan?
+    errors.add(:destroy, "Cannot delete boardgames with pending loans") unless free_to_loan?
     throw(:abort) unless free_to_loan?
   end
 

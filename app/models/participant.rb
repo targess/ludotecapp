@@ -49,7 +49,7 @@ class Participant < ApplicationRecord
   end
 
   def not_removed_from_past_tournament
-    errors.add(:base, "Cannot delete participant from past tournament") unless at_future_tournament?
+    errors.add(:destroy, "Cannot delete participant from past tournament") unless at_future_tournament?
     throw(:abort) unless at_future_tournament?
   end
 

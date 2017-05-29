@@ -43,7 +43,7 @@ class Admin::BoardgamesController < ApplicationController
   def update
     @boardgame = current_boardgames.find_by(id: params[:id])
     if @boardgame.update(boardgame_params)
-      redirect_to admin_boardgame_url(@boardgame)
+      redirect_to admin_boardgame_url(@boardgame), notice: "Boardgame was successfully updated."
     else
       render :edit
     end
@@ -51,8 +51,11 @@ class Admin::BoardgamesController < ApplicationController
 
   def destroy
     @boardgame = current_boardgames.find_by(id: params[:id])
-    @boardgame.destroy
-    redirect_to admin_boardgames_path
+    if @boardgame.destroy
+      redirect_to admin_boardgames_path, notice: "Boardgame was successfully removed."
+    else
+      redirect_to admin_boardgames_path, alert: @boardgame.errors[:destroy].to_sentence
+    end
   end
 
   private
