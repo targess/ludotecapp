@@ -105,10 +105,11 @@ def assign_boardgames_to_event(event, min = 50, max = 80)
 end
 
 def generate_user(organization)
+  name = organization.name.parameterize
   User.create(
-    email: "#{organization}@user.demo",
-    password: "demo",
-    password_confirmation: "demo",
+    email: "#{name}@user.demo",
+    password: "demodemo",
+    password_confirmation: "demodemo",
     organization: organization,
     admin: false
   )
