@@ -7,14 +7,12 @@ class Player < ApplicationRecord
 
   validates_presence_of :firstname, :lastname
   validates_size_of :phone, is: 9
-  validates :dni, presence: true, length: { is: 9 },
-                  format: { with: /[a-zA-Z]\z/, message: "last char has to be a letter" },
+  validates :dni, spanish_vat: true, presence: true,
                   uniqueness: { case_sensitive: false }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  validate :dni_must_have_valid_format
 
   before_destroy :not_removed_with_pending_loans, :mark_fields_as_deleted
   after_destroy :really_destroy_when_useless, :remove_future_participants
@@ -39,12 +37,6 @@ class Player < ApplicationRecord
   end
 
   private
-
-  def dni_must_have_valid_format
-    nif_letters = "TRWAGMYFPDXBNJZSQVHLCKE"
-    numbers = dni.chop
-    errors.add(:dni, "is invalid dni") if dni != numbers + nif_letters[numbers.to_i % nif_letters.length]
-  end
 
   def mark_fields_as_deleted
     update_columns(firstname: "DELETED", lastname: "DELETED", email: "DELETED", dni: "DELETED")
