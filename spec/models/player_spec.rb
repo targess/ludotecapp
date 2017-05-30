@@ -48,26 +48,30 @@ RSpec.describe Player, type: :model do
     it "is invalid with less than nine chars" do
       player = build(:player, dni: "12345678")
       player.valid?
-      expect(player.errors[:dni]).to include("is the wrong length (should be 9 characters)")
+      expect(player.errors[:dni]).to include("is invalid NIF/NIE")
     end
     it "is invalid with more than nine chars" do
       player = build(:player, dni: "1234567890")
       player.valid?
-      expect(player.errors[:dni]).to include("is the wrong length (should be 9 characters)")
+      expect(player.errors[:dni]).to include("is invalid NIF/NIE")
     end
     it "is invalid without letter in last char" do
       player = build(:player, dni: "123456789")
       player.valid?
-      expect(player.errors[:dni]).to include("last char has to be a letter")
+      expect(player.errors[:dni]).to include("is invalid NIF/NIE")
     end
-    it "has valid format" do
+    it "has valid NIF format" do
       player = build(:player, dni: "48960950E")
+      expect(player).to be_valid
+    end
+    it "has valid NIE format" do
+      player = build(:player, dni: "x1234123n")
       expect(player).to be_valid
     end
     it "is invalid with incorrect format" do
       player = build(:player, dni: "48960950A")
       player.valid?
-      expect(player.errors[:dni]).to include("is invalid dni")
+      expect(player.errors[:dni]).to include("is invalid NIF/NIE")
     end
     it "is invalid if with duplicates" do
       create(:player, firstname: "Jose", dni: "48960950E")
