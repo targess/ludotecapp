@@ -128,7 +128,7 @@ RSpec.describe Participant, type: :model do
       tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/01/2016")
       participant = create(:participant, tournament: tournament)
       expect { participant.destroy }.not_to change(Participant, :count)
-      expect(participant.errors[:base]).to include("Cannot delete participant from past tournament")
+      expect(participant.errors[:destroy]).to include("Cannot delete participant from past tournament")
       Timecop.return
     end
     it "are deleted when unsuscribed from future tournaments" do
