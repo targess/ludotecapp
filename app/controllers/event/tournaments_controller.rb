@@ -67,7 +67,7 @@ class Event::TournamentsController < ApplicationController
     @tournament  = @event.tournaments.find_by(id: params[:tournament_id])
     @participant = @tournament.participants.find_by(id: params[:id])
 
-    if @tournament.participants.destroy(@participant)
+    if @participant.destroy
       redirect_to event_tournament_path(@event, @tournament), notice: 'Jugador eliminado del torneo.'
     else
       redirect_to event_tournament_path(@event, @tournament), alert: @participant.errors[:destroy].to_sentence

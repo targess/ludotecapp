@@ -28,7 +28,7 @@ class Participant < ApplicationRecord
 
   def must_have_at_least_tournament_minage
     return false unless tournament.present? & player.present?
-    errors.add(:tournament, "player under minimal age") if player.age < tournament.minage
+    errors.add(:tournament, "player under minimal age") if player.age.blank? || player.age < tournament.minage
   end
 
   def supplent_when_competitors_reached
