@@ -98,8 +98,8 @@ class Boardgame < ApplicationRecord
       boardgame = self.bgg_get_by_id(id)
       Boardgame.new(
         name:        name || boardgame['name'].first['value'],
-        image:       'http://'+boardgame['image'].first[2..-1],
-        thumbnail:   'http://'+boardgame['thumbnail'].first[2..-1],
+        image:       boardgame['image'].first,
+        thumbnail:   boardgame['thumbnail'].first,
         description: boardgame['description'].first,
         minplayers:  boardgame['minplayers'].first['value'],
         maxplayers:  boardgame['maxplayers'].first['value'],
@@ -114,7 +114,7 @@ class Boardgame < ApplicationRecord
         boardgame = new_from_bgg_id(boardgame[:id], boardgame[:name])
         boardgame.organization = organization
         boardgame.save
-        sleep(1)
+        sleep(2)
       end
     end
 end
