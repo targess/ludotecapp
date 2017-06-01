@@ -32,7 +32,7 @@
                      </td>
                      <td><%= boardgame[:bgg_id] %></td>
                      <td><%= boardgame[:name] %></td>
-                     <td><%= players_number(boardgame[:minplayers],boardgame[:minplayers]) %></td>
+                     <td><%= players_number(boardgame[:minplayers],boardgame[:maxplayers]) %></td>
                      <td><%= min_age(boardgame[:minage]) %></td>
                      <td><%= boardgame[:playingtime] %></td>
                      <td><%= link_to 'Mostrar', admin_boardgame_path(boardgame), { class: "btn btn-sm bg-gray-lighter" } %>
