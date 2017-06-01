@@ -1,0 +1,46 @@
+doctype html
+html lang="es" 
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="utf-8" /
+    meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport" /
+    title Ludotecapp
+    /! =============== APP STYLES ===============
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => "reload"
+    /! =============== APP SCRIPTS ===============
+    = javascript_include_tag "application", "data-turbolinks-track" => "reload"
+  body
+    .wrapper
+      /! top navbar
+      header.topnavbar-wrapper
+        - if !current_user.admin?
+          = render partial: "layouts/partials/admin_topnavbar"
+        - else
+          = render partial: "layouts/partials/topnavbar"
+      /! sidebar
+      aside.aside
+        = render partial: "layouts/partials/sidebar"
+      /! offsidebar
+      aside.offsidebar.hide
+        = render partial: "layouts/partials/offsidebar"
+      /! Main section
+      section
+        /! Page content
+        .content-wrapper
+          - if notice.present?
+            .alert.alert-success.alert-dismissible.fade.in
+              button.close aria-label="Close" data-dismiss="alert" type="button" 
+                span aria-hidden="true"  ×
+              = notice
+          - if alert.present?
+            .alert.alert-danger.alert-dismissible.fade.in
+              button.close aria-label="Close" data-dismiss="alert" type="button" 
+                span aria-hidden="true"  ×
+              = alert
+          = yield
+      /! Page footer
+      footer
+        = render partial: "layouts/partials/footer"
+    /! loans modal
+    = render partial: "layouts/partials/loans_modal"
