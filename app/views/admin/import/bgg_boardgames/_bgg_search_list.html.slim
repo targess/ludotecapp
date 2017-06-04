@@ -1,0 +1,20 @@
+.panel
+  .panel-heading
+    h3 Resultados de la búsqueda
+  - if @boardgames.present?
+    .table-responsive
+      table.table.table-bordered.table-hover
+        thead
+          tr
+            th #
+            th BGG
+            th Nombre
+            th
+        tbody
+          - @boardgames.each_with_index do |boardgame, index|
+            tr
+              td= index+1
+              td= boardgame[:id]
+              td= boardgame[:name]
+              td
+                = link_to 'Importar', admin_import_bgg_boardgames_path(boardgame), { method: :post, class: "btn btn-sm btn-success bg-success-light" }
