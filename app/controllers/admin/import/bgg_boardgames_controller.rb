@@ -12,4 +12,10 @@ class Admin::Import::BggBoardgamesController < ApplicationController
       render :new, alert: "Boardgame fails to import form BGG"
     end
   end
+
+  private
+
+  def current_organization
+    current_user.organization
+  end
 end
