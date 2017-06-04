@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     resources :boardgames
     resources :organizations
     resources :users
+    namespace :import do
+      resources :bgg_boardgames, only: [:index, :create]
+    end
   end
 
   # defaults to dashboard
