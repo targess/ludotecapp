@@ -14,7 +14,7 @@ html lang="es"
     .wrapper
       /! top navbar
       header.topnavbar-wrapper
-        - if !current_user.admin?
+        - if current_user.admin?
           = render partial: "layouts/partials/admin_topnavbar"
         - else
           = render partial: "layouts/partials/topnavbar"
