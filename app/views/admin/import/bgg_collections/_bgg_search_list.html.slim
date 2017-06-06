@@ -1,0 +1,21 @@
+- if boardgames_collection.present?
+  .panel
+    .panel-heading
+      h3 Resultados de la búsqueda
+      .table-responsive
+        table.table.table-bordered.table-hover
+          thead
+            tr
+              th #
+              th Portada
+              th BGG
+              th Nombre
+          tbody
+            - boardgames_collection.each_with_index do |boardgame, index|
+              tr
+                td= index+1
+                td
+                  .media
+                    = img_boardgame(boardgame)
+                td= boardgame[:id]
+                td= boardgame[:name]

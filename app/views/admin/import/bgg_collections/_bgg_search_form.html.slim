@@ -1,0 +1,8 @@
+.panel
+  .panel-body
+    = form_for(:search, url: admin_import_bgg_collections_path, html: { method: 'GET' }) do |f|
+      .col-lg-8.col-lg-offset-2
+        .input-group.input-group-lg
+          = f.text_field :keywords, { class: "form-control", placeholder: "Introduzca el nombre de la colección que desea importar de la BGG" }
+          span.input-group-btn
+            = f.button "Buscar", class: "btn btn-default"

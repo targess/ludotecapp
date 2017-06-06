@@ -1,0 +1,10 @@
+.content-heading
+  |  Importar colección de juego de la BGG 
+  = link_to 'Volver', admin_boardgames_path, { class: "mb-lg btn btn-default btn-lg pull-right" }
+.panel
+  .row
+    .col-lg-12
+      = render 'bgg_search_form'
+  .row
+    .col-lg-12
+      = render 'bgg_search_list', boardgames_collection: @boardgames
