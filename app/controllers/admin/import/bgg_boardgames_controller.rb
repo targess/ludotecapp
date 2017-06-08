@@ -1,10 +1,12 @@
 class Admin::Import::BggBoardgamesController < ApplicationController
   def index
-    @boardgames = params[:search].present? ? Boardgame.bgg_search_by_name(params[:search][:keywords]) : []
+    if params[:search].present?
+      @boardgames = BggParser::SearchBoardgameByNameService.perform(params[:search][:keywords])
+    end
   end
 
   def create
-    boardgame = Boardgame.new_from_bgg_id(params[:id], params[:name])
+    boardgame = BggParser::NewBoardgameFromIdService.perform(params[:id], params[:name])
     boardgame.organization = current_organization
     if boardgame.save
       redirect_to admin_boardgame_path(boardgame), notice: "Boardgame was successfully created."
