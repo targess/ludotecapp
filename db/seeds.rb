@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Boardgame.import_from_bgg_collection("targess")
+# BggParser::ImportCollectionService.perform("targess", organization)
 
 def generate_organizations(amount = 1)
   amount.times do
@@ -118,7 +118,7 @@ end
 def init
   generate_organizations(2)
 
-  Boardgame.import_from_bgg_collection("targess", Organization.first) if ENV["BOARDGAMES"]
+  BggParser::ImportCollectionService.perform("targess", Organization.last) if ENV["BOARDGAMES"]
 
   generate_players(300)
   organizations_count = Organization.count
