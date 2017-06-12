@@ -22,16 +22,20 @@ Realizar bundle install:
 % bundle
 ```
 
-Realizar las migraciones correspondientes:
+Realizar el reseteo de la DB con una carga de datos inicial:
 ```
-% rails db:migrate
+% rails db:reset BOARDGAMES=usuario_bgg
 ```
 
-Realizar una carga inicial de datos de prueba:
+Si deseas realizar la carga inicial a partir de un usuario concreto de la BGG:
 ```
-% rails c
-pry(main)> Boardgame.import_from_bgg_collection("targess")
-pry(main)> exit
+% rails db:reset BOARDGAMES=usuario_bgg
+```
 
-%  rails db:seed
+## Acceso
+Tras la puesta en marcha, podrás acceder como administrador con los datos:
+
 ```
+usuario:    admin@demo.demo
+contraseña: 123456
+``
