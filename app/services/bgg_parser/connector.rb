@@ -19,8 +19,10 @@ module BggParser
       end
 
       def get_by_id(id)
-        boardgame = BggApi.thing("id=#{id}")["item"]&.first
+        boardgame = BggApi.thing("id=#{id}")["item"]
         return {} unless boardgame
+
+        boardgame = boardgame.first
 
         { name:        boardgame["name"].first["value"],
           image:       boardgame["image"].first,
