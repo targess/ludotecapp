@@ -118,12 +118,16 @@ end
 def init
   generate_organizations(2)
 
-  BggParser::ImportCollectionService.perform("targess", Organization.last) if ENV["BOARDGAMES"]
+  bgg_user = ENV["BOARDGAMES"] || "targess"
+  BggParser::ImportCollectionService.perform(bgg_user, Organization.last)
 
   generate_players(300)
   organizations_count = Organization.count
 
   User.create(email: "josetoscanogil@gmail.com", password: "123456", password_confirmation: "123456", admin: true, organization: Organization.first)
+
+  User.create(email: "admin@demo.demo", password: "123456", password_confirmation: "123456", admin: true, organization: Organization.first)
+
   Organization.all.each do |organization|
     generate_user(organization)
   end
