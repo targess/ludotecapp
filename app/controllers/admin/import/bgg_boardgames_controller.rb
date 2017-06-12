@@ -11,7 +11,7 @@ class Admin::Import::BggBoardgamesController < ApplicationController
     if boardgame.save
       redirect_to admin_boardgame_path(boardgame), notice: "Boardgame was successfully created."
     else
-      render :new, alert: "Boardgame fails to import form BGG"
+      redirect_to :index, alert: "Boardgame fails to import from BGG"
     end
   end
 
