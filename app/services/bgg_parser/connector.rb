@@ -33,6 +33,23 @@ module BggParser
           bgg_id:      boardgame["id"] }
       end
 
+      def get_multiple_by_id(*ids)
+        boardgames = BggApi.thing("id=#{ids.join(',')}")
+        return {} unless boardgames["item"]
+
+        boardgames["item"].map do |boardgame|
+          { name:        boardgame["name"].first["value"],
+            image:       boardgame["image"].first,
+            thumbnail:   boardgame["thumbnail"].first,
+            description: boardgame["description"].first,
+            minplayers:  boardgame["minplayers"].first["value"],
+            maxplayers:  boardgame["maxplayers"].first["value"],
+            playingtime: boardgame["playingtime"].first["value"],
+            minage:      boardgame["minage"].first["value"],
+            bgg_id:      boardgame["id"] }
+        end
+      end
+
       def get_collection(username)
         boardgames = BggApi.collection("username=#{username}&own=1")
 
