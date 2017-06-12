@@ -2,6 +2,8 @@
   .panel
     .panel-heading
       h3 Resultados de la búsqueda
+      = link_to 'Importar', admin_import_bgg_collections_path(bgg_user: params[:search][:keywords]), { method: :post, class: "btn btn-sm btn-success bg-success-light" }
+
       .table-responsive
         table.table.table-bordered.table-hover
           thead
