@@ -22,34 +22,14 @@ module BggParser
         boardgame = BggApi.thing("id=#{id}")["item"]
         return {} unless boardgame
 
-        boardgame = boardgame.first
-
-        { name:        boardgame["name"].first["value"],
-          image:       boardgame["image"].first,
-          thumbnail:   boardgame["thumbnail"].first,
-          description: boardgame["description"].first,
-          minplayers:  boardgame["minplayers"].first["value"],
-          maxplayers:  boardgame["maxplayers"].first["value"],
-          playingtime: boardgame["playingtime"].first["value"],
-          minage:      boardgame["minage"].first["value"],
-          bgg_id:      boardgame["id"] }
+        parse_boardgame_fields(boardgame.first)
       end
 
       def get_multiple_by_id(*ids)
         boardgames = BggApi.thing("id=#{ids.join(',')}")
         return {} unless boardgames["item"]
 
-        boardgames["item"].map do |boardgame|
-          { name:        boardgame["name"].first["value"],
-            image:       boardgame["image"].first,
-            thumbnail:   boardgame["thumbnail"].first,
-            description: boardgame["description"].first,
-            minplayers:  boardgame["minplayers"].first["value"],
-            maxplayers:  boardgame["maxplayers"].first["value"],
-            playingtime: boardgame["playingtime"].first["value"],
-            minage:      boardgame["minage"].first["value"],
-            bgg_id:      boardgame["id"] }
-        end
+        boardgames["item"].map { |boardgame| parse_boardgame_fields(boardgame) }
       end
 
       def get_collection(username)
@@ -62,6 +42,22 @@ module BggParser
             name: boardgame["name"].first["content"],
             thumbnail: boardgame["thumbnail"].first }
         end
+      end
+
+      private
+
+      def parse_boardgame_fields(boardgame)
+        {
+          name:          boardgame["name"][0]["value"],
+          image:         boardgame["image"][0],
+          thumbnail:     boardgame["thumbnail"][0],
+          description:   boardgame["description"][0],
+          minplayers:    boardgame["minplayers"][0]["value"],
+          maxplayers:    boardgame["maxplayers"][0]["value"],
+          playingtime:   boardgame["playingtime"][0]["value"],
+          minage:        boardgame["minage"][0]["value"],
+          bgg_id:        boardgame["id"]
+        }
       end
     end
   end
