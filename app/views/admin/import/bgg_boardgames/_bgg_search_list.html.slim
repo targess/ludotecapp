@@ -17,4 +17,5 @@
               td= boardgame[:id]
               td= boardgame[:name]
               td
+                = link_to 'Detalles', new_admin_import_bgg_boardgame_path(boardgame), { class: "btn btn-sm btn-primary bg-primary-light" }
                 = link_to 'Importar', admin_import_bgg_boardgames_path(boardgame), { method: :post, class: "btn btn-sm btn-success bg-success-light" }

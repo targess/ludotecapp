@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     resources :players
     resources :users
     namespace :import do
-      resources :bgg_boardgames, only: [:index, :create]
+      resources :bgg_boardgames, only: [:index, :create, :new]
       resources :bgg_collections, only: [:index, :create]
     end
   end

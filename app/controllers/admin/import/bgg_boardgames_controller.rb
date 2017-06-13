@@ -5,13 +5,17 @@ class Admin::Import::BggBoardgamesController < ApplicationController
     end
   end
 
+  def new
+    @boardgame = BggParser::NewBoardgameFromIdService.perform(params[:id], params[:name])
+  end
+
   def create
-    boardgame = BggParser::NewBoardgameFromIdService.perform(params[:id], params[:name])
-    boardgame.organization = current_organization
-    if boardgame.save
-      redirect_to admin_boardgame_path(boardgame), notice: "Boardgame was successfully created."
+    @boardgame = BggParser::NewBoardgameFromIdService.perform(params[:id], params[:name])
+    @boardgame.organization = current_organization
+    if @boardgame.save
+      redirect_to admin_boardgame_path(@boardgame), notice: "Boardgame was successfully created."
     else
-      redirect_to :index, alert: "Boardgame fails to import from BGG"
+      render :new, alert: "Boardgame fails to import from BGG"
     end
   end
 
