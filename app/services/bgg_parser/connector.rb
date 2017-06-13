@@ -56,7 +56,10 @@ module BggParser
           maxplayers:    boardgame["maxplayers"][0]["value"],
           playingtime:   boardgame["playingtime"][0]["value"],
           minage:        boardgame["minage"][0]["value"],
-          bgg_id:        boardgame["id"]
+          bgg_id:        boardgame["id"],
+          yearpublished: boardgame["yearpublished"][0]["value"],
+          minplaytime:   boardgame["minplaytime"][0]["value"],
+          maxplaytime:   boardgame["maxplaytime"][0]["value"]
         }
       end
     end
