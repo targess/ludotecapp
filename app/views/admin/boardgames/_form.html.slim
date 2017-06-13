@@ -1,0 +1,90 @@
+.col-sm-12
+  .panel.panel-default
+    .panel-body
+      = form_for([:admin, @boardgame], html: {class: "form-horizontal"}) do |f|
+        - if @boardgame.errors.any?
+          .alert.bg-danger-light.alert-dismissible.fade.in
+            button.close[type="button" data-dismiss="alert" aria-label="Close"]
+              span[aria-hidden="true"]
+                | ×
+            #error_explanation
+              h2
+                = pluralize(@boardgame.errors.count, "error")
+                |  prohibited this boardgame from being saved:
+              ul
+                - @boardgame.errors.full_messages.each do |message|
+                  li
+                    = message
+        .form-group
+          = f.label :nombre, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.text_field :name, {class: "form-control"}
+
+        .form-group
+          = f.label :descripción, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.text_area :description, {class: "form-control"}
+
+        .form-group
+          = f.label :miniatura, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.text_field :thumbnail, {class: "form-control", placeholder: "introducir url de la imagen"}
+
+        .form-group
+          = f.label :imagen, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.text_field :image, {class: "form-control", placeholder: "introducir url de la imagen"}
+
+        .form-group
+          = f.label :min_jugadores, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.number_field :minplayers, {class: "form-control"}
+
+        .form-group
+          = f.label :max_jugadores, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.number_field :maxplayers, {class: "form-control"}
+
+        .form-group
+          = f.label :edad_minima, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.number_field :minage, {class: "form-control"}
+
+        .form-group
+          = f.label :duración, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.number_field :playingtime, {class: "form-control"}
+
+        .form-group
+          = f.label :duración_mínima, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.number_field :minplaytime, {class: "form-control"}
+
+        .form-group
+          = f.label :duración_máxima, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.number_field :maxplaytime, {class: "form-control"}
+
+        .form-group
+          = f.label :año_de_publicación, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.number_field :yearpublished, {class: "form-control"}
+
+        .form-group
+          = f.label :código_de_la_boardgamegeek, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.text_field :bgg_id, {class: "form-control"}
+
+        .form-group
+          = f.label :código_de_barras, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.number_field :barcode, {class: "form-control"}
+
+        .form-group
+          = f.label :código_interno, {class: "col-lg-2 control-label"}
+          .col-lg-10
+            = f.text_field :internalcode, {class: "form-control"}
+
+        .form-group
+          .col-lg-offset-2.col-lg-10
+            = f.button "Guardar cambios", {class: "btn btn-lg btn-primary"}
