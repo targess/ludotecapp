@@ -30,11 +30,11 @@
                <td><%= min_age(boardgame[:minage]) %></td>
                <td><%= boardgame[:playingtime] %></td>
                <td>
-                  <%= link_to_if at_event, '', event_del_boardgame_path(@event, boardgame), 
-                     { class: "btn btn-danger btn-sm fa fa-minus", method: :patch, 
+                  <%= link_to_if at_event, '', event_boardgame_path(@event, boardgame), 
+                     { class: "btn btn-danger btn-sm fa fa-minus", method: :delete, 
                         data: { 
                            confirm: "¿Estás seguro de eliminar #{boardgame.name} del evento #{@event.name}?" } } %>
-                  <%= link_to_unless at_event, '', event_add_boardgame_path(@event, boardgame), 
+                  <%= link_to_unless at_event, '', event_boardgame_path(@event, boardgame), 
                      { class: "btn btn-success btn-sm fa fa-plus", method: :patch, 
                      data: { confirm: "Esto añadirá #{boardgame.name} al evento #{@event.name}" } } %>    
                   <%= link_to 'Mostrar', event_boardgame_path(@event, boardgame), 

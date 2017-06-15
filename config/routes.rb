@@ -3,9 +3,7 @@ Rails.application.routes.draw do
 
   resources :events do
     scope module: "event" do
-      patch "/boardgames/:id/add", to: "boardgames#add", as: "add_boardgame"
-      patch "/boardgames/:id/del", to: "boardgames#del", as: "del_boardgame"
-      resources :boardgames, only: [:index, :show]
+      resources :boardgames, only: [:index, :show, :update, :destroy]
       get "/players/show_by_dni", to: "players#show_by_dni"
       resources :players, except: [:new, :destroy]
 
