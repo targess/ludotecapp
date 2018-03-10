@@ -1,4 +1,5 @@
 class Boardgame < ApplicationRecord
+  include SoftDeletable
 
   has_and_belongs_to_many :events
   has_many :loans
@@ -11,18 +12,8 @@ class Boardgame < ApplicationRecord
   validates :barcode, length: { is: 13 }, allow_blank: true
   validates :internalcode, length: { is: 5 }, allow_blank: true
 
-  acts_as_paranoid
-
-  before_destroy :not_removed_with_pending_loans
-  before_destroy :remove_internalcode
-  after_destroy :really_destroy_when_useless
-
-  def free_to_loan?
-    loans.where(returned_at: nil).count.zero?
-  end
-
-  def active_loans(event)
-    loans.where(returned_at: nil, event: event)
+  def active_loans
+    loans.where(returned_at: nil)
   end
 
   def at_event?(event)
@@ -51,20 +42,5 @@ class Boardgame < ApplicationRecord
     else
       Boardgame.where("lower(internalcode) = ?", keyword.downcase)
     end
-  end
-
-  private
-
-  def remove_internalcode
-    update(internalcode: "DEL")
-  end
-
-  def really_destroy_when_useless
-    really_destroy! unless loans.present? || tournaments.present? || frozen?
-  end
-
-  def not_removed_with_pending_loans
-    errors.add(:destroy, "Cannot delete boardgames with pending loans") unless free_to_loan?
-    throw(:abort) unless free_to_loan?
   end
 end

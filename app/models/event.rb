@@ -19,7 +19,7 @@ class Event < ApplicationRecord
   end
 
   def invalid_when_boardgame_has_active_loans(boardgame)
-    return false if boardgame.free_to_loan?
+    return false if boardgame.active_loans.blank?
     errors.add(:boardgame, "boardgame with active loans can't be added")
     boardgames.delete(boardgame)
   end

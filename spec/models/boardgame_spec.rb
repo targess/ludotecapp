@@ -124,22 +124,15 @@ describe Boardgame do
       @boardgame = create(:boardgame)
       @event     = create(:event)
     end
-    it "returns true state (free) when all loans returned" do
-      expect(@boardgame.free_to_loan?).to eq(true)
-    end
-    it "returns false state (loaned) when has an active loan" do
-      create(:not_returned_loan, boardgame: @boardgame, event: @event)
-      expect(@boardgame.free_to_loan?).to eq(false)
-    end
 
     it "returns not returned loans from an event" do
       loan = create(:not_returned_loan, boardgame: @boardgame, event: @event)
-      expect(@boardgame.active_loans(@event)).to eq([loan])
+      expect(@boardgame.active_loans).to eq([loan])
     end
 
     it "returns empty array if in case all loans returned" do
       create(:loan, boardgame: @boardgame, event: @event)
-      expect(@boardgame.active_loans(@event)).to eq([])
+      expect(@boardgame.active_loans).to eq([])
     end
   end
 

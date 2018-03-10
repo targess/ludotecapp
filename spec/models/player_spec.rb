@@ -120,7 +120,7 @@ RSpec.describe Player, type: :model do
     it "returns active loans number" do
       player = create(:player)
       create(:not_returned_loan, player: player)
-      expect(player.active_loans).to eq(1)
+      expect(player.active_loans.count).to eq(1)
     end
   end
 
@@ -138,19 +138,19 @@ RSpec.describe Player, type: :model do
     end
     it "is valid when firstname changes to DELETED" do
       @player.destroy
-      expect(@player.firstname).to include("DELETED")
+      expect(@player.firstname).to include("DEL")
     end
     it "is valid when lastname changes to DELETED" do
       @player.destroy
-      expect(@player.lastname).to include("DELETED")
+      expect(@player.lastname).to include("DEL")
     end
     it "is valid when email changes to DELETED" do
       @player.destroy
-      expect(@player.email).to include("DELETED")
+      expect(@player.email).to include("DEL")
     end
     it "is valid when DNI changes to DELETED" do
       @player.destroy
-      expect(@player.dni).to include("DELETED")
+      expect(@player.dni).to include("DEL")
     end
     it "cant be displayed at players lists" do
       expect { @player.destroy }.to change(Player, :count).by(-1)
