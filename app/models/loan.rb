@@ -7,9 +7,7 @@ class Loan < ApplicationRecord
   validate :returned_at_cannot_be_before_created_at, :player_not_returned_limit_rearched
   validate :boardgame_not_available, on: :create
 
-  def self.ordered_loans
-    where(returned_at: nil).order(created_at: :desc) + where.not(returned_at: nil).order(returned_at: :desc)
-  end
+  scope :ordered, -> { order(returned_at: :desc, created_at: :desc).includes(:player, :boardgame) }
 
   def return(time = Time.now)
     update(returned_at: time)

@@ -36,7 +36,7 @@ RSpec.describe Loan, type: :model do
   it "returns a list of loans by date, with not returned_at first (ordered_loans)" do
     loan              = create(:loan)
     not_returned_loan = create(:not_returned_loan)
-    expect(Loan.ordered_loans).to eq([not_returned_loan, loan])
+    expect(Loan.ordered).to eq([not_returned_loan, loan])
   end
 
   context "players" do

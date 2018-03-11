@@ -5,7 +5,7 @@ class Event::LoansController < ApplicationController
 
   def index
     @loan  = Loan.new
-    @loans = @event.loans.ordered_loans
+    @loans = @event.loans.ordered
     keywords = params.fetch(:search, {}).fetch(:keywords, nil)
     @boardgames = search_boardgame_to_borrow_by_keyword(keywords)
   end
