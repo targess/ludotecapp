@@ -16,10 +16,6 @@ class Boardgame < ApplicationRecord
     loans.where(returned_at: nil)
   end
 
-  def at_event?(event)
-    events.find_by(id: event)
-  end
-
   def self.search_by_name(keyword, event = nil)
     if event.present?
       event.boardgames.where("lower(name) LIKE ?", "%#{keyword}%".downcase)
