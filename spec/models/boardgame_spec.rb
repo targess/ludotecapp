@@ -98,24 +98,24 @@ describe Boardgame do
     end
     it "returns boardgames by name at selected event" do
       @event.boardgames.push(@carcassonne)
-      expect(Boardgame.search_by_name("Ca", @event)).to include(@carcassonne)
+      expect(@event.boardgames.search_by_name("Ca")).to include(@carcassonne)
     end
     it "not returns boardgame by name if not included at selected event" do
-      expect(Boardgame.search_by_name("Ca", @event)).not_to include(@carcassonne)
+      expect(@event.boardgames.search_by_name("Ca")).not_to include(@carcassonne)
     end
     it "returns boardgame if barcode with match exact at selected event" do
       @event.boardgames.push(@aventureros)
-      expect(Boardgame.search_by_barcode("2222222233333", @event)).to include(@aventureros)
+      expect(@event.boardgames.search_by_barcode("2222222233333")).to include(@aventureros)
     end
     it "not returns boardgame by barcode if not included at selected event" do
-      expect(Boardgame.search_by_barcode("2222222233333", @event)).not_to include(@aventureros)
+      expect(@event.boardgames.search_by_barcode("2222222233333")).not_to include(@aventureros)
     end
     it "returns boardgame if internalcode with match exact at selected event" do
       @event.boardgames.push(@aventureros)
-      expect(Boardgame.search_by_internalcode("QJ003", @event)).to include(@aventureros)
+      expect(@event.boardgames.search_by_internalcode("QJ003")).to include(@aventureros)
     end
     it "not returns boardgame by internalcode if not included at selected event" do
-      expect(Boardgame.search_by_internalcode("QJ003", @event)).not_to include(@aventureros)
+      expect(@event.boardgames.search_by_internalcode("QJ003")).not_to include(@aventureros)
     end
   end
 

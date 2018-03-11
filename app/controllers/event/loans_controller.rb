@@ -6,21 +6,8 @@ class Event::LoansController < ApplicationController
   def index
     @loan  = Loan.new
     @loans = @event.loans.ordered_loans
-
-    # Pending to move to correct model
-    if params[:search].present?
-      keyword = params[:search][:keywords]
-
-      if keyword.length == 13 && (Float(keyword) rescue nil)
-        @boardgames  = Boardgame.search_by_barcode(keyword, @event)
-      elsif keyword.length == 5 && keyword.match(/^[a-zA-Z]{2}\d{3}/)
-        @boardgames  = Boardgame.search_by_internalcode(keyword, @event)
-      else
-        @boardgames  = Boardgame.search_by_name(keyword, @event)
-      end
-    else
-      @boardgames  = []
-    end
+    keywords = params.fetch(:search, {}).fetch(:keywords, nil)
+    @boardgames = search_boardgame_to_borrow_by_keyword(keywords)
   end
 
   def create
@@ -35,7 +22,7 @@ class Event::LoansController < ApplicationController
         redirect_to event_loans_url(@event), alert: 'Sorry, loans fails to start.'
       end
     else
-        redirect_to event_loans_url(@event), alert: 'Invalid DNI, loans fails to start.'
+      redirect_to event_loans_url(@event), alert: 'Invalid DNI, loans fails to start.'
     end
   end
 
@@ -51,7 +38,19 @@ class Event::LoansController < ApplicationController
 
   private
 
-    def find_event
-      @event = Event.find(params[:event_id])
+  def find_event
+    @event = Event.find(params[:event_id])
+  end
+
+  def search_boardgame_to_borrow_by_keyword(keyword)
+    return [] unless keyword.present?
+
+    if keyword.length == 13 && keyword.match(/^\d+$/)
+      @event.boardgames.search_by_barcode(keyword)
+    elsif keyword.length == 5 && keyword.match(/^[a-zA-Z]{2}\d{3}/)
+      @event.boardgames.search_by_internalcode(keyword)
+    else
+      @event.boardgames.search_by_name(keyword)
     end
+  end
 end
