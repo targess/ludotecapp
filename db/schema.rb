@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170613190951) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "boardgames", force: :cascade do |t|
     t.string   "name"
     t.string   "thumbnail"
@@ -31,15 +34,15 @@ ActiveRecord::Schema.define(version: 20170613190951) do
     t.integer  "yearpublished"
     t.integer  "minplaytime"
     t.integer  "maxplaytime"
-    t.index ["deleted_at"], name: "index_boardgames_on_deleted_at"
-    t.index ["organization_id"], name: "index_boardgames_on_organization_id"
+    t.index ["deleted_at"], name: "index_boardgames_on_deleted_at", using: :btree
+    t.index ["organization_id"], name: "index_boardgames_on_organization_id", using: :btree
   end
 
   create_table "boardgames_events", id: false, force: :cascade do |t|
     t.integer "boardgame_id"
     t.integer "event_id"
-    t.index ["boardgame_id"], name: "index_boardgames_events_on_boardgame_id"
-    t.index ["event_id"], name: "index_boardgames_events_on_event_id"
+    t.index ["boardgame_id"], name: "index_boardgames_events_on_boardgame_id", using: :btree
+    t.index ["event_id"], name: "index_boardgames_events_on_event_id", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -52,14 +55,14 @@ ActiveRecord::Schema.define(version: 20170613190951) do
     t.datetime "updated_at",                  null: false
     t.integer  "loans_limits",    default: 0
     t.integer  "organization_id"
-    t.index ["organization_id"], name: "index_events_on_organization_id"
+    t.index ["organization_id"], name: "index_events_on_organization_id", using: :btree
   end
 
   create_table "events_players", id: false, force: :cascade do |t|
     t.integer "player_id"
     t.integer "event_id"
-    t.index ["event_id"], name: "index_events_players_on_event_id"
-    t.index ["player_id"], name: "index_events_players_on_player_id"
+    t.index ["event_id"], name: "index_events_players_on_event_id", using: :btree
+    t.index ["player_id"], name: "index_events_players_on_player_id", using: :btree
   end
 
   create_table "loans", force: :cascade do |t|
@@ -69,9 +72,9 @@ ActiveRecord::Schema.define(version: 20170613190951) do
     t.integer  "player_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.index ["boardgame_id"], name: "index_loans_on_boardgame_id"
-    t.index ["event_id"], name: "index_loans_on_event_id"
-    t.index ["player_id"], name: "index_loans_on_player_id"
+    t.index ["boardgame_id"], name: "index_loans_on_boardgame_id", using: :btree
+    t.index ["event_id"], name: "index_loans_on_event_id", using: :btree
+    t.index ["player_id"], name: "index_loans_on_player_id", using: :btree
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -92,8 +95,8 @@ ActiveRecord::Schema.define(version: 20170613190951) do
     t.integer  "tournament_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.index ["player_id"], name: "index_participants_on_player_id"
-    t.index ["tournament_id"], name: "index_participants_on_tournament_id"
+    t.index ["player_id"], name: "index_participants_on_player_id", using: :btree
+    t.index ["tournament_id"], name: "index_participants_on_tournament_id", using: :btree
   end
 
   create_table "players", force: :cascade do |t|
@@ -108,7 +111,7 @@ ActiveRecord::Schema.define(version: 20170613190951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_players_on_deleted_at"
+    t.index ["deleted_at"], name: "index_players_on_deleted_at", using: :btree
   end
 
   create_table "tournaments", force: :cascade do |t|
@@ -121,8 +124,8 @@ ActiveRecord::Schema.define(version: 20170613190951) do
     t.integer  "event_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.index ["boardgame_id"], name: "index_tournaments_on_boardgame_id"
-    t.index ["event_id"], name: "index_tournaments_on_event_id"
+    t.index ["boardgame_id"], name: "index_tournaments_on_boardgame_id", using: :btree
+    t.index ["event_id"], name: "index_tournaments_on_event_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -140,9 +143,16 @@ ActiveRecord::Schema.define(version: 20170613190951) do
     t.datetime "updated_at",                             null: false
     t.integer  "organization_id"
     t.boolean  "admin",                  default: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["organization_id"], name: "index_users_on_organization_id"
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["organization_id"], name: "index_users_on_organization_id", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "boardgames", "organizations"
+  add_foreign_key "events", "organizations"
+  add_foreign_key "participants", "players"
+  add_foreign_key "participants", "tournaments"
+  add_foreign_key "tournaments", "boardgames"
+  add_foreign_key "tournaments", "events"
+  add_foreign_key "users", "organizations"
 end
