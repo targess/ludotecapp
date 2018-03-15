@@ -8,6 +8,7 @@ class Loan < ApplicationRecord
   validate :boardgame_not_available, on: :create
 
   scope :ordered, -> { order(returned_at: :desc, created_at: :desc).includes(:player, :boardgame) }
+  scope :at_event, ->(event) { where(event: event) }
 
   def return(time = Time.now)
     update(returned_at: time)

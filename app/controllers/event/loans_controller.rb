@@ -26,7 +26,7 @@ class Event::LoansController < ApplicationController
     end
   end
 
-  def return
+  def destroy
     @loan = @event.loans.find_by(id: params[:id])
 
     if @loan.return

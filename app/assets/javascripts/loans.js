@@ -69,7 +69,7 @@ $(document).on('turbolinks:load', function() {
 
 		if (loanId) {
 			$.ajax({
-				type: 'PATCH',
+				type: 'DELETE',
 				url: '/events/'+eventId+'/loans/'+loanId
 			});
 		} else {

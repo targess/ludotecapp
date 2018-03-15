@@ -9,8 +9,8 @@ class Event::BoardgamesController < ApplicationController
   end
 
   def show
-    @boardgame = @boardgames.find_by(id: params[:id])
-    @loan      = @boardgame.active_loans
+    @boardgame = @event.boardgames.find_by(id: params[:id])
+    @loan      = @boardgame.active_loans.at_event(@event)
 
     if @loan.present?
       loan_json = {

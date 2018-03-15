@@ -7,8 +7,7 @@ Rails.application.routes.draw do
       get "/players/show_by_dni", to: "players#show_by_dni"
       resources :players, except: [:new, :destroy]
 
-      patch "/loans/:id", to: "loans#return"
-      resources :loans, only: [:index, :create]
+      resources :loans, only: [:index, :create, :destroy]
 
       resources :tournaments, except: [:new] do
         get :autocomplete_boardgame_name, on: :collection
