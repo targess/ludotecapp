@@ -70,18 +70,18 @@ RSpec.describe Tournament, type: :model do
       tournament = create(:tournament, max_competitors: 1, max_substitutes: 0)
       expect(tournament.max_participants_rearched).to be_falsey
     end
-    it "gives a list of competitors" do
+    it "assigned as competitor when slots available" do
       tournament = create(:tournament, max_competitors: 1, max_substitutes: 0)
       competitor = create(:participant, tournament: tournament)
       expect(tournament.competitors).to include(competitor)
     end
-    it "gives a list of substitutes" do
+    it "assigned as substitute when no slots available" do
       tournament = create(:tournament, max_competitors: 1, max_substitutes: 1)
       create(:participant, tournament: tournament)
       substitute = create(:participant, tournament: tournament)
       expect(tournament.substitutes).to include(substitute)
     end
-    it "gives a list of confirmed" do
+    it "assigned as confirmed when slots available and confirmed" do
       tournament = create(:tournament, max_competitors: 1, max_substitutes: 0)
       confirmed = create(:participant, tournament: tournament, confirmed: true)
       expect(tournament.confirmed).to include(confirmed)
