@@ -11,6 +11,10 @@ class Participant < ApplicationRecord
   after_destroy :supplent_to_competitor_when_competitor_destroyed
   before_destroy :not_removed_from_past_tournament
 
+  scope :competitors, -> { where(substitute: false) }
+  scope :substitutes, -> { where(substitute: true) }
+  scope :confirmed, -> { where(confirmed: true) }
+
   def toggle_confirmed
     confirmed ? (self.confirmed = false) : (self.confirmed = true)
   end

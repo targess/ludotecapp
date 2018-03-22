@@ -15,15 +15,15 @@ class Tournament < ApplicationRecord
   end
 
   def competitors
-    participants.where(substitute: false)
+    participants.competitors
   end
 
   def substitutes
-    participants.where(substitute: true)
+    participants.substitutes
   end
 
   def confirmed
-    participants.where(confirmed: true)
+    participants.confirmed
   end
 
   def league_system(my_teams = confirmed)
