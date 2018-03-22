@@ -33,19 +33,21 @@ class Event::BoardgamesController < ApplicationController
 
   def update
     @boardgame = @boardgames.find_by(id: params[:id])
-    @boardgame.events << @event
 
-    if @boardgame.save
+    if @event.boardgames << @boardgame
       redirect_to event_boardgames_path, notice: "Juego añadido al evento."
     else
-      redirect_to event_boardgames_path, alert: @boardgame.errors
+      redirect_to event_boardgames_path, alert: @event.errors[:boardgame].to_sentence
     end
   end
 
   def destroy
     @boardgame = @boardgames.find_by(id: params[:id])
-    @boardgame.events.delete(@event)
-    redirect_to event_boardgames_path, notice: "Juego eliminado del evento."
+    if @event.boardgames.delete(@boardgame)
+      redirect_to event_boardgames_path, notice: "Juego eliminado del evento."
+    else
+      redirect_to event_boardgames_path, alert: @event.errors[:boardgame].to_sentence
+    end
   end
 
   private
