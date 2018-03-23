@@ -5,13 +5,12 @@ class Event::ParticipantsController < ApplicationController
 
   def create
     player = @event.players.find_by(id: params[:search][:player_id])
-
     if player
       @participant = @tournament.participants.new(player: player)
       if @participant.save
         flash[:notice] = 'Jugador añadido al torneo.'
       else
-        flash[:alert] = 'El jugador no pudo ser añadido. Puede que ya esté en el torneo, o no existan más plazas libres'
+        flash[:alert] = @participant.errors.values
       end
     else
       flash[:alert] = 'DNI no válido, no se pudo añadir al jugador al torneo.'
@@ -26,7 +25,7 @@ class Event::ParticipantsController < ApplicationController
     if @participant.destroy
       flash[:notice] = 'Jugador eliminado del torneo.'
     else
-      flash[:alert] = @participant.errors[:destroy].to_sentence
+      flash[:alert] = @participant.errors[:participant].to_sentence
     end
 
     redirect_to event_tournament_path(@event, @tournament)

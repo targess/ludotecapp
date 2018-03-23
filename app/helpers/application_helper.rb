@@ -7,6 +7,12 @@ module ApplicationHelper
     action.include?(params[:action])
   end
 
+  def formatted_flash(messages)
+    return content_tag(:p, messages) if messages.is_a?(String)
+    messages.each { |message| concat content_tag(:p, message.to_sentence) }
+    nil
+  end
+
   def players_number(min, max)
     return max unless min.present?
     min == max ? max : "#{min} - #{max}"
