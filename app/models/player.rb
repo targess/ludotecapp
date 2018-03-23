@@ -16,6 +16,7 @@ class Player < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   after_destroy :remove_future_participants
+  before_save { self.dni = dni.upcase }
 
   def name
     "#{firstname} #{lastname}"

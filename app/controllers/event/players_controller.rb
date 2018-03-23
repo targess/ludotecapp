@@ -14,7 +14,7 @@ class Event::PlayersController < ApplicationController
   end
 
   def show_by_dni
-    player = @organization.players.find_by(dni: params[:dni])
+    player = @organization.players.find_by(dni: params[:dni].upcase)
     unless player
       render json: { error: "player not found" },
              status: 404
