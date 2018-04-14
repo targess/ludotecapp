@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :event do
     name        { Faker::StarWars.planet }
-    start_date  "10/01/2016"
-    end_date    "12/01/2016"
+    start_date  10.days.ago
+    end_date    10.days.from_now
     city        { Faker::Address.city }
     province    { Faker::Address.state }
     association :organization

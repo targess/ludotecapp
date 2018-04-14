@@ -24,10 +24,8 @@ RSpec.describe Player, type: :model do
     expect(player.dni_plus_name).to eq("48960950E | Manolete El del Bombo")
   end
   it "returns age when has a valid birthday" do
-    Timecop.travel Time.parse("7/12/2016")
-    player = build(:player, birthday: "19/04/1981")
+    player = build(:player, birthday: 35.years.ago)
     expect(player.age).to eq(35)
-    Timecop.return
   end
   it "returns empty string when has no birthday" do
     player = build(:player, birthday: nil)
@@ -174,22 +172,20 @@ RSpec.describe Player, type: :model do
       expect { empty_player.destroy }.to change(Player.with_deleted, :count).by(-1)
     end
     it "is removed from participants at future tournaments" do
-      Timecop.travel Time.parse("10/10/2016")
-      event       = create(:event, start_date: "1/10/2016", end_date: "20/10/2016")
-      tournament  = create(:tournament, event: event, date: "11/10/2016")
+      event       = create(:event)
+      tournament  = create(:tournament, event: event, date: 1.days.from_now)
       participant = create(:participant, tournament: tournament, player: @player)
       @player.destroy
       expect(Participant.all).not_to include(participant)
-      Timecop.return
     end
     it "isnt removed from participants at past tournaments" do
-      Timecop.travel Time.parse("10/10/2016")
-      event       = create(:event, start_date: "1/10/2016", end_date: "20/10/2016")
-      tournament  = create(:tournament, event: event, date: "2/10/2016")
+      event       = create(:event)
+      tournament  = create(:tournament, event: event, date: 1.days.ago)
+      Timecop.travel 2.days.ago
       participant = create(:participant, tournament: tournament, player: @player)
+      Timecop.return
       @player.destroy
       expect(Participant.all).to include(participant)
-      Timecop.return
     end
   end
 

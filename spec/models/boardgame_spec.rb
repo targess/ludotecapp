@@ -191,7 +191,7 @@ describe Boardgame do
     end
     it "past tournaments are displayed" do
       @boardgame.destroy
-      tournament = build(:tournament, boardgame: @boardgame, date: "11/01/2016")
+      tournament = build(:tournament, boardgame: @boardgame, date: 1.days.from_now)
       expect(tournament).to be_valid
     end
     it "at loans lists can be displayed" do

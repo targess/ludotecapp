@@ -68,86 +68,72 @@ RSpec.describe Participant, type: :model do
       expect(participant.errors[:tournament]).to include("max participants are rearched")
     end
     it "over minimal age can be inscribed" do
-      Timecop.travel Time.parse("2/1/2020")
       tournament  = create(:tournament, minage: 10)
-      player      = create(:player, birthday: "2/1/2000")
+      player      = create(:player, birthday: 20.years.ago)
       participant = build(:participant, player: player, tournament: tournament)
       expect(participant).to be_valid
-      Timecop.return
     end
     it "at minimal age can be inscribed" do
-      Timecop.travel Time.parse("2/1/2020")
       tournament  = create(:tournament, minage: 10)
-      player      = create(:player, birthday: "2/1/2010")
+      player      = create(:player, birthday: 10.years.ago)
       participant = build(:participant, player: player, tournament: tournament)
       expect(participant).to be_valid
-      Timecop.return
     end
     it "under minimal age cant be inscribed" do
-      Timecop.travel Time.parse("2/1/2010")
       tournament  = create(:tournament, minage: 10)
-      player      = create(:player, birthday: "2/1/2005")
+      player      = create(:player, birthday: 5.years.ago)
       participant = build(:participant, player: player, tournament: tournament)
       participant.valid?
       expect(participant.errors[:tournament]).to include("player under minimal age")
-      Timecop.return
     end
     it "participants cant be added to future tournaments with deleted Boardgame" do
-      Timecop.travel Time.parse("1/01/2016")
       boardgame   = create(:boardgame)
-      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
-      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
+      event       = create(:event)
+      tournament  = create(:tournament, event: event, boardgame: boardgame)
       boardgame.destroy
       participant = build(:participant, tournament: tournament)
       participant.valid?
       expect(participant.errors[:tournament]).to include("tournament with invalid boardgame")
-      Timecop.return
     end
     it "participant belongs to future tournament" do
-      Timecop.travel Time.parse("1/01/2016")
       boardgame   = create(:boardgame)
-      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
-      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
+      event       = create(:event)
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: 1.days.from_now)
       participant = create(:participant, tournament: tournament)
       expect(participant.at_future_tournament?).to be_truthy
-      Timecop.return
     end
     it "participant belongs to started tournament" do
-      Timecop.travel Time.parse("2/02/2016")
       boardgame   = create(:boardgame)
-      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
-      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
+      event       = create(:event)
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: 1.hours.from_now)
       participant = create(:participant, tournament: tournament)
-      expect(participant.at_future_tournament?).to be_falsey
+      Timecop.travel 1.days.from_now
+        expect(participant.at_future_tournament?).to be_falsey
       Timecop.return
     end
     it "cant be unsuscribed from past tournaments" do
-      Timecop.travel Time.parse("10/01/2016")
       boardgame   = create(:boardgame)
-      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
-      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/01/2016")
-      participant = create(:participant, tournament: tournament)
-      expect { participant.destroy }.not_to change(Participant, :count)
-      expect(participant.errors[:destroy]).to include("Cannot delete participant from past tournament")
+      event       = create(:event, start_date: 10.days.ago, end_date: 10.days.from_now)
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: 1.days.ago)
+      Timecop.travel 2.days.ago
+        participant = create(:participant, tournament: tournament)
       Timecop.return
+      expect { participant.destroy }.not_to change(Participant, :count)
+      expect(participant.errors[:tournament]).to include("Cannot delete participant from past tournament")
     end
     it "are deleted when unsuscribed from future tournaments" do
-      Timecop.travel Time.parse("1/01/2016")
       boardgame   = create(:boardgame)
-      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
-      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/02/2016")
+      event       = create(:event)
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: 1.days.from_now)
       participant = create(:participant, tournament: tournament)
       expect { participant.destroy }.to change(Participant, :count).by(-1)
-      Timecop.return
     end
     it "are deleted when unsuscribed from present tournaments" do
-      Timecop.travel Time.parse("1/01/2016")
       boardgame   = create(:boardgame)
-      event       = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
-      tournament  = create(:tournament, event: event, boardgame: boardgame, date: "1/01/2016")
+      event       = create(:event)
+      tournament  = create(:tournament, event: event, boardgame: boardgame, date: 1.hours.from_now)
       participant = create(:participant, tournament: tournament)
       expect { participant.destroy }.to change(Participant, :count).by(-1)
-      Timecop.return
     end
     it "is valid if are at same event" do
       player      = create(:player)
@@ -166,13 +152,11 @@ RSpec.describe Participant, type: :model do
       expect(participant.errors[:tournament]).to include("belongs to another event")
     end
     it "if competitor deleted first substitute is a new competitor" do
-      Timecop.travel Time.parse("1/01/2016")
-      event      = create(:event, start_date: "1/01/2016", end_date: "2/02/2016")
-      tournament = create(:tournament, max_competitors: 1, event: event, date: "1/02/2016")
+      event      = create(:event)
+      tournament = create(:tournament, max_competitors: 1, event: event)
       competitor = create(:participant, tournament: tournament)
       create(:participant, tournament: tournament)
       expect { competitor.destroy }.to change(tournament.substitutes, :count).by(-1)
-      Timecop.return
     end
     pending "confirmed matches at league sytems"
   end
