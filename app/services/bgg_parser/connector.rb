@@ -7,6 +7,9 @@ module BggParser
     end
 
     module ClassMethods
+
+      private
+
       def search_by_name(name)
         return [] if name.match(/^\s*$/) || name.length <= 3
 
@@ -43,8 +46,6 @@ module BggParser
             thumbnail: boardgame["thumbnail"].first }
         end
       end
-
-      private
 
       def parse_boardgame_fields(boardgame)
         {
