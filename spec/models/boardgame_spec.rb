@@ -105,6 +105,11 @@ describe Boardgame do
       association = described_class.reflect_on_association(:organization)
       expect(association.macro).to eq :belongs_to
     end
+
+    it 'has and belongs to many Publishers' do 
+      association = described_class.reflect_on_association(:publishers)
+      expect(association.macro).to eq :has_and_belongs_to_many
+    end
   end
 
   context "Event" do
