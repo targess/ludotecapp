@@ -2,6 +2,7 @@ class Boardgame < ApplicationRecord
   include SoftDeletable
 
   has_and_belongs_to_many :events, -> { distinct }, before_add: :cant_add_boardgame_with_active_loans
+  has_and_belongs_to_many :publishers
   has_many :loans
   has_many :tournaments
   belongs_to :organization
