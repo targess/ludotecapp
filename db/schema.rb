@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180414173413) do
+ActiveRecord::Schema.define(version: 20180415081543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(version: 20180414173413) do
     t.index ["organization_id"], name: "index_boardgames_on_organization_id", using: :btree
   end
 
+  create_table "boardgames_designers", force: :cascade do |t|
+    t.integer "boardgame_id"
+    t.integer "designer_id"
+    t.index ["boardgame_id"], name: "index_boardgames_designers_on_boardgame_id", using: :btree
+    t.index ["designer_id"], name: "index_boardgames_designers_on_designer_id", using: :btree
+  end
+
   create_table "boardgames_events", id: false, force: :cascade do |t|
     t.integer "boardgame_id"
     t.integer "event_id"
@@ -50,6 +57,11 @@ ActiveRecord::Schema.define(version: 20180414173413) do
     t.integer "publisher_id"
     t.index ["boardgame_id"], name: "index_boardgames_publishers_on_boardgame_id", using: :btree
     t.index ["publisher_id"], name: "index_boardgames_publishers_on_publisher_id", using: :btree
+  end
+
+  create_table "designers", force: :cascade do |t|
+    t.string  "name"
+    t.integer "bgg_id"
   end
 
   create_table "events", force: :cascade do |t|
