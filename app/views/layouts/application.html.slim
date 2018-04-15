@@ -1,5 +1,5 @@
 doctype html
-html lang="es" 
+html lang="es" class="csstransforms3d"
   head
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
     meta charset="utf-8" /
@@ -14,9 +14,6 @@ html lang="es"
     .wrapper
       /! top navbar
       header.topnavbar-wrapper
-        - if current_user.admin?
-          = render partial: "layouts/partials/admin_topnavbar"
-        - else
           = render partial: "layouts/partials/topnavbar"
       /! sidebar
       aside.aside

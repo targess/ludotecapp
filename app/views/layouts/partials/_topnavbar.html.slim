@@ -1,50 +1,32 @@
 nav.navbar.topnavbar role="navigation" 
+  /! START navbar header
   .navbar-header
     a.navbar-brand href="/" 
       .brand-logo
         img.img-responsive alt=("App Logo") src="#{image_path('logo-ludotecapp.png')}" /
       .brand-logo-collapsed
-        img.img-responsive alt=("App Logo") src="#{image_path('logo-ludotecapp.png')}" /
+        img.img-responsive alt=("App Logo") src="#{image_path('logo-square-ludotecapp.png')}" /
 
-  .navbar-collapse.collapse
+  /! START Nav wrapper
+  .nav-wrapper
     - if user_signed_in?
       /! START Left navbar
       ul.nav.navbar-nav
         li
-          a data-toggle="dropdown" href="#" title=("Events list") 
-            em.fa.fa-bullhorn
-            =>
-            span Eventos
-          ul.dropdown-menu.animated.fadeIn
-            li
-              a href="/events"  Lista
-            li
-              a href="/events/new"  Nuevo
-        li
-          a data-toggle="dropdown" href="#" title=("Players list") 
-            em.fa.fa-users
-            =>
-            span Jugadores
-          ul.dropdown-menu.animated.fadeIn
-            li
-              a href="/admin/players"  Lista
-            li
-              a href="/admin/organizations/new"  Nuevo
-        li
-          a data-toggle="dropdown" href="#" title=("Boardgames list") 
-            em.fa.fa-cubes
-            =>
-            span Juegos
-          ul.dropdown-menu.animated.fadeIn
-            li
-              a href="/admin/boardgames"  Lista
-            li
-              a href="/admin/boardgames/new"  Nuevo
-            li
-              a href="/admin/import/bgg_boardgames/" Importar
+          /! Button used to collapse the left sidebar. Only visible on tablet and desktops
+          a.hidden-xs data-toggle-state="aside-collapsed" data-trigger-resize="" href="#" 
+            em.fa.fa-navicon
+          /! Button to show/hide the sidebar on mobile. Visible on mobile only.
+          a.visible-xs.sidebar-toggle data-no-persist="true" data-toggle-state="aside-toggled" href="#" 
+            em.fa.fa-navicon
+
+          /! START lock screen
+          li
+            = link_to destroy_user_session_path, method: 'DELETE' do
+              em.fa.fa-lock
+
       /! START Right navbar
       ul.nav.navbar-nav.navbar-right
-        li
-          = link_to destroy_user_session_path, method: 'DELETE' do
-            em.fa.fa-sign-out
-            span Salir
+        li.visible-lg
+          a href='#' data-toggle-fullscreen=''
+            em.fa.fa-expand

@@ -1,0 +1,70 @@
+/! START Sidebar (left)
+.aside-inner
+  nav.sidebar
+    /! START sidebar nav
+    ul.nav
+      - if current_user.admin?
+        li.nav-heading
+          span Admin
+        li class= ('active' if controller?('organizations')) 
+          a href='#organizations' title='Organizations list' data-toggle='collapse'
+            em.fa.fa-institution
+            span Organizaciones
+          ul.nav.sidebar-subnav.collapse#organizations
+            li.sidebar-subnav-header
+              | Organizaciones
+            li
+              a href='/admin/organizations' title='listado'
+                span Listado
+            li
+              a href='/admin/organizations/new' title='nueva'
+                span Nueva
+        li class= ('active' if controller?('users')) 
+          a href='#users' title='Users list' data-toggle='collapse'
+            em.fa.fa-address-book
+            span Usuarios
+          ul.nav.sidebar-subnav.collapse#users
+            li.sidebar-subnav-header
+              | Usuarios
+            li
+              a href='/admin/users' title='listado'
+                span Listado
+            li
+              a href='/admin/users/new' title='nuevo'
+                span Nuevo
+
+      li.nav-heading
+        span Menú principal
+      li class= ('active' if controller?('events')) 
+        a href='#events' title='Events list' data-toggle='collapse'
+          em.fa.fa-bullhorn
+          span Eventos
+        ul.nav.sidebar-subnav.collapse#events
+          li.sidebar-subnav-header
+            | Eventos
+          li class= ('active' if controller?('events') && action?('index'))
+            a href='/events' title='listado'
+              span Listado
+          li class= ('active' if controller?('events') && action?('new'))
+            a href='/events/new' title='nuevo'
+              span Nuevo
+      li class= ('active' if controller?('players') && action?('index'))
+        a href="/admin/players" title=("Players list") 
+          em.fa.fa-users
+          span Jugadores
+      li class= ('active' if controller?('boardgames') && action?('index'))
+        a href="#boardgames" title=("Boardgames list") data-toggle='collapse'
+          em.fa.fa-cubes
+          span Juegos de mesa
+        ul.nav.sidebar-subnav.collapse#boardgames
+          li.sidebar-subnav-header
+            | Juegos de mesa
+          li class= ('active' if controller?('boardgames') && action?('index'))
+            a href='/admin/boardgames' title='listado'
+              span Listado
+          li class= ('active' if controller?('boardgames') && action?('new'))
+            a href='/admin/boardgames/new' title='nuevo'
+              span Nuevo
+          li
+            a href='/admin/import/bgg_boardgames/' title='importar juegos de la bgg'
+              span Importar (BGG)
