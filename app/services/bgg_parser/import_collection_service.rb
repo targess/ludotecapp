@@ -10,10 +10,17 @@ module BggParser
 
       parsed_collection.each_with_index do |item, index|
         item[:name] = collection[index][:name] if item[:bgg_id] == collection[index][:id]
-        boardgame = Boardgame.new(item)
-        boardgame.organization = organization
-        boardgame.save
+        item[:organization] = organization
+        item[:publishers] = PublishersFromArrayService.perform(item[:publishers])
+
+        Boardgame.create(item)
       end
+    end
+
+    private_class_method
+
+    def self.build_publishers_from_array(publishers)
+      publishers.map { |publisher| Publisher.from_hash(publisher) }
     end
   end
 end

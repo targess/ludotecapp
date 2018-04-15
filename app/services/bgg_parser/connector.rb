@@ -60,8 +60,14 @@ module BggParser
           bgg_id:        boardgame["id"],
           yearpublished: boardgame["yearpublished"][0]["value"],
           minplaytime:   boardgame["minplaytime"][0]["value"],
-          maxplaytime:   boardgame["maxplaytime"][0]["value"]
+          maxplaytime:   boardgame["maxplaytime"][0]["value"],
+          publishers:    parse_publishers_fields(boardgame['link'])
         }
+      end
+
+      def parse_publishers_fields(items)
+        items.select { |item| item['type'] == 'boardgamepublisher' }
+             .map { |publisher| { bgg_id: publisher['id'], name: publisher['value'] } }
       end
     end
   end
