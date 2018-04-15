@@ -20,6 +20,13 @@
 //= require bootstrap-datetimepicker
 //= require moment/es
 //= require data-confirm-modal
+//
+//--- Angle
+//= require js.storage
+//= require angle/app.init
+//= require_tree ./angle/modules
+//= require_tree ./angle/custom
+//
 //= require_tree .
 
 dataConfirmModal.setDefaults({
